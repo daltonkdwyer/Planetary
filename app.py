@@ -131,22 +131,8 @@ def disconnect():
     disconnected_users_order = room_dict[disconnected_users_room]["Socket_Participants"].index(request.sid)
     print("Disconnection detected, user number: ", disconnected_users_order)
 
-    # If second person (maybe driver/client) leaves. Strips that person's details, and asks the car to reset their RTCPeer Connection, and resubmit an offer
-    if disconnected_users_order == 1:
-        print("2nd person (Driver) has disconnected")
-        print(session_dict)
-        room_dict[disconnected_users_room]["Answer"] = ''
-        del room_dict[disconnected_users_room]["Socket_Participants"][1]
-        del session_dict[request.sid]
-        server_message = "Requesting Offer"
-        server_data = ''
-        server_payload = {"Message":server_message, "Data":server_data}
-        socket.send(server_payload)
-        socket.send("Requesting Offer")
-
     # If first person (maybe robot) leaves
-    elif disconnected_users_order == 0:
-
+    if disconnected_users_order == 0:
         print("1st person (Car) has disconnected")
         print(session_dict)
         # Resets the entire dictionary so everyone needs to leave and come back
@@ -157,6 +143,19 @@ def disconnect():
         server_data = {"Error Code":5}
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
+
+    # If second person (maybe driver/client) leaves. Strips that person's details, and asks the car to reset their RTCPeer Connection, and resubmit an offer
+    elif disconnected_users_order == 1:
+        print("2nd person (Driver) has disconnected")
+        print(session_dict)
+        room_dict[disconnected_users_room]["Answer"] = ''
+        del room_dict[disconnected_users_room]["Socket_Participants"][1]
+        del session_dict[request.sid]
+        server_message = "Requesting Offer"
+        server_data = ''
+        server_payload = {"Message":server_message, "Data":server_data}
+        socket.send(server_payload)
+        socket.send("Requesting Offer")
 
 if __name__ == '__main__':
 	socket.run(app, port=8000)
