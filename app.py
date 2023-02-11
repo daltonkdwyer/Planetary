@@ -90,7 +90,6 @@ def message(client_payload):
 
     # Gets answer and sends it out
     elif client_payload["Message"] == "Answer":
-        print(request.sid)
         room_id = client_payload["Data"]["Room_id"]
         socket_id = client_payload["Data"]["Socket.id"]
         answer = client_payload["Data"]["Answer"]
