@@ -134,6 +134,7 @@ def disconnect():
     # If second person (maybe driver/client) leaves. Strips that person's details, and asks the car to reset their RTCPeer Connection, and resubmit an offer
     if disconnected_users_order == 1:
         print("2nd person (Driver) has disconnected")
+        print(session_dict)
         room_dict[disconnected_users_room]["Answer"] = ''
         del room_dict[disconnected_users_room]["Socket_Participants"][1]
         del session_dict[request.sid]
@@ -145,7 +146,9 @@ def disconnect():
 
     # If first person (maybe robot) leaves
     elif disconnected_users_order == 0:
+
         print("1st person (Car) has disconnected")
+        print(session_dict)
         # Resets the entire dictionary so everyone needs to leave and come back
         room_dict = {disconnected_users_room:{"Socket_Participants":[], "SID_List":[], "Offer":"", "Answer": ""}}
         session_dict = {}
