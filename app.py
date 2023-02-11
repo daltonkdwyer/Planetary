@@ -64,6 +64,8 @@ def message(client_payload):
         elif len(room_dict[room_id]["Socket_Participants"]) == 0:
             room_dict[room_id]["Socket_Participants"].append(socket_id)
             session_dict[socket_id] = room_id
+            print("Adding the first person to the dict")
+            print(room_dict)
             server_message = "Requesting Offer"
             server_data = ''
             server_payload = {"Message":server_message, "Data":server_data}
@@ -73,6 +75,8 @@ def message(client_payload):
         elif len(room_dict[room_id]["Socket_Participants"]) == 1:
             room_dict[room_id]['Socket_Participants'].append(socket_id)
             session_dict[socket_id] = room_id
+            print("Adding the second person to the dict")
+            print(room_dict)
             server_message = "Requesting Answer"
             server_data = room_dict[room_id]["Offer"]
             server_payload = {"Message":server_message, "Data":server_data}
