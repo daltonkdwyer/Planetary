@@ -100,6 +100,7 @@ def message(client_payload):
         socket.send(server_payload)
 
     elif client_payload["Message"] == "New Ice Candidate":
+        print("TESTTTTT NEW ICE CANDIDATE!!!")
         new_ice_candidate = client_payload["Data"]["Ice Candidate"]
         sender_socket_id = client_payload["Data"]["Socket.id"]
         server_message = "New Ice Candidate"

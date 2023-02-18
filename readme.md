@@ -70,8 +70,20 @@ General:
 Weird StackOverflow that fixed the polling issue (like 2nd answer, not first): https://stackoverflow.com/questions/57397269/get-socket-io-eio-3transport-pollingt-mnihjpm-http-1-1
 
 
-The Great Bug Hunt of Febuary 2023 
-(aka being able to run simple signalling server on local machine, but doesn't work on heroku)
-Bugs:
-    1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
-    2. Need to downgrade python version! For some bizarre reason
+
+
+Development History:
+    A) The Great Bug Hunt of Febuary 2023 
+        (aka being able to run simple signalling server on local machine, but doesn't work on heroku)
+        Bugs:
+            1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
+            2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
+
+    B) Works locally, not remotely
+        - Can get video through when both local and remote peer are on the same WiFi network
+            - BUT fails when the peers are on different networks
+        - Attempt 1:
+            -  
+
+
+

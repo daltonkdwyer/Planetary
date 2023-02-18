@@ -89,8 +89,11 @@ function waitForAllICE(peerConnection) {
         peerConnection.onicecandidate = (iceEvent) => {
             console.log("Ice Candidate was just made: ")
             console.log(iceEvent.candidate)
-            // Creates like four candidates, and then returns Null, completing the promise
-            if (iceEvent.candidate === null) fufill()
+            // Creates like four candidates, and then returns Null, completing the promise. The getting a 'null' candidate shows that gathering ice candidates is completed
+            if (iceEvent.candidate === null){
+                console.log("RETURNED NULL. DONE WITH ICE CANDIDATES")
+                fufill()
+            } 
         }
     })
 } 
