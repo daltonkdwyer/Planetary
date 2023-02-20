@@ -83,7 +83,10 @@ Development History:
         - Can get video through when both local and remote peer are on the same WiFi network
             - BUT fails when the peers are on different networks
         - Attempt 1:
-            -  
+            -  Checked the chrome://webrtc-internals/
+                - On both WiFi and LTE the "icegatheringstatechange" returns complete.
+                - BUT on WiFi there is the next step of "iceconnectionstechange" returns connected. 
+                    - On LTE, it's missing this step
 
 
 
