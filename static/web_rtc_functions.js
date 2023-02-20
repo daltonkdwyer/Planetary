@@ -97,10 +97,11 @@ export async function add_remote_Answer(remote_answer_SDP){
 }
 
 export function add_new_ICE_candidate(ice_candidate){
-    const candidate = new RTCIceCandidate(ice_candidate)
-    // console.log("Adding new ice candidate: ", ice_candidate)
+    let candidate = new RTCIceCandidate(ice_candidate)
     peerConnection.addIceCandidate(candidate)
-        .catch(e => console.log(e));
+        .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", str(e)));
+    console.log("I'm the original ice candidate: ", str(ice_candidate))
+    console.log("And I'm the processed candidate: ", str(candidate))
 }
 
 // Just a timeout function. Waits for ICE candidates to be gathered.

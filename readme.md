@@ -80,9 +80,10 @@ Development History:
             2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
 
     B) "Works locally, not remotely"
-        - Can get video through when both local and remote peer are on the same WiFi network
-            - BUT fails when the peers are on different networks
-        - Attempt 1:
+        - I. Issue Description: 
+            - Can get video through when both local and remote peer are on the same WiFi network
+                - BUT fails when the peers are on different networks
+        - II. Attempt 1:
             -  Checked the chrome://webrtc-internals/
                 - On both WiFi and LTE the "icegatheringstatechange" returns complete.
                 - BUT on WiFi there is the next step of "iceconnectionstechange" returns connected. 
@@ -97,7 +98,11 @@ Development History:
                         c) RELAY - turn connections 
                     - Additionally, each connection type can have one of these properties: UDP, TCP or TLS
                     - See here for more info: https://testrtc.com/find-webrtc-active-connection/
-                    
+        - II. Attempt 2:
+            - Tried to add TURN servers from metered. Signed up for account. Have 50GB for free
+                - Located here: https://dashboard.metered.ca/dashboard/app/63f3ea9be5eb464431ddb2fc
+            - Definitely see a lot more ice candidates. But the connection still states 'failed'! 
+                - Though as a baseline, can still connect locally
 
 
 
