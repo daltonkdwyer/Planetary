@@ -57,8 +57,10 @@ Hosting
         Username: dalton.dwyer@yahoo.com
         PW: S13
 
-    B. Need some weird files:
-        - Pipfile
+    B. Needs a 'metered.ca' account for the Turn servers
+        Link here: https://dashboard.metered.ca/turnserver/app/63f3ea9be5eb464431ddb2fc
+            Login: gmail, password: m
+
 
 
 General:
