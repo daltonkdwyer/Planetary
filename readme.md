@@ -79,7 +79,7 @@ Development History:
             1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
             2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
 
-    B) Works locally, not remotely
+    B) "Works locally, not remotely"
         - Can get video through when both local and remote peer are on the same WiFi network
             - BUT fails when the peers are on different networks
         - Attempt 1:
@@ -96,6 +96,8 @@ Development History:
                         b) SRFLX - stun connections
                         c) RELAY - turn connections 
                     - Additionally, each connection type can have one of these properties: UDP, TCP or TLS
+                    - See here for more info: https://testrtc.com/find-webrtc-active-connection/
+                    
 
 
 
