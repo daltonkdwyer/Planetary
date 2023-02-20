@@ -42,7 +42,7 @@ export async function create_RTCP_offer(){
 
     let offer = await peerConnection.createOffer()
     await peerConnection.setLocalDescription(offer)
-    await waitForAllICE(peerConnection)
+    // await waitForAllICE(peerConnection)
     
     return offer
     // If you want the first person to show the far away person's video, uncomment the below:
@@ -100,8 +100,7 @@ export function add_new_ICE_candidate(ice_candidate){
     let candidate = new RTCIceCandidate(ice_candidate)
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", str(e)));
-    console.log("I'm the original ice candidate: ", ice_candidate)
-    console.log("And I'm the processed candidate: ", candidate)
+    console.log("Adding a new ICE candidate: ", candidate)
 }
 
 // Just a timeout function. Waits for ICE candidates to be gathered.

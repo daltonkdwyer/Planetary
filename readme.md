@@ -60,6 +60,9 @@ Hosting
     B. Needs a 'metered.ca' account for the Turn servers
         Link here: https://dashboard.metered.ca/turnserver/app/63f3ea9be5eb464431ddb2fc
             Login: gmail, password: m
+        For server:
+            Username: 999c14afe3cc4008b72f3aa0
+            Password: oBpkY5NWEwvTK
 
 
 
