@@ -4,6 +4,7 @@ let peerConnection
 let localStream
 const servers = {
     // STUN server is what you reach out to to get your local address
+    // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
     iceServers:[
         {urls:['stun:stun1.1.google.com:19302', 'stun:stun2.1.google.com:19302']}, 
         {urls: 'turn:numb.viagenie.ca', credential: 'muazkh',username: 'webrtc@live.com'}]
