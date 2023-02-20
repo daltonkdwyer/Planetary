@@ -87,6 +87,15 @@ Development History:
                 - On both WiFi and LTE the "icegatheringstatechange" returns complete.
                 - BUT on WiFi there is the next step of "iceconnectionstechange" returns connected. 
                     - On LTE, it's missing this step
+            - This article states it is probably bc you are missing the TURN server, which I suspected: https://testrtc.com/webrtc-api-trace/
+                - The browser is saying it has everyone's SDPs. I guess the two peers just can't communicate directly with each other
+            LEARNING:
+                - Go on the webrtc-internals page, go to the BOLD connections. That will show the candidate details
+                    - Then check the 'candidateType'. This will say how type of connection it is:
+                        a) HOST - local network connections
+                        b) SRFLX - stun connections
+                        c) RELAY - turn connections 
+                    - Additionally, each connection type can have one of these properties: UDP, TCP or TLS
 
 
 
