@@ -141,7 +141,7 @@ def disconnect():
         print("1st person (Car) has disconnected")
         print(session_dict)
         # Resets the entire dictionary so everyone needs to leave and come back
-        room_dict = {disconnected_users_room:{"Socket_Participants":[], "SID_List":[], "Offer":"", "Answer": ""}}
+        room_dict = {disconnected_users_room:{"Socket_Participants":[], "Offer":"", "Answer": ""}}
         session_dict = {}
         # Tells the 2nd person who is still connected (driver)
         server_message = "ERROR"
