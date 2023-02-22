@@ -131,6 +131,7 @@ function waitForEvent(user_function) {
 // If a new ice candidate appears, use a socket to send it to the far person
 function send_ICE_candidates(e){
     if (e.candidate){
+        console.log("I'm TRYING TO SEND AN ICE CANDIDATE")
         let new_ice_candidate = e.candidate
         send_ICE_candidates_socket(new_ice_candidate)
     }

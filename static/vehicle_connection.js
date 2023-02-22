@@ -63,7 +63,9 @@ socket.on('message', function(server_payload){
     }
 
     if (server_message === "New Ice Candidate"){
+        console.log("Received new ice candidate")
         if (server_data["Sender SocketID"] != socket.id){
+            console.log("Should appear only for the person who did not originate this")
             let receieved_ice_candidate = server_data['New Ice Candidate']
             console.log("New Ice Candidate from remote peer: ", receieved_ice_candidate)
             add_new_ICE_candidate(receieved_ice_candidate)
