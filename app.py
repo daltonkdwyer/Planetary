@@ -29,7 +29,7 @@ def home():
 @app.route('/dictionary', methods=['GET'])
 def home():
     print(room_dict)
-    return render_template("index.html")
+    return ("bannana")
 
 # Servers the first car page. If a client tries to get here, this is what they'll get
 @app.route('/rc_car1', methods=['GET'])
