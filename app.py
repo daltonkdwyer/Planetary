@@ -26,6 +26,11 @@ def home():
     # print(request) #Just for fun, printing the request. Can add request.method etc.
     return render_template("index.html")
 
+@app.route('/dictionary', methods=['GET'])
+def home():
+    print(room_dict)
+    return render_template("index.html")
+
 # Servers the first car page. If a client tries to get here, this is what they'll get
 @app.route('/rc_car1', methods=['GET'])
 def vehicle_1():
