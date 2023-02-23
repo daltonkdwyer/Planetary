@@ -62,12 +62,12 @@ export async function create_RTCP_answer(remote_offer_SDP){
     // document.getElementById('local_video').srcObject = localStream
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
-        console.log("FOUND A TRACK!!!!")
     })
     // NOTE: This has to be assigned to the function BEFORE the connection is established. Otherwise, the track will already connect, and there won't be another 'ontrack' event fired off. This was a major bug, and took you a month to solve.
-        peerConnection.ontrack = (event) => {
-            document.getElementById('remote_video').srcObject = event.streams[0]
-        }
+    peerConnection.ontrack = (event) => {
+        console.log("FOUND A TRACK!!!!")
+        document.getElementById('remote_video').srcObject = event.streams[0]
+    }
 
     const remoteOffer = new RTCSessionDescription(remote_offer_SDP)
     await peerConnection.setRemoteDescription(remoteOffer)
