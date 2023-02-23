@@ -9,21 +9,21 @@ const servers = {
         {
           urls: "stun:stun.l.google.com:19302",
         },
-        // {
-        //   urls: "turn:relay.metered.ca:80",
-        //   username: "999c14afe3cc4008b72f3aa0",
-        //   credential: "oBpkY5NWEwvTK/gc",
-        // },
-        // {
-        //   urls: "turn:relay.metered.ca:443",
-        //   username: "999c14afe3cc4008b72f3aa0",
-        //   credential: "oBpkY5NWEwvTK/gc",
-        // },
-        // {
-        //   urls: "turn:relay.metered.ca:443?transport=tcp",
-        //   username: "999c14afe3cc4008b72f3aa0",
-        //   credential: "oBpkY5NWEwvTK/gc",
-        // },
+        {
+          urls: "turn:relay.metered.ca:80",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443?transport=tcp",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
     ],
   };
 
@@ -62,6 +62,7 @@ export async function create_RTCP_answer(remote_offer_SDP){
     // document.getElementById('local_video').srcObject = localStream
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
+        console.log("FOUND A TRACK!!!!")
     })
     // NOTE: This has to be assigned to the function BEFORE the connection is established. Otherwise, the track will already connect, and there won't be another 'ontrack' event fired off. This was a major bug, and took you a month to solve.
         peerConnection.ontrack = (event) => {
