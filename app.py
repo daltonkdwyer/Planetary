@@ -27,7 +27,7 @@ def home():
     return render_template("index.html")
 
 @app.route('/dictionary', methods=['GET'])
-def home():
+def dictionary_print():
     print(room_dict)
     return render_template("index.html")
 
