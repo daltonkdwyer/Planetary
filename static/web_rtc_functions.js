@@ -42,7 +42,7 @@ export async function create_RTCP_offer(){
 
     let offer = await peerConnection.createOffer()
     await peerConnection.setLocalDescription(offer)
-    await waitForAllICE(peerConnection)
+    // await waitForAllICE(peerConnection)
     
     return offer
     // If you want the first person to show the far away person's video, uncomment the below:
@@ -121,6 +121,7 @@ function waitForAllICE(peerConnection) {
         }
     })
 } 
+
 //Again more waiting for ice candiates 
 function waitForEvent(user_function) {
     return new Promise((fulfill, reject) => {
