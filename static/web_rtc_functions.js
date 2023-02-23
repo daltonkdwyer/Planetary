@@ -78,7 +78,7 @@ export async function create_RTCP_answer(remote_offer_SDP){
         console.log("Connection state change: ", peerConnection.connectionState)
     };
 
-    await waitForAllICE(peerConnection)
+    // await waitForAllICE(peerConnection)
 
     console.log("This should now have both an answer and an offer:")
     console.log(peerConnection)
