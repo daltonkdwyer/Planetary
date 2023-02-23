@@ -7,7 +7,7 @@ const servers = {
     // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
     iceServers: [
         {
-          urls: "stun:relay.metered.ca:80",
+          urls: "stun:stun.l.google.com:19302",
         },
         {
           urls: "turn:relay.metered.ca:80",
@@ -64,9 +64,9 @@ export async function create_RTCP_answer(remote_offer_SDP){
         peerConnection.addTrack(track, localStream)
     })
     // NOTE: This has to be assigned to the function BEFORE the connection is established. Otherwise, the track will already connect, and there won't be another 'ontrack' event fired off. This was a major bug, and took you a month to solve.
-    peerConnection.ontrack = (event) => {
-        document.getElementById('remote_video').srcObject = event.streams[0]
-    }
+        peerConnection.ontrack = (event) => {
+            document.getElementById('remote_video').srcObject = event.streams[0]
+        }
 
     const remoteOffer = new RTCSessionDescription(remote_offer_SDP)
     await peerConnection.setRemoteDescription(remoteOffer)
