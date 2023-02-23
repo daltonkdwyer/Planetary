@@ -57,8 +57,13 @@ Hosting
         Username: dalton.dwyer@yahoo.com
         PW: S13
 
-    B. Need some weird files:
-        - Pipfile
+    B. Needs a 'metered.ca' account for the Turn servers
+        Link here: https://dashboard.metered.ca/turnserver/app/63f3ea9be5eb464431ddb2fc
+            Login: gmail, password: m
+        For server:
+            Username: 999c14afe3cc4008b72f3aa0
+            Password: oBpkY5NWEwvTK
+
 
 
 General:
@@ -79,11 +84,30 @@ Development History:
             1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
             2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
 
-    B) Works locally, not remotely
-        - Can get video through when both local and remote peer are on the same WiFi network
-            - BUT fails when the peers are on different networks
-        - Attempt 1:
-            -  
+    B) "Works locally, not remotely"
+        - I. Issue Description: 
+            - Can get video through when both local and remote peer are on the same WiFi network
+                - BUT fails when the peers are on different networks
+        - II. Attempt 1:
+            -  Checked the chrome://webrtc-internals/
+                - On both WiFi and LTE the "icegatheringstatechange" returns complete.
+                - BUT on WiFi there is the next step of "iceconnectionstechange" returns connected. 
+                    - On LTE, it's missing this step
+            - This article states it is probably bc you are missing the TURN server, which I suspected: https://testrtc.com/webrtc-api-trace/
+                - The browser is saying it has everyone's SDPs. I guess the two peers just can't communicate directly with each other
+            LEARNING:
+                - Go on the webrtc-internals page, go to the BOLD connections. That will show the candidate details
+                    - Then check the 'candidateType'. This will say how type of connection it is:
+                        a) HOST - local network connections
+                        b) SRFLX - stun connections
+                        c) RELAY - turn connections 
+                    - Additionally, each connection type can have one of these properties: UDP, TCP or TLS
+                    - See here for more info: https://testrtc.com/find-webrtc-active-connection/
+        - II. Attempt 2:
+            - Tried to add TURN servers from metered. Signed up for account. Have 50GB for free
+                - Located here: https://dashboard.metered.ca/dashboard/app/63f3ea9be5eb464431ddb2fc
+            - Definitely see a lot more ice candidates. But the connection still states 'failed'! 
+                - Though as a baseline, can still connect locally
 
 
 
