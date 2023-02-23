@@ -100,6 +100,7 @@ def message(client_payload):
         socket.send(server_payload)
 
     elif client_payload["Message"] == "New Ice Candidate":
+        print("TESTTTTT NEW ICE CANDIDATE!!!")
         new_ice_candidate = client_payload["Data"]["Ice Candidate"]
         sender_socket_id = client_payload["Data"]["Socket.id"]
         server_message = "New Ice Candidate"
@@ -107,7 +108,7 @@ def message(client_payload):
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
         # Kind of interesting to see, but can delete
-        print("Sending new Ice Candidate to clients: ", str(new_ice_candidate))
+        print(new_ice_candidate)
 
     else:
         try:

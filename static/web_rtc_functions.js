@@ -4,28 +4,8 @@ let peerConnection
 let localStream
 const servers = {
     // STUN server is what you reach out to to get your local address
-    // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
-    iceServers: [
-        {
-          urls: "stun:relay.metered.ca:80",
-        },
-        {
-          urls: "turn:relay.metered.ca:80",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-        {
-          urls: "turn:relay.metered.ca:443",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-        {
-          urls: "turn:relay.metered.ca:443?transport=tcp",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-    ],
-  };
+    iceServers:[{urls:['stun:stun1.1.google.com:19302', 'stun:stun2.1.google.com:19302']}]
+}
 
 // MAIN STEP 1: First person who connects is told to make an offer:
 export async function create_RTCP_offer(){
@@ -97,10 +77,10 @@ export async function add_remote_Answer(remote_answer_SDP){
 }
 
 export function add_new_ICE_candidate(ice_candidate){
-    let candidate = new RTCIceCandidate(ice_candidate)
+    const candidate = new RTCIceCandidate(ice_candidate)
+    // console.log("Adding new ice candidate: ", ice_candidate)
     peerConnection.addIceCandidate(candidate)
-        .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
-    console.log("Adding a new ICE candidate: ", candidate)
+        .catch(e => console.log(e));
 }
 
 // Just a timeout function. Waits for ICE candidates to be gathered.
@@ -112,7 +92,6 @@ function waitForAllICE(peerConnection) {
             // Creates like four candidates, and then returns Null, completing the promise. The getting a 'null' candidate shows that gathering ice candidates is completed
             if (iceEvent.candidate === null){
                 console.log("RETURNED NULL. DONE WITH ICE CANDIDATES")
-                // Make a function that sends that ice candidate gathering has been completed so second peer can connect
                 fufill()
             } 
         }
