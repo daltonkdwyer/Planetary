@@ -171,6 +171,3 @@ if __name__ == '__main__':
 # Error ID 3 = The message you are getting IS a dict, but the server isn't catching it
 # Error ID 4 = The message you are getting is a dict, but something weird is still hapenning
 # Error ID 5 = The first person (usually car) has disconnected, and the second person (usually driver) will have to go back to the main page and wait until they can drive again
-
-
-# Next steps (maybe): you don't have a TURN server added. You could find one here after a quick google search: https://www.metered.ca/tools/openrelay/

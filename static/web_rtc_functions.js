@@ -2,7 +2,6 @@ import { send_ICE_candidates_socket } from "./vehicle_connection.js"
 
 let peerConnection
 let localStream
-let temp_ice_candidate_storage = {}
 
 const servers = {
     // STUN server is what you reach out to to get your local address
