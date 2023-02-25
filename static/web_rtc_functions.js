@@ -98,14 +98,25 @@ export async function add_remote_Answer(remote_answer_SDP){
     };
 }
 
+// Sending new ice candidates to the remote person
+function send_ICE_candidates(e){
+    if (e.candidate){
+        console.log("I'm TRYING TO SEND AN ICE CANDIDATE")
+        let new_ice_candidate = e.candidate
+        send_ICE_candidates_socket(new_ice_candidate)
+    }
+}
+
+// Receiving new ice candidates from the other person
 export function add_new_ICE_candidate(ice_candidate){
     let candidate = new RTCIceCandidate(ice_candidate)
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
-    console.log("Adding a new ICE candidate: ", candidate)
+    console.log("Adding a new ICE candidate from the remote person: ", candidate)
 }
 
-// Just a timeout function. Waits for ICE candidates to be gathered.
+
+// // Just a timeout function. Waits for ICE candidates to be gathered.
 function waitForAllICE(peerConnection) {
     return waitForEvent((fufill) => {
         peerConnection.onicecandidate = (iceEvent) => {
@@ -121,7 +132,7 @@ function waitForAllICE(peerConnection) {
     })
 } 
 
-//Again more waiting for ice candiates 
+// //Again more waiting for ice candiates 
 function waitForEvent(user_function) {
     return new Promise((fulfill, reject) => {
         user_function(fulfill)
@@ -129,11 +140,3 @@ function waitForEvent(user_function) {
     })
 }
 
-// If a new ice candidate appears, use a socket to send it to the far person
-function send_ICE_candidates(e){
-    if (e.candidate){
-        console.log("I'm TRYING TO SEND AN ICE CANDIDATE")
-        let new_ice_candidate = e.candidate
-        send_ICE_candidates_socket(new_ice_candidate)
-    }
-}

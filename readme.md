@@ -109,5 +109,6 @@ Development History:
             - Definitely see a lot more ice candidates. But the connection still states 'failed'! 
                 - Though as a baseline, can still connect locally
 
-
-
+Thursday night:
+    - Possibly the first person is sending ice candidates into oblivian. 
+    - And then when the second person connects he doesn't get any?
