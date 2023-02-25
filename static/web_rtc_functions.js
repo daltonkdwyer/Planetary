@@ -7,12 +7,22 @@ const servers = {
     // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
     iceServers: [
         {
-            urls: "stun:stun.stunprotocol.org"
+          urls: "stun:stun.l.google.com:19302",
         },
         {
-            urls: 'turn:numb.viagenie.ca',
-            credential: 'muazkh',
-            username: 'webrtc@live.com'
+          urls: "turn:relay.metered.ca:80",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443?transport=tcp",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
         },
     ],
   };
