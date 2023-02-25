@@ -86,7 +86,7 @@ export function send_ICE_candidates_socket(ice_candidate){
     let message = "New Ice Candidate"
     let data = {"Ice Candidate":ice_candidate, "Socket.id":socket.id}
     let payload = {"Message":message, "Data":data}
-    console.log("Sending new ice candidates to server: ", payload)
+    console.log("Sending new ice candidates to server: ", ice_candidate)
     socket.send(payload)
 }
 

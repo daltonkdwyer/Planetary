@@ -25,7 +25,7 @@ const servers = {
           credential: "oBpkY5NWEwvTK/gc",
         },
     ],
-  };
+};
 
 // MAIN STEP 1: First person who connects is told to make an offer:
 export async function create_RTCP_offer(){
@@ -101,7 +101,6 @@ export async function add_remote_Answer(remote_answer_SDP){
 // Sending new ice candidates to the remote person
 function send_ICE_candidates(e){
     if (e.candidate){
-        console.log("I'm TRYING TO SEND AN ICE CANDIDATE")
         let new_ice_candidate = e.candidate
         send_ICE_candidates_socket(new_ice_candidate)
     }
