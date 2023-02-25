@@ -2,6 +2,8 @@ import { send_ICE_candidates_socket } from "./vehicle_connection.js"
 
 let peerConnection
 let localStream
+let temp_ice_candidate_storage = {}
+
 const servers = {
     // STUN server is what you reach out to to get your local address
     // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
@@ -38,11 +40,11 @@ export async function create_RTCP_offer(){
     })
 
     // See function at bottom for how to trickle out ICE candidates
-    peerConnection.onicecandidate = send_ICE_candidates
-
+    
     let offer = await peerConnection.createOffer()
     await peerConnection.setLocalDescription(offer)
     // await waitForAllICE(peerConnection)
+    peerConnection.onicecandidate = send_ICE_candidates
     
     return offer
     // If you want the first person to show the far away person's video, uncomment the below:
