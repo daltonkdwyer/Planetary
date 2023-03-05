@@ -1,4 +1,5 @@
-var socket = io.connect('http://127.0.0.1:8000/')
+var socket = io.connect('https://plntry.herokuapp.com/');
+// var socket = io.connect('http://127.0.0.1:8000/')
 
 let room_id = "rc_car1"
 let join_status
