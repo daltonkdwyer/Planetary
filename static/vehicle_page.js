@@ -15,10 +15,9 @@ socket.on('connect', function(){
 })
 
 socket.on('message', function(server_payload){
-    console.log(server_payload)
-
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
+    console.log(server_payload)
 
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
@@ -27,7 +26,6 @@ socket.on('message', function(server_payload){
     else if (server_message === 'CAR'){
         user_type = 'CAR'
         createPeer()
-
     }
     else if (server_message === 'DRIVER'){
         if (user_type == 'CAR'){
@@ -63,7 +61,6 @@ socket.on('message', function(server_payload){
                 socket.send(payload)
             }
             acceptCall()
-
         }
     }
     // STEP FOUR: Second person (USER) finally gets the answer
@@ -98,12 +95,6 @@ async function createPeer(){
     }
     if (user_type == 'CAR'){
         localStream = await navigator.mediaDevices.getUserMedia({video:true})
-        localStream.getTracks().forEach((track) => {
-            peerConnection.addTrack(track, localStream)
-        })
-    }
-    if (user_type == 'DRIVER'){
-        localStream = await navigator.mediaDevices.getUserMedia({video:false})
         localStream.getTracks().forEach((track) => {
             peerConnection.addTrack(track, localStream)
         })
