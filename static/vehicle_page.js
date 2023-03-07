@@ -98,10 +98,16 @@ async function createPeer(){
     }
     if (user_type == 'CAR'){
         localStream = await navigator.mediaDevices.getUserMedia({video:true})
+        localStream.getTracks().forEach((track) => {
+            peerConnection.addTrack(track, localStream)
+        })
     }
-    localStream.getTracks().forEach((track) => {
-        peerConnection.addTrack(track, localStream)
-    })
+    if (user_type == 'DRIVER'){
+        localStream = await navigator.mediaDevices.getUserMedia({video:false})
+        localStream.getTracks().forEach((track) => {
+            peerConnection.addTrack(track, localStream)
+        })
+    }
 }
 
 function send_ICE_candidates(e){
