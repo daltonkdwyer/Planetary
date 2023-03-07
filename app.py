@@ -9,7 +9,7 @@ app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
 room_dict = {"rc_car1":{"Socket_Participants":[], "CarID":'', "UserID":''}}
 session_dict = {}
-users_joined = 0
+global users_joined = 0
 
 @app.route('/', methods=['GET'])
 def home():
