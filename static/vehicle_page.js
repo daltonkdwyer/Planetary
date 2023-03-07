@@ -27,24 +27,19 @@ socket.on('message', function(server_payload){
         user_type = 'CAR'
         createPeer()
     }
-    else if (server_message === 'DRIVER'){
-        if (user_type == 'CAR'){
-            return
+    // STEP TWO: Second person (USER) joins, creates a peer and offer, and sends it back to first person (CAR)
+    else if (server_message === 'DRIVER' && user_type != 'CAR'){
+        user_type = 'DRIVER'
+        async function createOffer(){
+            await createPeer()
+            let offer = await peerConnection.createOffer()
+            await peerConnection.setLocalDescription(offer)
+            let message = "Offer"
+            let data = {"Room_id":room_id, "Offer":offer}
+            let payload = {"Message":message, "Data":data}
+            socket.send(payload)
         }
-        // STEP TWO: Second person (USER) joins, creates a peer and offer, and sends it back to first person (CAR)
-        else {
-            user_type = 'DRIVER'
-            async function createOffer(){
-                await createPeer()
-                let offer = await peerConnection.createOffer()
-                await peerConnection.setLocalDescription(offer)
-                let message = "Offer"
-                let data = {"Room_id":room_id, "Offer":offer}
-                let payload = {"Message":message, "Data":data}
-                socket.send(payload)
-            }
-            createOffer()
-        }
+        createOffer()
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (USER)
     else if (server_message === 'OFFER'){

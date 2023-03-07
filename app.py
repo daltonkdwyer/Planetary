@@ -9,6 +9,7 @@ app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
 room_dict = {"rc_car1":{"Socket_Participants":[], "CarID":'', "UserID":''}}
 session_dict = {}
+users_joined = 0
 
 @app.route('/', methods=['GET'])
 def home():
@@ -35,6 +36,7 @@ def message(client_payload):
     if client_message == "Connection":
         client_socket_id = client_data["Socket.id"]
         client_room_id =  client_data["Room_id"]
+        users_joined += 1
 
         # First checking for errors
         if len(room_dict[client_room_id]["Socket_Participants"]) > 2:
@@ -94,6 +96,8 @@ def message(client_payload):
 def disconnect():
     global room_dict
     global session_dict
+    users_joined -= 1
+
 
     disconnected_users_room = session_dict[request.sid]
     disconnected_users_order = room_dict[disconnected_users_room]["Socket_Participants"].index(request.sid)
