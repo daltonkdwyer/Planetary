@@ -95,9 +95,7 @@ async function createPeer(){
     }
     localStream = await navigator.mediaDevices.getUserMedia({video:true})
     localStream.getTracks().forEach((track) => {
-        if (user_type == 'CAR'){
-            peerConnection.addTrack(track, localStream)
-        }
+        peerConnection.addTrack(track, localStream)
     })
 }
 

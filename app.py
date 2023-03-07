@@ -24,7 +24,7 @@ def rc_car1():
 def dictionary():
     print(room_dict)
     print(session_dict)
-    return
+    return render_template('index.html')
 
 @socket.on('message')
 def message(client_payload):
