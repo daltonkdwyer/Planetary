@@ -2,7 +2,7 @@ var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
 let room_id = "rc_car1"
-let join_status
+let user_type
 let peerConnection
 let localStream
 
@@ -26,17 +26,17 @@ socket.on('message', function(server_payload){
 
     // First person waits till a second person joins
     else if (server_message === 'CAR'){
-        join_status = 'CAR'
+        user_type = 'CAR'
         createPeer()
 
     }
 
-    else if (server_message === 'USER'){
-        if (join_status == 'CAR'){
+    else if (server_message === 'DRIVER'){
+        if (user_type == 'CAR'){
             return
         }
         else {
-            join_status = 'USER'
+            user_type = 'DRIVER'
             async function createOffer(){
                 await createPeer()
                 let offer = await peerConnection.createOffer()
@@ -52,7 +52,7 @@ socket.on('message', function(server_payload){
     }
 
     else if (server_message === 'OFFER'){
-        if (join_status == 'CAR'){
+        if (user_type == 'CAR'){
             async function acceptCall(){
                 const remoteOffer = new RTCSessionDescription(server_data["Offer"])
                 await peerConnection.setRemoteDescription(remoteOffer)
@@ -70,7 +70,7 @@ socket.on('message', function(server_payload){
     }
 
     else if (server_message === 'ANSWER'){
-        if (join_status == 'USER'){
+        if (user_type == 'DRIVER'){
             const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
             peerConnection.setRemoteDescription(remoteAnswer)
         }
