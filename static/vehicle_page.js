@@ -35,17 +35,6 @@ socket.on('message', function(server_payload){
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (USER)
     else if (server_message === 'OFFER'){
         if (user_type == 'CAR'){
-            async function acceptCall(){
-                const remoteOffer = new RTCSessionDescription(server_data["Offer"])
-                await peerConnection.setRemoteDescription(remoteOffer)
-                let answer = await peerConnection.createAnswer()
-                await peerConnection.setLocalDescription(answer)
-
-                let message = "Answer"
-                let data = {"Room_id":room_id, "Answer":answer}
-                let payload = {"Message":message, "Data":data}
-                socket.send(payload)
-            }
             acceptCall()
         }
     }
@@ -91,6 +80,18 @@ async function createOffer(){
     await peerConnection.setLocalDescription(offer)
     let message = "Offer"
     let data = {"Room_id":room_id, "Offer":offer}
+    let payload = {"Message":message, "Data":data}
+    socket.send(payload)
+}
+
+async function acceptCall(){
+    const remoteOffer = new RTCSessionDescription(server_data["Offer"])
+    await peerConnection.setRemoteDescription(remoteOffer)
+    let answer = await peerConnection.createAnswer()
+    await peerConnection.setLocalDescription(answer)
+
+    let message = "Answer"
+    let data = {"Room_id":room_id, "Answer":answer}
     let payload = {"Message":message, "Data":data}
     socket.send(payload)
 }
