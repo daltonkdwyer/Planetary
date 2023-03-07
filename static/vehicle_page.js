@@ -30,15 +30,6 @@ socket.on('message', function(server_payload){
     // STEP TWO: Second person (USER) joins, creates a peer and offer, and sends it back to first person (CAR)
     else if (server_message === 'DRIVER' && user_type != 'CAR'){
         user_type = 'DRIVER'
-        async function createOffer(){
-            await createPeer()
-            let offer = await peerConnection.createOffer()
-            await peerConnection.setLocalDescription(offer)
-            let message = "Offer"
-            let data = {"Room_id":room_id, "Offer":offer}
-            let payload = {"Message":message, "Data":data}
-            socket.send(payload)
-        }
         createOffer()
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (USER)
@@ -92,6 +83,16 @@ async function createPeer(){
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
+}
+
+async function createOffer(){
+    await createPeer()
+    let offer = await peerConnection.createOffer()
+    await peerConnection.setLocalDescription(offer)
+    let message = "Offer"
+    let data = {"Room_id":room_id, "Offer":offer}
+    let payload = {"Message":message, "Data":data}
+    socket.send(payload)
 }
 
 function send_ICE_candidates(e){
