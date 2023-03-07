@@ -7,7 +7,7 @@ print("Coconut")
 
 app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
-room_dict = {"rc_car1":{"Socket_Participants":[]}}
+room_dict = {"rc_car1":{"Socket_Participants":[], "CarID":'', "UserID":''}}
 session_dict = {}
 
 @app.route('/', methods=['GET'])
@@ -45,11 +45,11 @@ def message(client_payload):
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
 
-        # First peron joins
+        # First person joins
         elif len(room_dict[client_room_id]["Socket_Participants"]) == 0:
             room_dict[client_room_id]["Socket_Participants"].append(client_socket_id)
             session_dict[client_socket_id] = client_room_id
-            server_message = "FIRST"
+            server_message = "CAR"
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
@@ -58,7 +58,7 @@ def message(client_payload):
         elif len(room_dict[client_room_id]["Socket_Participants"]) == 1:
             room_dict[client_room_id]["Socket_Participants"].append(client_socket_id)
             session_dict[client_socket_id] = client_room_id
-            server_message = "SECOND"
+            server_message = "DRIVER"
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)

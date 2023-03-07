@@ -25,20 +25,18 @@ socket.on('message', function(server_payload){
     }
 
     // First person waits till a second person joins
-    else if (server_message === 'FIRST'){
-        join_status = 'FIRST'
+    else if (server_message === 'CAR'){
+        join_status = 'CAR'
         createPeer()
 
     }
 
-    else if (server_message === 'SECOND'){
-        if (join_status == 'FIRST'){
-            console.log("ONLY SHOWING ON FIRST PERSON")
+    else if (server_message === 'USER'){
+        if (join_status == 'CAR'){
             return
         }
-        else{
-            console.log("ONLY SHOWING ON SECOND PERSON")
-            join_status = 'SECOND'
+        else {
+            join_status = 'USER'
             async function createOffer(){
                 await createPeer()
                 let offer = await peerConnection.createOffer()
@@ -54,7 +52,7 @@ socket.on('message', function(server_payload){
     }
 
     else if (server_message === 'OFFER'){
-        if (join_status == 'FIRST'){
+        if (join_status == 'CAR'){
             async function acceptCall(){
                 const remoteOffer = new RTCSessionDescription(server_data["Offer"])
                 await peerConnection.setRemoteDescription(remoteOffer)
@@ -72,7 +70,7 @@ socket.on('message', function(server_payload){
     }
 
     else if (server_message === 'ANSWER'){
-        if (join_status == 'SECOND'){
+        if (join_status == 'USER'){
             const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
             peerConnection.setRemoteDescription(remoteAnswer)
         }
