@@ -40,13 +40,9 @@ socket.on('message', function(server_payload){
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data)
     }
-    // Accepts a new Ice Candidate from remote peer
+    // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
-        let ice_candidate = server_data['New Ice Candidate']
-        let candidate = new RTCIceCandidate(ice_candidate)
-        peerConnection.addIceCandidate(candidate)
-            .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
-        console.log("Adding a new ICE candidate from the remote person: ", candidate)
+        acceptNewIceCandidate(server_data)
     }
 })
 
@@ -61,6 +57,7 @@ async function createPeer(){
             document.getElementById('remote_video').srcObject = event.streams[0]
         }
     }
+    // Existing bug: can't figure out how to stop the Driver from getting and sending their video
     localStream = await navigator.mediaDevices.getUserMedia({video:true})
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
@@ -102,6 +99,14 @@ function send_ICE_candidates(e){
         console.log("Sending new ice candidates to server: ", new_ice_candidate)
         socket.send(payload)
     }
+}
+
+function acceptNewIceCandidate(server_data){
+    let ice_candidate = server_data['New Ice Candidate']
+    let candidate = new RTCIceCandidate(ice_candidate)
+    peerConnection.addIceCandidate(candidate)
+        .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
+    console.log("Adding a new ICE candidate from the remote person: ", candidate)
 }
 
 const servers = {
