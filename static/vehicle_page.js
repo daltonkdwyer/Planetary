@@ -96,7 +96,9 @@ async function createPeer(){
             document.getElementById('remote_video').srcObject = event.streams[0]
         }
     }
-    localStream = await navigator.mediaDevices.getUserMedia({video:true})
+    if (user_type == 'CAR'){
+        localStream = await navigator.mediaDevices.getUserMedia({video:true})
+    }
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
