@@ -1,10 +1,11 @@
-var socket = io.connect('https://plntry.herokuapp.com/');
-// var socket = io.connect('http://127.0.0.1:8000/')
-
 let room_id = "rc_car1"
 let user_type
 let peerConnection
 let localStream
+
+var socket = io.connect('https://plntry.herokuapp.com/');
+// Un-highlight below if want to run locally. Will also need to change the URL in the html file
+// var socket = io.connect('http://127.0.0.1:8000/')
 
 socket.on('connect', function(){
     let data = {"Socket.id":socket.id, "Room_id":room_id}
@@ -34,15 +35,15 @@ socket.on('message', function(server_payload){
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
     else if (server_message === 'OFFER' && user_type == 'CAR'){
-        acceptOFFERcreateANSWER(server_data)
+        acceptOFFERcreateANSWER(server_data["Offer"])
     }
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
-        acceptANSWER(server_data)
+        acceptANSWER(server_data["Answer"])
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
-        acceptNewIceCandidate(server_data)
+        acceptNewIceCandidate(server_data['New Ice Candidate'])
     }
 })
 
@@ -74,8 +75,8 @@ async function createOffer(){
     socket.send(payload)
 }
 
-async function acceptOFFERcreateANSWER(server_data){
-    const remoteOffer = new RTCSessionDescription(server_data["Offer"])
+async function acceptOFFERcreateANSWER(offer){
+    const remoteOffer = new RTCSessionDescription(offer)
     await peerConnection.setRemoteDescription(remoteOffer)
     let answer = await peerConnection.createAnswer()
     await peerConnection.setLocalDescription(answer)
@@ -85,8 +86,8 @@ async function acceptOFFERcreateANSWER(server_data){
     socket.send(payload)
 }
 
-function acceptANSWER(server_data){
-    const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
+function acceptANSWER(answer){
+    const remoteAnswer = new RTCSessionDescription(answer)
     peerConnection.setRemoteDescription(remoteAnswer)
 }
 
@@ -101,8 +102,7 @@ function send_ICE_candidates(e){
     }
 }
 
-function acceptNewIceCandidate(server_data){
-    let ice_candidate = server_data['New Ice Candidate']
+function acceptNewIceCandidate(ice_candidate){
     let candidate = new RTCIceCandidate(ice_candidate)
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
