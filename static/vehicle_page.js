@@ -27,33 +27,26 @@ socket.on('message', function(server_payload){
         user_type = 'CAR'
         createPeer()
     }
-    // STEP TWO: Second person (USER) joins, creates a peer and offer, and sends it back to first person (CAR)
+    // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
     else if (server_message === 'DRIVER' && user_type != 'CAR'){
         user_type = 'DRIVER'
         createOffer()
     }
-    // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (USER)
-    else if (server_message === 'OFFER'){
-        if (user_type == 'CAR'){
-            acceptCall(server_data)
-        }
+    // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
+    else if (server_message === 'OFFER' && user_type == 'CAR'){
+        acceptOFFERcreateANSWER(server_data)
     }
-    // STEP FOUR: Second person (USER) finally gets the answer
-    else if (server_message === 'ANSWER'){
-        if (user_type == 'DRIVER'){
-            const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
-            peerConnection.setRemoteDescription(remoteAnswer)
-        }
+    // STEP FOUR: Second person (DRIVER) finally gets the answer
+    else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
+        acceptANSWER(server_data)
     }
-    // Allowing users to send ice candidates between each other
-    else if (server_message === "New Ice Candidate"){
-        if (server_data["Sender SocketID"] != socket.id){
-            let ice_candidate = server_data['New Ice Candidate']
-            let candidate = new RTCIceCandidate(ice_candidate)
-            peerConnection.addIceCandidate(candidate)
-                .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
-            console.log("Adding a new ICE candidate from the remote person: ", candidate)
-        }
+    // Accepts a new Ice Candidate from remote peer
+    else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
+        let ice_candidate = server_data['New Ice Candidate']
+        let candidate = new RTCIceCandidate(ice_candidate)
+        peerConnection.addIceCandidate(candidate)
+            .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
+        console.log("Adding a new ICE candidate from the remote person: ", candidate)
     }
 })
 
@@ -84,7 +77,7 @@ async function createOffer(){
     socket.send(payload)
 }
 
-async function acceptCall(server_data){
+async function acceptOFFERcreateANSWER(server_data){
     const remoteOffer = new RTCSessionDescription(server_data["Offer"])
     await peerConnection.setRemoteDescription(remoteOffer)
     let answer = await peerConnection.createAnswer()
@@ -93,6 +86,11 @@ async function acceptCall(server_data){
     let data = {"Room_id":room_id, "Answer":answer}
     let payload = {"Message":message, "Data":data}
     socket.send(payload)
+}
+
+function acceptANSWER(server_data){
+    const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
+    peerConnection.setRemoteDescription(remoteAnswer)
 }
 
 function send_ICE_candidates(e){

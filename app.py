@@ -94,7 +94,7 @@ def message(client_payload):
 def disconnect():
     global room_dict
     global session_dict
-    
+
     disconnected_users_room = session_dict[request.sid]
     disconnected_users_order = room_dict[disconnected_users_room]["Socket_Participants"].index(request.sid)
     print("Disconnection detected, user number: ", disconnected_users_order)
@@ -121,4 +121,4 @@ if __name__ == '__main__':
     socket.run(app, port=8000)
 
 
-# Got here: do the disconnect portion
+# Got here Mon night: do the disconnect portion
