@@ -23,18 +23,17 @@ socket.on('message', function(server_payload){
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
     }
-
-    // First person waits till a second person joins
+    // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins
     else if (server_message === 'CAR'){
         user_type = 'CAR'
         createPeer()
 
     }
-
     else if (server_message === 'DRIVER'){
         if (user_type == 'CAR'){
             return
         }
+        // STEP TWO: Second person (USER) joins, creates a peer and offer, and sends it back to first person (CAR)
         else {
             user_type = 'DRIVER'
             async function createOffer(){
@@ -47,10 +46,9 @@ socket.on('message', function(server_payload){
                 socket.send(payload)
             }
             createOffer()
-
         }
     }
-
+    // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (USER)
     else if (server_message === 'OFFER'){
         if (user_type == 'CAR'){
             async function acceptCall(){
@@ -68,14 +66,14 @@ socket.on('message', function(server_payload){
 
         }
     }
-
+    // STEP FOUR: Second person (USER) finally gets the answer
     else if (server_message === 'ANSWER'){
         if (user_type == 'DRIVER'){
             const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
             peerConnection.setRemoteDescription(remoteAnswer)
         }
     }
-
+    // Allowing users to send ice candidates between each other
     else if (server_message === "New Ice Candidate"){
         console.log("Received new ice candidate")
         if (server_data["Sender SocketID"] != socket.id){
@@ -86,33 +84,7 @@ socket.on('message', function(server_payload){
             console.log("Adding a new ICE candidate from the remote person: ", candidate)
         }
     }
-
 })
-
-const servers = {
-    // STUN server is what you reach out to to get your local address
-    // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
-    iceServers: [
-        {
-          urls: "stun:stun.l.google.com:19302",
-        },
-        {
-          urls: "turn:relay.metered.ca:80",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-        {
-          urls: "turn:relay.metered.ca:443",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-        {
-          urls: "turn:relay.metered.ca:443?transport=tcp",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-    ],
-};
 
 async function createPeer(){
     peerConnection = new RTCPeerConnection(servers)
@@ -140,3 +112,29 @@ function send_ICE_candidates(e){
         socket.send(payload)
     }
 }
+
+const servers = {
+    // STUN server is what you reach out to to get your local address
+    // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
+    iceServers: [
+        {
+          urls: "stun:stun.l.google.com:19302",
+        },
+        {
+          urls: "turn:relay.metered.ca:80",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443?transport=tcp",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+    ],
+};
+

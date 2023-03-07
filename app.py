@@ -35,7 +35,6 @@ def message(client_payload):
     if client_message == "Connection":
         client_socket_id = client_data["Socket.id"]
         client_room_id =  client_data["Room_id"]
-        socket.send("PRINT ME")
 
         # First checking for errors
         if len(room_dict[client_room_id]["Socket_Participants"]) > 2:
