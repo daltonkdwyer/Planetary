@@ -75,7 +75,6 @@ socket.on('message', function(server_payload){
     }
     // Allowing users to send ice candidates between each other
     else if (server_message === "New Ice Candidate"){
-        console.log("Received new ice candidate")
         if (server_data["Sender SocketID"] != socket.id){
             let ice_candidate = server_data['New Ice Candidate']
             let candidate = new RTCIceCandidate(ice_candidate)
@@ -90,12 +89,13 @@ async function createPeer(){
     peerConnection = new RTCPeerConnection(servers)
     peerConnection.onicecandidate = send_ICE_candidates
     peerConnection.onconnectionstatechange = function () {
-        console.log("Connection state change: ", peerConnection.connectionState)
+        console.log("CONNECTION STATE CHANGE: ", peerConnection.connectionState)
     };
-    peerConnection.ontrack = (event) => {
-        document.getElementById('remote_video').srcObject = event.streams[0]
+    if (user_type == 'DRIVER'){
+        peerConnection.ontrack = (event) => {
+            document.getElementById('remote_video').srcObject = event.streams[0]
+        }
     }
-    
     localStream = await navigator.mediaDevices.getUserMedia({video:true})
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
