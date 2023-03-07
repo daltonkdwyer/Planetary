@@ -93,12 +93,10 @@ async function createPeer(){
             document.getElementById('remote_video').srcObject = event.streams[0]
         }
     }
-    if (user_type == 'CAR'){
-        localStream = await navigator.mediaDevices.getUserMedia({video:true})
-        localStream.getTracks().forEach((track) => {
-            peerConnection.addTrack(track, localStream)
-        })
-    }
+    localStream = await navigator.mediaDevices.getUserMedia({video:true})
+    localStream.getTracks().forEach((track) => {
+        peerConnection.addTrack(track, localStream)
+    })
 }
 
 function send_ICE_candidates(e){
