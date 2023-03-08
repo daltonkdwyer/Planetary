@@ -43,7 +43,8 @@ def message(client_payload):
             server_data = {"Error Code": 1, "Error Description": "Too many people trying to join room"}
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
-        room_dict[client_room_id]["Participant_Count"] += 1
+
+        print(room_dict[client_room_id]["Participant_Count"])
 
         # First person joins
         elif room_dict[client_room_id]["Participant_Count"] == 0:
