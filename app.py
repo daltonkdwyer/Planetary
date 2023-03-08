@@ -28,13 +28,18 @@ def dictionary():
 
 @app.route('/reset', methods=['GET'])
 def reset():
+    global room_dict
+    global session_dict
     room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
     session_dict = {}
+    print("MADE A RESET")
+    print(room_dict)
     return render_template('index.html')
 
 @socket.on('message')
 def message(client_payload):
     global room_dict
+    global session_dict
     client_message = client_payload["Message"]
     client_data = client_payload["Data"]
 
@@ -104,6 +109,10 @@ def message(client_payload):
 def disconnect():
     global room_dict
     global session_dict
+
+    print("PRINTING THE REQUEST AND SOCKET THING BELOW:")
+    print(request.id)
+    print(socket.id)
 
     disconnected_users_room = session_dict[request.sid]
     if room_dict[disconnected_users_room]["CarID"] == request.id:
