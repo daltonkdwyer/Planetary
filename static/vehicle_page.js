@@ -24,12 +24,12 @@ socket.on('message', function(server_payload){
         console.log("ERROR: ", server_data["Error Description"])
     }
     // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins
-    else if (server_message === 'CAR'){
+    else if (server_message === 'Initiate_CAR'){
         user_type = 'CAR'
         createPeer()
     }
     // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
-    else if (server_message === 'DRIVER' && user_type != 'CAR'){
+    else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
         user_type = 'DRIVER'
         createOffer()
     }
@@ -133,4 +133,3 @@ const servers = {
         },
     ],
 };
-

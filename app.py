@@ -7,7 +7,7 @@ print("Coconut")
 
 app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
-room_dict = {"rc_car1":{"Socket_Participants":[], "CarID":'', "UserID":''}}
+room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
 session_dict = {}
 
 @app.route('/', methods=['GET'])
@@ -28,7 +28,7 @@ def dictionary():
 
 @socket.on('message')
 def message(client_payload):
-
+    global room_dict
     client_message = client_payload["Message"]
     client_data = client_payload["Data"]
 
@@ -37,31 +37,33 @@ def message(client_payload):
         client_room_id =  client_data["Room_id"]
 
         # First checking for errors
-        if len(room_dict[client_room_id]["Socket_Participants"]) > 2:
+        if room_dict[client_room_id]["Participant_Count"] >= 2:
             print("ERROR #1: Too many clients attempting to enter room. There are already 2 socket IDs in the room dict")
             server_message = "ERROR"
             server_data = {"Error Code": 1, "Error Description": "Too many people trying to join room"}
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
+        room_dict[client_room_id]["Participant_Count"] =+ 1
 
         # First person joins
-        elif len(room_dict[client_room_id]["Socket_Participants"]) == 0:
-            room_dict[client_room_id]["Socket_Participants"].append(client_socket_id)
+        elif room_dict[client_room_id]["Participant_Count"] == 0:
+            room_dict[client_room_id]["CarID"] = client_socket_id
             session_dict[client_socket_id] = client_room_id
-            server_message = "CAR"
+            server_message = "Initiate_CAR"
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
   
         # Second person joins
-        elif len(room_dict[client_room_id]["Socket_Participants"]) == 1:
-            room_dict[client_room_id]["Socket_Participants"].append(client_socket_id)
+        elif room_dict[client_room_id]["Participant_Count"] == 1:
+            room_dict[client_room_id]["DriverID"] = client_socket_id
             session_dict[client_socket_id] = client_room_id
-            server_message = "DRIVER"
+            server_message = "Initiate_DRIVER"
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
 
+    # Gets offer from second person, and sends to first
     elif client_message == "Offer":
         room_id = client_payload["Data"]["Room_id"]
         offer = client_payload["Data"]["Offer"]
@@ -71,6 +73,7 @@ def message(client_payload):
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
 
+    # Gets answer from first person and sends to second
     elif client_message == "Answer":
         room_id = client_payload["Data"]["Room_id"]
         answer = client_payload["Data"]["Answer"]
@@ -96,23 +99,25 @@ def disconnect():
     global session_dict
 
     disconnected_users_room = session_dict[request.sid]
-    disconnected_users_order = room_dict[disconnected_users_room]["Socket_Participants"].index(request.sid)
-    print("Disconnection detected, user number: ", disconnected_users_order)
+    if room_dict[disconnected_users_room]["CarID"] == request.id:
+        disconnected_user = 'CAR'
+    else: disconnected_user = 'DRIVER'
+    print("Disconnection detected: ", disconnected_user)
 
-    if disconnected_users_order == 0:
+    if disconnected_user == 'CAR':
         print("1st person (CAR) has disconnected")
-        room_dict = {"rc_car1":{"Socket_Participants":[]}}
+        room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
         session_dict = {}
         server_message = "ERROR"
         server_data = {"Error Code":5, "Error Description": "Car disconnected. Please leave and come back after car has reconnected"}
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
 
-    elif disconnected_users_order == 1:
+    elif disconnected_user == 'DRIVER':
         print("2nd person (Driver) has disconnected")
-        del room_dict[disconnected_users_room]["Socket_Participants"][1]
+        del room_dict[disconnected_users_room["DriverID"]]
         del session_dict[request.sid]
-        server_message = "FIRST"
+        server_message = "Initiate_CAR"
         server_data = ''
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
