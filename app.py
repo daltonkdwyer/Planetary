@@ -26,6 +26,12 @@ def dictionary():
     print(session_dict)
     return render_template('index.html')
 
+@app.route('/reset', methods=['GET'])
+def dictionary():
+    room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
+    session_dict = {}
+    return render_template('index.html')
+
 @socket.on('message')
 def message(client_payload):
     global room_dict
@@ -102,8 +108,8 @@ def disconnect():
     disconnected_users_room = session_dict[request.sid]
     if room_dict[disconnected_users_room]["CarID"] == request.id:
         disconnected_user = 'CAR'
-    else: disconnected_user = 'DRIVER'
-    print("Disconnection detected: ", disconnected_user)
+    if room_dict[disconnected_users_room]["DriverID"] == request.id:
+        disconnected_user = 'DRIVER'
 
     if disconnected_user == 'CAR':
         print("1st person (CAR) has disconnected")
@@ -115,7 +121,7 @@ def disconnect():
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
 
-    elif disconnected_user == 'DRIVER':
+    if disconnected_user == 'DRIVER':
         print("2nd person (Driver) has disconnected")
         room_dict[disconnected_users_room]["Participant_Count"] -= 1
         del room_dict[disconnected_users_room["DriverID"]]
@@ -124,6 +130,11 @@ def disconnect():
         server_data = ''
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
+
+    else:
+        print("SOMEONE NOT DETECTED HAS DISCONNECTED")
+
+    print("Disconnection detected: ", disconnected_user)
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
