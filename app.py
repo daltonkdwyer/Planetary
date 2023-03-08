@@ -149,4 +149,4 @@ if __name__ == '__main__':
     socket.run(app, port=8000)
 
 
-# Got here Mon night: do the disconnect portion
+# Got here Tues night: disconnect is working mostly. Next step: figure out a way that if the Car connects and disconnects, the driver can stay?
