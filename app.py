@@ -102,8 +102,6 @@ def message(client_payload):
         server_data = {"Sender SocketID":sender_socket_id, "New Ice Candidate":new_ice_candidate}
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
-        # Kind of interesting to see, but can delete
-        print("Sending new Ice Candidate to clients: ", str(new_ice_candidate))
 
 @socket.on('disconnect')
 def disconnect():
@@ -111,14 +109,16 @@ def disconnect():
     global session_dict
 
     print("PRINTING THE REQUEST AND SOCKET THING BELOW:")
-    print(request.id)
     print(socket.id)
+    print(request.sid)
 
     disconnected_users_room = session_dict[request.sid]
-    if room_dict[disconnected_users_room]["CarID"] == request.id:
+    if room_dict[disconnected_users_room]["CarID"] == request.sid:
         disconnected_user = 'CAR'
-    if room_dict[disconnected_users_room]["DriverID"] == request.id:
+        print("CAR DISCONNECTED")
+    if room_dict[disconnected_users_room]["DriverID"] == request.sid:
         disconnected_user = 'DRIVER'
+        print("DRIVER DISCONNECTED")
 
     if disconnected_user == 'CAR':
         print("1st person (CAR) has disconnected")
