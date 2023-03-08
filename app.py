@@ -44,8 +44,6 @@ def message(client_payload):
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
 
-        print(room_dict[client_room_id]["Participant_Count"])
-
         # First person joins
         elif room_dict[client_room_id]["Participant_Count"] == 0:
             room_dict[client_room_id]["CarID"] = client_socket_id
