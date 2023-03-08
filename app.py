@@ -107,6 +107,7 @@ def disconnect():
 
     if disconnected_user == 'CAR':
         print("1st person (CAR) has disconnected")
+        room_dict[disconnected_users_room]["Participant_Count"] -= 1
         room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
         session_dict = {}
         server_message = "ERROR"
@@ -116,6 +117,7 @@ def disconnect():
 
     elif disconnected_user == 'DRIVER':
         print("2nd person (Driver) has disconnected")
+        room_dict[disconnected_users_room]["Participant_Count"] -= 1
         del room_dict[disconnected_users_room["DriverID"]]
         del session_dict[request.sid]
         server_message = "Initiate_CAR"
