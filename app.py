@@ -109,7 +109,6 @@ def disconnect():
     global session_dict
 
     print("PRINTING THE REQUEST AND SOCKET THING BELOW:")
-    print(socket.id)
     print(request.sid)
 
     disconnected_users_room = session_dict[request.sid]
