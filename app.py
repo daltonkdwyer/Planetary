@@ -46,6 +46,7 @@ def message(client_payload):
 
         # First person joins
         elif room_dict[client_room_id]["Participant_Count"] == 0:
+            room_dict[client_room_id]["Participant_Count"] += 1
             room_dict[client_room_id]["CarID"] = client_socket_id
             session_dict[client_socket_id] = client_room_id
             server_message = "Initiate_CAR"
@@ -55,6 +56,7 @@ def message(client_payload):
   
         # Second person joins
         elif room_dict[client_room_id]["Participant_Count"] == 1:
+            room_dict[client_room_id]["Participant_Count"] += 1
             room_dict[client_room_id]["DriverID"] = client_socket_id
             session_dict[client_socket_id] = client_room_id
             server_message = "Initiate_DRIVER"
