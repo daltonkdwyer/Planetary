@@ -27,7 +27,7 @@ def dictionary():
     return render_template('index.html')
 
 @app.route('/reset', methods=['GET'])
-def dictionary():
+def reset():
     room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
     session_dict = {}
     return render_template('index.html')
