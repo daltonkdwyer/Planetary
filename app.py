@@ -66,7 +66,7 @@ def message(client_payload):
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
             socket.send(room_dict)
-            if room_dict[client_room_id]["DriverID"] != '':
+            if room_dict[client_room_id]["DriverID"] == 'Disconnect_Me':
                 socket.send("Hopefully initiating driver!")
                 server_message = "Initiate_DRIVER"
                 server_data = ""
@@ -122,8 +122,9 @@ def disconnect():
     # CAR DISCONNECTS
     if room_dict[disconnected_users_room]["CarID"] == request.sid:
         disconnected_user = 'CAR'
-        room_dict[disconnected_users_room]["Participant_Count"] -= 1
-        room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
+        room_dict[disconnected_users_room]["CarID"] = ''
+        room_dict[disconnected_users_room]["DriverID"] = 'Disconnect_Me'
+        room_dict[disconnected_users_room]["Participant_Count"] = 0
         session_dict = {}
         server_message = "ERROR"
         server_data = {"Error Code":5, "Error Description": "Car disconnected. Please leave and come back after car has reconnected"}
