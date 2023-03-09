@@ -48,7 +48,7 @@ def message(client_payload):
         client_room_id =  client_data["Room_id"]
 
         # First checking for errors
-        if room_dict[client_room_id]["DiverID"] != '' and room_dict[client_room_id]["CarID"] != '':
+        if room_dict[client_room_id]["DriverID"] != '' and room_dict[client_room_id]["CarID"] != '':
             print("ERROR #1: Too many clients attempting to enter room. There are already 2 socket IDs in the room dict")
             server_message = "ERROR"
             server_data = {"Error Code": 1, "Error Description": "Too many people trying to join room"}
