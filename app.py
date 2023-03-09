@@ -48,6 +48,7 @@ def message(client_payload):
         client_room_id =  client_data["Room_id"]
 
         # First checking for errors
+        print(room_dict)
         if room_dict[client_room_id]["DriverID"] != '' and room_dict[client_room_id]["CarID"] != '':
             print("ERROR #1: Too many clients attempting to enter room. There are already 2 socket IDs in the room dict")
             server_message = "ERROR"
@@ -128,10 +129,10 @@ def disconnect():
         socket.send(server_payload)
 
     # DRIVER DISCONNECTES
-    if room_dict[disconnected_users_room]["DriverID"] == request.sid:
+    elif room_dict[disconnected_users_room]["DriverID"] == request.sid:
         disconnected_user = 'DRIVER'
         room_dict[disconnected_users_room]["Participant_Count"] -= 1
-        del room_dict[disconnected_users_room]["DriverID"]
+        room_dict[disconnected_users_room]["DriverID"] = ''
         del session_dict[request.sid]
         server_message = "Initiate_CAR"
         server_data = ''
