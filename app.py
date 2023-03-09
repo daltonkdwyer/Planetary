@@ -56,7 +56,7 @@ def message(client_payload):
             socket.send(server_payload)
 
         # First person joins
-        elif room_dict[client_room_id]["CarID"] is '':
+        elif room_dict[client_room_id]["CarID"] == '':
             room_dict[client_room_id]["Participant_Count"] += 1
             room_dict[client_room_id]["CarID"] = client_socket_id
             session_dict[client_socket_id] = client_room_id
@@ -71,7 +71,7 @@ def message(client_payload):
                 socket.send(server_payload)
     
         # Second person joins
-        elif room_dict[client_room_id]["DriverID"] is '':
+        elif room_dict[client_room_id]["DriverID"] == '':
             room_dict[client_room_id]["Participant_Count"] += 1
             room_dict[client_room_id]["DriverID"] = client_socket_id
             session_dict[client_socket_id] = client_room_id
