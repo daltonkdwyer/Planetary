@@ -65,7 +65,9 @@ def message(client_payload):
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
+            socket.send(room_dict)
             if room_dict[client_room_id]["DriverID"] != '':
+                socket.send("Hopefully initiating driver!")
                 server_message = "Initiate_DRIVER"
                 server_data = ""
                 server_payload = {"Message":server_message, "Data":server_data}
