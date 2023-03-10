@@ -131,7 +131,7 @@ def disconnect():
         socket.send(server_payload)
 
     # DRIVER DISCONNECTES
-    elif room_dict[disconnected_users_room]["DriverID"] == request.sid
+    elif room_dict[disconnected_users_room]["DriverID"] == request.sid:
         disconnected_user = 'DRIVER'
         room_dict[disconnected_users_room]["Participant_Count"] -= 1
         room_dict[disconnected_users_room]["DriverID"] = ''
