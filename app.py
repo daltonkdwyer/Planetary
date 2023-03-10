@@ -66,7 +66,7 @@ def message(client_payload):
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
             socket.send(room_dict)
-            if room_dict[client_room_id]["DriverID"] == 'Disconnect_Me':
+            if room_dict[client_room_id]["DriverID"] != '':
                 socket.send("Hopefully initiating driver!")
                 server_message = "Initiate_DRIVER"
                 server_data = ""
@@ -123,8 +123,6 @@ def disconnect():
     if room_dict[disconnected_users_room]["CarID"] == request.sid:
         disconnected_user = 'CAR'
         room_dict[disconnected_users_room]["CarID"] = ''
-        if room_dict[disconnected_users_room]["DriverID"] != '':
-            room_dict[disconnected_users_room]["DriverID"] = 'Disconnect_Me'
         room_dict[disconnected_users_room]["Participant_Count"] = 0
         del session_dict[request.sid]
         server_message = "ERROR"
@@ -133,11 +131,12 @@ def disconnect():
         socket.send(server_payload)
 
     # DRIVER DISCONNECTES
-    elif room_dict[disconnected_users_room]["DriverID"] == request.sid or room_dict[disconnected_users_room]["DriverID"] == 'Disconnect_Me':
+    elif room_dict[disconnected_users_room]["DriverID"] == request.sid
         disconnected_user = 'DRIVER'
         room_dict[disconnected_users_room]["Participant_Count"] -= 1
         room_dict[disconnected_users_room]["DriverID"] = ''
         del session_dict[request.sid]
+        # Causes car to reset WebRTC connection
         server_message = "Initiate_CAR"
         server_data = ''
         server_payload = {"Message":server_message, "Data":server_data}
