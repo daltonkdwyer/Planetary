@@ -123,7 +123,6 @@ def disconnect():
     if room_dict[disconnected_users_room]["CarID"] == request.sid:
         disconnected_user = 'CAR'
         room_dict[disconnected_users_room]["CarID"] = ''
-        print room_dict
         if room_dict[disconnected_users_room]["DriverID"] != '':
             room_dict[disconnected_users_room]["DriverID"] = 'Disconnect_Me'
         room_dict[disconnected_users_room]["Participant_Count"] = 0
