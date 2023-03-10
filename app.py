@@ -117,8 +117,8 @@ def message(client_payload):
 def disconnect():
     global room_dict
     global session_dict
-
     disconnected_users_room = session_dict[request.sid]
+    
     # CAR DISCONNECTS
     if room_dict[disconnected_users_room]["CarID"] == request.sid:
         disconnected_user = 'CAR'
