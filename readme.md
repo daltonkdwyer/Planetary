@@ -108,12 +108,6 @@ Development History:
                 - Located here: https://dashboard.metered.ca/dashboard/app/63f3ea9be5eb464431ddb2fc
             - Definitely see a lot more ice candidates. But the connection still states 'failed'! 
                 - Though as a baseline, can still connect locally
-                    - Possibly the first person is sending ice candidates into oblivian. 
-                - And then when the second person connects he doesn't get any?
-        Asked Micheal:
-            - Sounds like your suspician is correct. Look at the MDN Web Doc at the bottom of this page: https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity
-            - First you send the SDP's to each other. 
-            - AND THEN you set the local description, which fires off the ice candidates
         - IV. SOLUTION:
             - Took about 2 months, but finally solved the problem
             - Issue was that you were creating the peer for the first person, and then CREATING THE LOCAL DESCRIPTION IMMEDIATELY
@@ -122,3 +116,11 @@ Development History:
                 - And only when the second person joins, they create the offer and send it back out
         
 
+Thursday night:
+    - Possibly the first person is sending ice candidates into oblivian. 
+    - And then when the second person connects he doesn't get any?
+
+    Asked Micheal:
+        - Sounds like your suspician is correct. Look at the MDN Web Doc at the bottom of this page: https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity
+        - First you send the SDP's to each other. 
+        - AND THEN you set the local description, which fires off the ice candidates
