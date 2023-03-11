@@ -112,7 +112,7 @@ def message(client_payload):
         server_data = {"Sender SocketID":sender_socket_id, "New Ice Candidate":new_ice_candidate}
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
-        socket.emit('my_response', "I'm a TEST GORILLA", socket_id)
+        socket.emit('my_response', "I'm a TEST GORILLA", sender_socket_id)
 
 
 @socket.on('disconnect')
