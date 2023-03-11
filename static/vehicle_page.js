@@ -16,9 +16,9 @@ socket.on('connect', function(){
 })
 
 socket.on('message', function(server_payload){
+    console.log(server_payload)
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
-    console.log(server_payload)
 
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
