@@ -48,7 +48,6 @@ def message(client_payload):
         client_room_id =  client_data["Room_id"]
 
         # First checking for errors
-        print(room_dict)
         if room_dict[client_room_id]["DriverID"] != '' and room_dict[client_room_id]["CarID"] != '':
             print("ERROR #1: Too many clients attempting to enter room. There are already 2 socket IDs in the room dict")
             server_message = "ERROR"
@@ -105,6 +104,7 @@ def message(client_payload):
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
 
+
     elif client_message == "New Ice Candidate":
         new_ice_candidate = client_payload["Data"]["Ice Candidate"]
         sender_socket_id = client_payload["Data"]["Socket.id"]
@@ -112,6 +112,8 @@ def message(client_payload):
         server_data = {"Sender SocketID":sender_socket_id, "New Ice Candidate":new_ice_candidate}
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
+        emit('my_response', "I'm a TEST GORILLA", socket_id)
+
 
 @socket.on('disconnect')
 def disconnect():
@@ -144,8 +146,16 @@ def disconnect():
 
     else:
         print("SOMEONE NOT DETECTED HAS DISCONNECTED")
-
     print("Disconnection detected: ", disconnected_user)
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
