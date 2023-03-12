@@ -24,7 +24,7 @@ socket.on('message', function(server_payload){
         console.log("ERROR: ", server_data["Error Description"])
     }
     // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins
-    else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){
+    else if (server_message === 'Initiate_CAR'){
         user_type = 'CAR'
         createPeer()
     }
