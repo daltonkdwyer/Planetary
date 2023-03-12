@@ -53,10 +53,15 @@ async function createPeer(){
     peerConnection.onconnectionstatechange = function () {
         console.log("CONNECTION STATE CHANGE: ", peerConnection.connectionState)
     };
-    if (user_type == 'DRIVER'){
-        peerConnection.ontrack = (event) => {
-            document.getElementById('remote_video').srcObject = event.streams[0]
-        }
+    // To not show dual videos, uncomment out the below (video still gets sent, just not displayed)
+    // if (user_type == 'DRIVER'){
+    //     peerConnection.ontrack = (event) => {
+    //         document.getElementById('remote_video').srcObject = event.streams[0]
+    //     }
+    // }
+    // To show dual videos, uncomment out the below:
+    peerConnection.ontrack = (event) => {
+        document.getElementById('remote_video').srcObject = event.streams[0]
     }
     // Existing bug: can't figure out how to stop the Driver from getting and sending their video. Only need video from the car. The driver doesn't have to send video, it's a waste
     localStream = await navigator.mediaDevices.getUserMedia({video:true})
