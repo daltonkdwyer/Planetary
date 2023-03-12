@@ -2,6 +2,30 @@ let room_id = "rc_car1"
 let user_type
 let peerConnection
 let localStream
+const servers = {
+    // STUN server is what you reach out to to get your local address
+    // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
+    iceServers: [
+        {
+          urls: "stun:stun.l.google.com:19302",
+        },
+        {
+          urls: "turn:relay.metered.ca:80",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+        {
+          urls: "turn:relay.metered.ca:443?transport=tcp",
+          username: "999c14afe3cc4008b72f3aa0",
+          credential: "oBpkY5NWEwvTK/gc",
+        },
+    ],
+};
 
 var socket = io.connect('https://plntry.herokuapp.com/');
 // Un-highlight below if want to run locally. Will also need to change the URL in the html file
@@ -114,27 +138,3 @@ function acceptNewIceCandidate(ice_candidate){
     console.log("Adding a new ICE candidate from the remote person: ", candidate)
 }
 
-const servers = {
-    // STUN server is what you reach out to to get your local address
-    // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
-    iceServers: [
-        {
-          urls: "stun:stun.l.google.com:19302",
-        },
-        {
-          urls: "turn:relay.metered.ca:80",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-        {
-          urls: "turn:relay.metered.ca:443",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-        {
-          urls: "turn:relay.metered.ca:443?transport=tcp",
-          username: "999c14afe3cc4008b72f3aa0",
-          credential: "oBpkY5NWEwvTK/gc",
-        },
-    ],
-};
