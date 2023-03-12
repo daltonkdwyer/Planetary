@@ -78,13 +78,13 @@ Weird StackOverflow that fixed the polling issue (like 2nd answer, not first): h
 
 
 Development History:
-    A) The Great Bug Hunt of Febuary 2023 
+    A) The Great Bug Hunt of Febuary 2023 (Jan-Feb '23)
         (aka being able to run simple signalling server on local machine, but doesn't work on heroku)
         Bugs:
             1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
             2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
 
-    B) "Works locally, not remotely"
+    B) "Works locally, not remotely" (Feb-March '23)
         - I. Issue Description: 
             - Can get video through when both local and remote peer are on the same WiFi network
                 - BUT fails when the peers are on different networks
@@ -103,17 +103,22 @@ Development History:
                         c) RELAY - turn connections 
                     - Additionally, each connection type can have one of these properties: UDP, TCP or TLS
                     - See here for more info: https://testrtc.com/find-webrtc-active-connection/
-        - II. Attempt 2:
+        - III. Attempt 2:
             - Tried to add TURN servers from metered. Signed up for account. Have 50GB for free
                 - Located here: https://dashboard.metered.ca/dashboard/app/63f3ea9be5eb464431ddb2fc
             - Definitely see a lot more ice candidates. But the connection still states 'failed'! 
                 - Though as a baseline, can still connect locally
+                    - Possibly the first person is sending ice candidates into oblivian. 
+                - And then when the second person connects he doesn't get any?
+        Asked Micheal:
+            - Sounds like your suspician is correct. Look at the MDN Web Doc at the bottom of this page: https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity
+            - First you send the SDP's to each other. 
+            - AND THEN you set the local description, which fires off the ice candidates
+        - IV. SOLUTION:
+            - Took about 2 months, but finally solved the problem
+            - Issue was that you were creating the peer for the first person, and then CREATING THE LOCAL DESCRIPTION IMMEDIATELY
+                - This fired off Ice Candidates, but they went into the void as the second person hadn't connected yet 
+            - Solution is to have the first person join, create the peer but not create a local description
+                - And only when the second person joins, they create the offer and send it back out
+        
 
-Thursday night:
-    - Possibly the first person is sending ice candidates into oblivian. 
-    - And then when the second person connects he doesn't get any?
-
-    Asked Micheal:
-        - Sounds like your suspician is correct. Look at the MDN Web Doc at the bottom of this page: https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity
-        - First you send the SDP's to each other. 
-        - AND THEN you set the local description, which fires off the ice candidates

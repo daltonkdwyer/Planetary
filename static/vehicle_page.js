@@ -1,96 +1,7 @@
-var socket = io.connect('https://plntry.herokuapp.com/');
-// var socket = io.connect('http://127.0.0.1:8000/')
-
 let room_id = "rc_car1"
-let join_status
+let user_type
 let peerConnection
 let localStream
-
-socket.on('connect', function(){
-    let data = {"Socket.id":socket.id, "Room_id":room_id}
-    let message = "Connection"
-    let payload = {"Message":message, "Data":data}
-    console.log("Connecting to socket server")
-    socket.send(payload)
-})
-
-socket.on('message', function(server_payload){
-    console.log(server_payload)
-
-    let server_message = server_payload["Message"]
-    let server_data = server_payload["Data"]
-
-    if (server_message === 'ERROR'){
-        console.log("ERROR: ", server_data["Error Description"])
-    }
-
-    // First person waits till a second person joins
-    else if (server_message === 'FIRST'){
-        join_status = 'FIRST'
-        createPeer()
-
-    }
-
-    else if (server_message === 'SECOND'){
-        if (join_status == 'FIRST'){
-            console.log("ONLY SHOWING ON FIRST PERSON")
-            return
-        }
-        else{
-            console.log("ONLY SHOWING ON SECOND PERSON")
-            join_status = 'SECOND'
-            async function createOffer(){
-                await createPeer()
-                let offer = await peerConnection.createOffer()
-                await peerConnection.setLocalDescription(offer)
-                let message = "Offer"
-                let data = {"Room_id":room_id, "Offer":offer}
-                let payload = {"Message":message, "Data":data}
-                socket.send(payload)
-            }
-            createOffer()
-
-        }
-    }
-
-    else if (server_message === 'OFFER'){
-        if (join_status == 'FIRST'){
-            async function acceptCall(){
-                const remoteOffer = new RTCSessionDescription(server_data["Offer"])
-                await peerConnection.setRemoteDescription(remoteOffer)
-                let answer = await peerConnection.createAnswer()
-                await peerConnection.setLocalDescription(answer)
-
-                let message = "Answer"
-                let data = {"Room_id":room_id, "Answer":answer}
-                let payload = {"Message":message, "Data":data}
-                socket.send(payload)
-            }
-            acceptCall()
-
-        }
-    }
-
-    else if (server_message === 'ANSWER'){
-        if (join_status == 'SECOND'){
-            const remoteAnswer = new RTCSessionDescription(server_data["Answer"])
-            peerConnection.setRemoteDescription(remoteAnswer)
-        }
-    }
-
-    else if (server_message === "New Ice Candidate"){
-        console.log("Received new ice candidate")
-        if (server_data["Sender SocketID"] != socket.id){
-            let ice_candidate = server_data['New Ice Candidate']
-            let candidate = new RTCIceCandidate(ice_candidate)
-            peerConnection.addIceCandidate(candidate)
-                .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
-            console.log("Adding a new ICE candidate from the remote person: ", candidate)
-        }
-    }
-
-})
-
 const servers = {
     // STUN server is what you reach out to to get your local address
     // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
@@ -116,20 +27,97 @@ const servers = {
     ],
 };
 
+var socket = io.connect('https://plntry.herokuapp.com/');
+// Un-highlight below if want to run locally. Will also need to change the URL in the html file
+// var socket = io.connect('http://127.0.0.1:8000/')
+
+socket.on('connect', function(){
+    let data = {"Socket.id":socket.id, "Room_id":room_id}
+    let message = "Connection"
+    let payload = {"Message":message, "Data":data}
+    console.log("Connecting to socket server")
+    socket.send(payload)
+})
+
+socket.on('message', function(server_payload){
+    console.log(server_payload)
+    let server_message = server_payload["Message"]
+    let server_data = server_payload["Data"]
+
+    if (server_message === 'ERROR'){
+        console.log("ERROR: ", server_data["Error Description"])
+    }
+    // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins
+    else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){
+        user_type = 'CAR'
+        createPeer()
+    }
+    // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
+    else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
+        user_type = 'DRIVER'
+        createOffer()
+    }
+    // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
+    else if (server_message === 'OFFER' && user_type == 'CAR'){
+        acceptOFFERcreateANSWER(server_data["Offer"])
+    }
+    // STEP FOUR: Second person (DRIVER) finally gets the answer
+    else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
+        acceptANSWER(server_data["Answer"])
+    }
+    // STEP ONGOING: Accepts a new Ice Candidate from remote peer
+    else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
+        acceptNewIceCandidate(server_data['New Ice Candidate'])
+    }
+})
+
 async function createPeer(){
     peerConnection = new RTCPeerConnection(servers)
     peerConnection.onicecandidate = send_ICE_candidates
     peerConnection.onconnectionstatechange = function () {
-        console.log("Connection state change: ", peerConnection.connectionState)
+        console.log("CONNECTION STATE CHANGE: ", peerConnection.connectionState)
     };
+    // To not show dual videos, uncomment out the below (video still gets sent, just not displayed)
+    // if (user_type == 'DRIVER'){
+    //     peerConnection.ontrack = (event) => {
+    //         document.getElementById('remote_video').srcObject = event.streams[0]
+    //     }
+    // }
+    // To show dual videos, uncomment out the below:
     peerConnection.ontrack = (event) => {
         document.getElementById('remote_video').srcObject = event.streams[0]
     }
-    
+    // Existing bug: can't figure out how to stop the Driver from getting and sending their video. Only need video from the car. The driver doesn't have to send video, it's a waste
     localStream = await navigator.mediaDevices.getUserMedia({video:true})
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
+}
+
+async function createOffer(){
+    await createPeer()
+    let offer = await peerConnection.createOffer()
+    await peerConnection.setLocalDescription(offer)
+    let message = "Offer"
+    let data = {"Room_id":room_id, "Offer":offer}
+    let payload = {"Message":message, "Data":data}
+    socket.send(payload)
+}
+
+async function acceptOFFERcreateANSWER(offer){
+    const remoteOffer = new RTCSessionDescription(offer)
+    await peerConnection.setRemoteDescription(remoteOffer)
+    let answer = await peerConnection.createAnswer()
+    await peerConnection.setLocalDescription(answer)
+    let message = "Answer"
+    let data = {"Room_id":room_id, "Answer":answer}
+    let payload = {"Message":message, "Data":data}
+    socket.send(payload)
+}
+
+function acceptANSWER(answer){
+    const remoteAnswer = new RTCSessionDescription(answer)
+    peerConnection.setRemoteDescription(remoteAnswer)
 }
 
 function send_ICE_candidates(e){
@@ -142,3 +130,11 @@ function send_ICE_candidates(e){
         socket.send(payload)
     }
 }
+
+function acceptNewIceCandidate(ice_candidate){
+    let candidate = new RTCIceCandidate(ice_candidate)
+    peerConnection.addIceCandidate(candidate)
+        .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
+    console.log("Adding a new ICE candidate from the remote person: ", candidate)
+}
+
