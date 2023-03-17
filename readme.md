@@ -78,13 +78,13 @@ Weird StackOverflow that fixed the polling issue (like 2nd answer, not first): h
 
 
 Development History:
-    A) The Great Bug Hunt of Febuary 2023 (Jan-Feb '23)
+    1) The Great Bug Hunt of Febuary 2023 (Jan-Feb '23)
         (aka being able to run simple signalling server on local machine, but doesn't work on heroku)
         Bugs:
             1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
             2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
 
-    B) "Works locally, not remotely" (Feb-March '23)
+    2) "Works locally, not remotely" (Feb-March '23)
         - I. Issue Description: 
             - Can get video through when both local and remote peer are on the same WiFi network
                 - BUT fails when the peers are on different networks
@@ -121,4 +121,7 @@ Development History:
             - Solution is to have the first person join, create the peer but not create a local description
                 - And only when the second person joins, they create the offer and send it back out
         
+    3. TURN Server issue
+        - When connecting from exterior networks, can no longer connect
+            - I could have sworn I could do this before
 
