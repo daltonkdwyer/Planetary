@@ -123,5 +123,8 @@ Development History:
         
     3. TURN Server issue
         - When connecting from exterior networks, can no longer connect
-            - I could have sworn I could do this before
+            - I could have sworn I could do this before?
+
+        - March 17th: I CAN connect from my phone on LTE. Wtf
+            - If I look at the coturn dashboard, I am on 830MB, but now that I'm using it (over about 10-15 mins) it's gone to 880MB
 
