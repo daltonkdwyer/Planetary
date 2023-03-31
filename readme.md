@@ -2,9 +2,7 @@ This program is a signalling server.
 
 It sends clients a webpage that gathers their RTCPeerConnection information (SDP), stores it, and sends it out if a new person tries to connect.
 
-LAUNCH: 
-    Run in terminal: python3 app.py
-    Open two browser windows to: 127.0.0.1:8000
+Diagram here: https://www.figma.com/file/Y58sFJtg6uUWCqk1UWZKt5/Signalling-Server?node-id=0%3A1&t=xvO5iAZ5sR5rBVva-0
 
 The program consists of:
 
@@ -38,16 +36,11 @@ The program consists of:
                 uses a Flask version of a webserver called Green Unicorn 'gunicorn'
             - You use gunicorn, but you have no idea what this is
 
-        2) Pipfile (DELETE THIS- CANT HAVE BOTH THIS AND requirements.txt AS THEY ARE DUPLICATES)
-            - This includes all the dependences for Heroku
-            - You also kind of have no idea how it works, but you need to go into the environment somehow
-            - See here: https://stackoverflow.com/questions/46330327/how-are-pipfile-and-pipfile-lock-used
-
-        3) Requirements.txt
+        2) Requirements.txt
             - This might be INSTEAD of a pipfile
             - Lists everything the Heroku server will need (kind of like a virtual environment)
 
-        4) runtime.txt
+        3) runtime.txt
             - this just specifies which version of python to use...? 
                 - (DD- why can't this just be in the requirements)
 

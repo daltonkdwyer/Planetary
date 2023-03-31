@@ -32,6 +32,7 @@
 
     function moveVehicle(direction) {
       direction_socket_server.emit('move_command', {data: direction})
+      console.log("Move command: ", direction)
       }
 
     document.addEventListener('keydown', (e) => {

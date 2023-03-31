@@ -77,7 +77,7 @@ async function createPeer(){
     peerConnection.onconnectionstatechange = function () {
         console.log("CONNECTION STATE CHANGE: ", peerConnection.connectionState)
     };
-    // To not show dual videos, uncomment out the below (video still gets sent, just not displayed)
+    // To not show dual videos, comment out the below (video still gets sent, just not displayed)
     if (user_type == 'DRIVER'){
         peerConnection.ontrack = (event) => {
             document.getElementById('remote_video').srcObject = event.streams[0]
