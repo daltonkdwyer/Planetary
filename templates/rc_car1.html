@@ -17,4 +17,60 @@
 <script type="module" src="../static/vehicle_page.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+
+<script>
+    // Connect to the first server
+    const direction_socket_server = io('http://127.0.0.1:8000');
+
+    direction_socket_server.on('connect', function() {
+      console.log('Connected to server 1');
+    });
+
+    direction_socket_server.on('disconnect', function() {
+      console.log('Disconnected');
+    });
+
+    function moveVehicle(direction) {
+      direction_socket_server.emit('move_command', {data: direction})
+      }
+
+    document.addEventListener('keydown', (e) => {
+      // One of the below two functions prevents repeated POST requests from going through
+      if (e.repeat) return;
+
+      if (event.defaultPrevented) {
+          return;
+      };
+      switch (event.key){
+          case "ArrowUp":
+              moveVehicle("FORWARD")
+              break;
+          case "ArrowDown":
+              moveVehicle("BACK")
+              break;
+          case "ArrowLeft":
+              moveVehicle("LEFT")
+              break;
+          case "ArrowRight":
+              moveVehicle("RIGHT")
+              break;
+          case "Spacebar":
+              moveVehicle("STOP")
+              break;
+          default:
+              return;
+      }
+        event.preventDefault();
+    }, true);
+  
+    window.addEventListener('keyup', function (event) {
+        if (event.defaultPrevented) {
+            return;
+        };
+        moveVehicle("STOP")
+
+        event.preventDefault();
+    }, true)
+  
+  </script>
 </html>
