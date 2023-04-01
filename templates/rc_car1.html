@@ -19,8 +19,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
 <script>
-    // Connect to the first server
-    const direction_socket_server = io('http://127.0.0.1:8000');
+    // Connect to the server on the car
+    const direction_socket_server = io('https://plntry33.ngrok.io');
 
     direction_socket_server.on('connect', function() {
       console.log('Connected to server 1');
