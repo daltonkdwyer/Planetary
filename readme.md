@@ -1,6 +1,6 @@
-This program is a signalling server. 
-
-It sends clients a webpage that gathers their RTCPeerConnection information (SDP), stores it, and sends it out if a new person tries to connect.
+PLNTRY SERVER_main
+For Connecting two peers in a WebRTC connection
+And having the client send out 
 
 Diagram here: https://www.figma.com/file/Y58sFJtg6uUWCqk1UWZKt5/Signalling-Server?node-id=0%3A1&t=xvO5iAZ5sR5rBVva-0
 
@@ -37,12 +37,11 @@ The program consists of:
             - You use gunicorn, but you have no idea what this is
 
         2) Requirements.txt
-            - This might be INSTEAD of a pipfile
             - Lists everything the Heroku server will need (kind of like a virtual environment)
 
         3) runtime.txt
             - this just specifies which version of python to use...? 
-                - (DD- why can't this just be in the requirements)
+                - (DD- why can't this just be in the requirements...)
 
 Hosting
 

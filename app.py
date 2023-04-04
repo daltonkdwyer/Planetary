@@ -148,10 +148,6 @@ def disconnect():
     print("Disconnection detected: ", disconnected_user)
 
 
-
-
-
-
 if __name__ == '__main__':
     socket.run(app, port=8000)
 
