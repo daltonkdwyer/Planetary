@@ -30,8 +30,8 @@
       console.log('Disconnected');
     });
 
-    direction_socket_server.on('server_confirm_message', function(message){
-        console.log(message)
+    direction_socket_server.on('server_message', function(message){
+        console.log("Latency figure: ", message)
     })
 
     // Create a heartbeat
