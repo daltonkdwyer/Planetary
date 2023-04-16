@@ -33,14 +33,14 @@
     });
 
     direction_socket_server.on('server_message', function(message){
-        console.log("Latency figure: ", message)
+        console.log("Message from Server: ", message)
     })
 
     // Create a heartbeat
-    // setInterval(function(){
-    //     direction_socket_server.emit('heartbeat')
-    //     // console.log("Heartbeat")
-    // }, 500)
+    setInterval(function(){
+        direction_socket_server.emit('heartbeat')
+        // console.log("Heartbeat")
+    }, 500)
 
     function moveVehicle(direction) {
       direction_socket_server.emit('move_command', {data: direction})
