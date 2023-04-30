@@ -64,7 +64,8 @@ def message(client_payload):
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
-            socket.send(room_dict)
+            socket.send(room_dict) #What is this line doing here?
+            # I think this is error catching for someone re-joining
             if room_dict[client_room_id]["DriverID"] != '':
                 socket.send("Hopefully initiating driver!")
                 server_message = "Initiate_DRIVER"

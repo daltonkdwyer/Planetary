@@ -46,8 +46,13 @@ The program consists of:
 Hosting
 
     A. It is hosted on heroku
-        Username: dalton.dwyer@yahoo.com
-        PW: S13
+        Login: 
+            Username: dalton.dwyer@yahoo.com
+            PW: S13
+        Updating:
+            - This should automatically update by Git push
+            - You can double check that/change it here: https://dashboard.heroku.com/apps/plntry/deploy/github
+
 
     B. Needs a 'metered.ca' account for the Turn servers
         Link here: https://dashboard.metered.ca/turnserver/app/63f3ea9be5eb464431ddb2fc
@@ -75,6 +80,7 @@ Development History:
         Bugs:
             1. Hadn't put 'eventlet==0.30.2' in the requirements.txt file
             2. AND need to downgrade python version! For some bizarre reason. Lives in the runtime.txt file
+                - Specifically this version: python-3.9.13
 
     2) "Works locally, not remotely" (Feb-March '23)
         - I. Issue Description: 
@@ -120,3 +126,4 @@ Development History:
         - March 17th: I CAN connect from my phone on LTE. Wtf
             - If I look at the coturn dashboard, I am on 830MB, but now that I'm using it (over about 10-15 mins) it's gone to 880MB
 
+        - SOLUTION: (You solved this, but never went back and updated this. Very sad!)
