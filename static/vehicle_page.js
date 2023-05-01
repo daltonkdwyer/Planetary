@@ -25,6 +25,7 @@ const servers = {
             credential: "oBpkY5NWEwvTK/gc",
           },
           {
+            // You didn't have this server at some point, and adding it in fixed a bug
             urls: "turn:a.relay.metered.ca:443?transport=tcp",
             username: "999c14afe3cc4008b72f3aa0",
             credential: "oBpkY5NWEwvTK/gc",

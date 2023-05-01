@@ -126,4 +126,6 @@ Development History:
         - March 17th: I CAN connect from my phone on LTE. Wtf
             - If I look at the coturn dashboard, I am on 830MB, but now that I'm using it (over about 10-15 mins) it's gone to 880MB
 
-        - SOLUTION: (You solved this, but never went back and updated this. Very sad!)
+        - SOLUTION: It SEEMED like by updating the turn server list at the top of the vehicle_page.js you were able to connect!
+            - Specifically, it seems like the turn:a.relay.metered.ca:80?transport=tcp was missing. 
+            - So I guess this means you couldn't get a TURN connection on port 80 when using TCP

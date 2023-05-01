@@ -145,7 +145,7 @@ def disconnect():
         socket.send(server_payload)
 
     else:
-        print("SOMEONE NOT DETECTED HAS DISCONNECTED")
+        print("Error: someone disconnected who wasn't ever registered as connected")
     print("Disconnection detected: ", disconnected_user)
 
 
