@@ -14,6 +14,8 @@
         <video class='video-player' id="remote_video" autoplay playsinline></video>
     </div>
     <div id="latency-indicator"></div>
+    <div id="delayed-latency-indicator"></div>
+
 
 </body>
 <script type="module" src="../static/vehicle_page.js"></script>
@@ -39,6 +41,11 @@
         let latencyNumber = message["Data"]
         document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}`;
       }
+      if (message["Message"] == "Delayed Latency"){
+        let latencyNumber = message["Data"]
+        document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${latencyNumber}`;
+      }
+
       if (message["Message"] == "Message"){
         console.log(message["Data"])
       }
