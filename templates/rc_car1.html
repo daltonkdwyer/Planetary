@@ -13,6 +13,8 @@
         <video class='video-player' id="local_video" autoplay playsinline></video>
         <video class='video-player' id="remote_video" autoplay playsinline></video>
     </div>
+    <div id="latency-indicator"></div>
+
 </body>
 <script type="module" src="../static/vehicle_page.js"></script>
 
@@ -23,18 +25,24 @@
     const direction_socket_server = io('https://plntry33.ngrok.io');
     // const direction_socket_server = io('https://4ad8-136-24-55-174.ngrok.io');
 
-
     direction_socket_server.on('connect', function() {
       console.log('Connected to server 1');
     });
 
     direction_socket_server.on('disconnect', function() {
+      document.getElementById('latency-indicator').innerText = `Disconnected from Server!`;
       console.log('Disconnected');
     });
 
-    direction_socket_server.on('server_message', function(message){
-        console.log("Message from Server: ", message)
-    })
+    direction_socket_server.on('Server message', function(message) {
+      if (message["Message"] == "Latency"){
+        let latencyNumber = message["Data"]
+        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}`;
+      }
+      if (message["Message"] == "Message"){
+        console.log(message["Data"])
+      }
+    }); 
 
     // First attempt at latency protection
     // setInterval(function(){
