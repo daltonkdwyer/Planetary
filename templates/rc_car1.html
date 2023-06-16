@@ -15,6 +15,8 @@
     </div>
     <div id="latency-indicator"></div>
     <div id="delayed-latency-indicator"></div>
+    <div id="server-message"></div>
+
 
 
 </body>
@@ -42,12 +44,12 @@
         document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}`;
       }
       if (message["Message"] == "Delayed Latency"){
-        let latencyNumber = message["Data"]
-        document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${latencyNumber}`;
+        let delayedlatencyNumber = message["Data"]
+        document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${delayedlatencyNumber}`;
       }
-
       if (message["Message"] == "Message"){
         console.log(message["Data"])
+        document.getElementById('server-message').innerText = message["Data"];
       }
     }); 
 
