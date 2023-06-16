@@ -56,7 +56,7 @@
     setInterval(function(){
         let clientTime = new Date().getTime();
         direction_socket_server.emit('heartbeat', clientTime)
-        console.log("SENT A HEARTBEAT ", clientTime)
+        // console.log("SENT A HEARTBEAT ", clientTime)
     }, 1000)
 
     function moveVehicle(direction) {
