@@ -21,7 +21,6 @@
 
 </body>
 <script type="module" src="../static/vehicle_page.js"></script>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
 <script>
@@ -41,7 +40,7 @@
     direction_socket_server.on('Server message', function(message) {
       if (message["Message"] == "Latency"){
         let latencyNumber = message["Data"]
-        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}`;
+        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
       }
       if (message["Message"] == "Delayed Latency"){
         let delayedlatencyNumber = message["Data"]
@@ -51,21 +50,12 @@
         console.log(message["Data"])
         document.getElementById('server-message').innerText = message["Data"];
       }
-    }); 
+    });     
 
-    // First attempt at latency protection
-    // setInterval(function(){
-    //     direction_socket_server.emit('heartbeat')
-    //     // console.log("Heartbeat")
-    // }, 500)
-
-    // Second attempt at latency protection
-    
-
+    // Send heartbeat
     setInterval(function(){
         let clientTime = new Date().getTime();
         direction_socket_server.emit('heartbeat', clientTime)
-        // console.log("SENT A HEARTBEAT ", clientTime)
     }, 1000)
 
     function moveVehicle(direction) {
