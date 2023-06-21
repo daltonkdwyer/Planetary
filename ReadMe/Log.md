@@ -1,4 +1,4 @@
-2. CHANGE LOG
+1. Summary of Changes
 
 1) Started using aysnc buttons on FLASK server to submit form data instead of syncronous buttons (don't need to reload page)
 2) Now using keystrokes instead of buttons
@@ -9,7 +9,7 @@
 7) Added in a simple latency protection that sends client time to the server, compares it to the server time, and if more than 1000 milliseconds has passed, issues 'Stop' command (but note this is not super accurate)
 
 
-4. CURRENT STATUS
+2. Captain's Log
 
         -- Fri night: Working in the flask directions app on the car. Tried out last night's code but had a pretty obvious bug. The latency function was only triggered when receiving a request. Tried to make the function run async all the time, but stuck on how to make a function run async
         -- Thurs night: added latency code. Now need to test it on the car. You may need to do a git pull for the car
