@@ -1,73 +1,47 @@
-PLNTRY SERVER_main
-For Connecting two peers in a WebRTC connection
-And having the client send out 
+0. SUMMARY
 
-Diagram here: https://www.figma.com/file/Y58sFJtg6uUWCqk1UWZKt5/Signalling-Server?node-id=0%3A1&t=xvO5iAZ5sR5rBVva-0
+    This is a WebRTC architecture. Two browsers will communicate with each other.
 
-The program consists of:
+    You have written a better diagram here: 
 
-    A) SERVER SIDE
-        1) plntry_server1.py
-            - Sends out the client page
-            - Has websockets that tell the client what to do
-            - Has a dictionary that stores the SDP information by room ID
-            - When a new client joins, it sends out the SDP of the first person, and quarterbacks the conenction
-            - Also controls for when people leave
+
+1. HOSTING
     
-    B) CLIENT SIDE
-        2) vehicle_connection.js
-            - connects to the main socket server
-            - controls what's happening on the client
-            - manages the sockets going in and out
-            
-        3) web_rtc_fucntions.js
-            - helper functions to vehicle_connection
-            - handles all the web_rtc stuff (creating/updating peer connections etc.)
-
-        4) app.js
-            - This is just a dumb thing for the index page which tells you you are a monkey (yes, that grammar was right)
-
-        5) index.html
-            - home page that distributes which car to connect you to
-
-    C) ADMIN
-        1) Procfile
-            - This tells Heroku what to run on startup
-                uses a Flask version of a webserver called Green Unicorn 'gunicorn'
-            - You use gunicorn, but you have no idea what this is
-
-        2) Requirements.txt
-            - Lists everything the Heroku server will need (kind of like a virtual environment)
-
-        3) runtime.txt
-            - this just specifies which version of python to use...? 
-                - (DD- why can't this just be in the requirements...)
-
-Hosting
-
-    A. It is hosted on heroku
-        Login: 
+    1.  The signalling server (you built) is hosted on heroku
+        a) Login: 
             Username: dalton.dwyer@yahoo.com
             PW: S13
-        Updating:
+        b) How to update the code:
             - This should automatically update by Git push
             - You can double check that/change it here: https://dashboard.heroku.com/apps/plntry/deploy/github
 
-
-    B. Needs a 'metered.ca' account for the Turn servers
-        Link here: https://dashboard.metered.ca/turnserver/app/63f3ea9be5eb464431ddb2fc
+    2. The TURN server you got off the shelf. It's made by metered.ca.
+        a) Link here: https://dashboard.metered.ca/turnserver/app/63f3ea9be5eb464431ddb2fc
             Login: gmail, password: m
-        For server:
+        b) Server logins (need to put into your WebRTC code):
             Username: 999c14afe3cc4008b72f3aa0
             Password: oBpkY5NWEwvTK
+        c) All you have to do is feed the IP address of the TURN server into the object
+
+2. SERVER
+
+    1. Signalling Server
+        a) Flask / Websocket server
+        b) Sends out the client page
+        c) Recieves SDP information from clients and sends it between them so they can establish a connection with each other 
+
+
+3. CLIENT
+
+    1. 
 
 
 
-General:
-    - To update libraries, you need to enter the virtual environment (I think)
-        - launch with |pipenv shell
-        - exit with |exit
-    
+
+
+4. OTHER
+
+
 
 Weird StackOverflow that fixed the polling issue (like 2nd answer, not first): https://stackoverflow.com/questions/57397269/get-socket-io-eio-3transport-pollingt-mnihjpm-http-1-1
 
@@ -126,6 +100,4 @@ Development History:
         - March 17th: I CAN connect from my phone on LTE. Wtf
             - If I look at the coturn dashboard, I am on 830MB, but now that I'm using it (over about 10-15 mins) it's gone to 880MB
 
-        - SOLUTION: It SEEMED like by updating the turn server list at the top of the vehicle_page.js you were able to connect!
-            - Specifically, it seems like the turn:a.relay.metered.ca:80?transport=tcp was missing. 
-            - So I guess this means you couldn't get a TURN connection on port 80 when using TCP
+        - SOLUTION: (You solved this, but never went back and updated this. Very sad!)
