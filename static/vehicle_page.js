@@ -13,6 +13,7 @@ const servers = {
             urls: "turn:a.relay.metered.ca:80",
             username: "999c14afe3cc4008b72f3aa0",
             credential: "oBpkY5NWEwvTK/gc",
+            // The below brackets aren't on the right line. You should fix this when you have a second to test
           },
           {
             urls: "turn:a.relay.metered.ca:80?transport=tcp",
