@@ -26,3 +26,5 @@
 
         Then, you can share that variable between the two other JS files. So for Plntry, you can make a variable like browserID and call it either CAR or Driver
 
+        -- June 21st: in Prod, you created a second js file 'car_controls.js' and successfully made sure it displayed a global variable that was set in the main HTML file. You're in a good spot, ready to get a full day in.
+
