@@ -16,12 +16,17 @@
     <div id="latency-indicator"></div>
     <div id="delayed-latency-indicator"></div>
     <div id="server-message"></div>
+    <div id="test-div"></div>
+
 
 </body>
 <script type="module" src="../static/vehicle_page.js"></script>
+<script type="module" src="../static/car_controls.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
 <script>
+  let global_browser_ID = "UNKNOWN"; 
+
     // Connect to the server on the car
     const direction_socket_server = io('https://plntry33.ngrok.io');
     // const direction_socket_server = io('https://4ad8-136-24-55-174.ngrok.io');
