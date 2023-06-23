@@ -41,10 +41,10 @@ document.addEventListener('keydown', (e) => {
     // One of the below two functions prevents repeated POST requests from going through
     if (e.repeat) return;
 
-    if (event.defaultPrevented) {
+    if (e.defaultPrevented) {
         return;
     };
-    switch (event.key){
+    switch (e.key){
         case "ArrowUp":
             moveVehicle("FORWARD")
             break;
@@ -63,7 +63,7 @@ document.addEventListener('keydown', (e) => {
         default:
             return;
     }
-    event.preventDefault();
+    e.preventDefault();
 }, true);
 
 window.addEventListener('keyup', function (event) {
