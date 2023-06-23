@@ -44,7 +44,7 @@ socket.on('connect', function(){
     let payload = {"Message":message, "Data":data}
     console.log("Connecting to socket server")
     socket.send(payload)
-})
+}) 
 
 socket.on('message', function(server_payload){
     console.log(server_payload)
@@ -54,9 +54,10 @@ socket.on('message', function(server_payload){
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
     }
-    // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins
+    // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins 
     else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){
         user_type = 'CAR'
+        global_browser_ID = 'CAR'
         createPeer()
     }
     // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)

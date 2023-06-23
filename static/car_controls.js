@@ -28,9 +28,7 @@ direction_socket_server.on('Server message', function(message) {
 
 // Send heartbeat
 setInterval(function() {
-    console.log("HEARTBEAT")
     if (global_browser_ID == "DRIVER"){
-        console.log("HEARTBEAT: YOU ARE THE DRIVER")
         let clientTime = new Date().getTime();
         direction_socket_server.emit('heartbeat', clientTime)
     }
