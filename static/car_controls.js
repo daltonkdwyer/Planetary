@@ -1,6 +1,10 @@
 // Connect to the server on the car
-const direction_socket_server = io('https://plntry33.ngrok.io');
-// const direction_socket_server = io('https://4ad8-136-24-55-174.ngrok.io');
+if (global_controlsSocket_run_local == "TRUE") {
+    const direction_socket_server = io('http://127.0.0.1:5000/');
+}
+else {
+    const direction_socket_server = io('https://plntry33.ngrok.io');
+}
 
 direction_socket_server.on('connect', function() {
     console.log('Connected to server 1');
@@ -16,6 +20,7 @@ direction_socket_server.on('Server message', function(message) {
         let latencyNumber = message["Data"]
         document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
     }
+    // Can delete this
     if (message["Message"] == "Delayed Latency"){
         let delayedlatencyNumber = message["Data"]
         document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${delayedlatencyNumber}`;

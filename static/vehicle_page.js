@@ -34,8 +34,8 @@ const servers = {
     ],
 };
 
-var socket = io.connect('https://plntry.herokuapp.com/');
 // Un-highlight below if want to run locally. Will also need to change the URL in the index.html file so the button points locally
+var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
 socket.on('connect', function(){
