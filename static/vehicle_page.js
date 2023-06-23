@@ -62,6 +62,7 @@ socket.on('message', function(server_payload){
     // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
     else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
         user_type = 'DRIVER'
+        global_browser_ID = 'DRIVER'
         createOffer()
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)

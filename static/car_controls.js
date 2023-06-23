@@ -13,23 +13,27 @@ direction_socket_server.on('disconnect', function() {
 
 direction_socket_server.on('Server message', function(message) {
     if (message["Message"] == "Latency"){
-    let latencyNumber = message["Data"]
-    document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
+        let latencyNumber = message["Data"]
+        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
     }
     if (message["Message"] == "Delayed Latency"){
-    let delayedlatencyNumber = message["Data"]
-    document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${delayedlatencyNumber}`;
+        let delayedlatencyNumber = message["Data"]
+        document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${delayedlatencyNumber}`;
     }
     if (message["Message"] == "Message"){
-    console.log(message["Data"])
-    document.getElementById('server-message').innerText = message["Data"];
+        console.log(message["Data"])
+        document.getElementById('server-message').innerText = message["Data"];
     }
 });     
 
 // Send heartbeat
-setInterval(function(){
-    let clientTime = new Date().getTime();
-    direction_socket_server.emit('heartbeat', clientTime)
+setInterval(function() {
+    console.log("HEARTBEAT")
+    if (global_browser_ID == "DRIVER"){
+        console.log("HEARTBEAT: YOU ARE THE DRIVER")
+        let clientTime = new Date().getTime();
+        direction_socket_server.emit('heartbeat', clientTime)
+    }
 }, 1000)
 
 function moveVehicle(direction) {
