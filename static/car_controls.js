@@ -1,9 +1,9 @@
 // Connect to the server on the car
 if (global_controlsSocket_run_local == "TRUE") {
-    const direction_socket_server = io('http://127.0.0.1:5000/');
+    let direction_socket_server = io('http://127.0.0.1:5000/');
 }
 else {
-    const direction_socket_server = io('https://plntry33.ngrok.io');
+    let direction_socket_server = io('https://plntry33.ngrok.io');
 }
 
 direction_socket_server.on('connect', function() {
