@@ -14,7 +14,7 @@
         -- Fri night: Working in the flask directions app on the car. Tried out last night's code but had a pretty obvious bug. The latency function was only triggered when receiving a request. Tried to make the function run async all the time, but stuck on how to make a function run async
         -- Thurs night: added latency code. Now need to test it on the car. You may need to do a git pull for the car
 
-        -- June 15th: Latency code not working. You're trying to update a global variable every heartbeat, but keeping the local variable running within the heartbeat the same. So, theoretically, if after 3 seconds, if the local variable still equals the global variable, the global variable never got updated. Meaning there wasn't a heartbeat for the last 3 seconds
+        -- June 15th: ISSUE: Latency code not working. You're trying to update a global variable every heartbeat, but keeping the local variable running within the heartbeat the same. So, theoretically, if after 3 seconds, if the local variable still equals the global variable, the global variable never got updated. Meaning there wasn't a heartbeat for the last 3 seconds
 
         But this worked when you ran it locally! So unclear what the issue is here. Sadness. Will take much longer to fix likely. 
 
