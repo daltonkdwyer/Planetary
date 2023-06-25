@@ -28,3 +28,5 @@
 
         -- June 21st: in Prod, you created a second js file 'car_controls.js' and successfully made sure it displayed a global variable that was set in the main HTML file. You're in a good spot, ready to get a full day in.
 
+        -- June 24th: Spent all Saturday, and finally figured out latency controls (probably, haven't tested in prod yet) So, you had to use 'threading' in python to run a function in the background. That function checks the latency figure every second by itself, even if there is no heartbeat from the client. But it also doesn't block the rest of the threads from running! So, good news in general. 
+
