@@ -24,11 +24,6 @@ direction_socket_server.on('Server message', function(message) {
         let latencyNumber = message["Data"]
         document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
     }
-    // Can delete this
-    if (message["Message"] == "Delayed Latency"){
-        let delayedlatencyNumber = message["Data"]
-        document.getElementById('delayed-latency-indicator').innerText = `Delayed Latency: ${delayedlatencyNumber}`;
-    }
     if (message["Message"] == "Message"){
         console.log(message["Data"])
         document.getElementById('server-message').innerText = message["Data"];
