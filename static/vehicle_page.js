@@ -65,6 +65,8 @@ socket.on('message', function(server_payload){
         user_type = 'DRIVER'
         global_browser_ID = 'DRIVER'
         createOffer()
+        document.getElementById('webrtc-message').innerText = `Recieved offer from car`;
+
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
     else if (server_message === 'OFFER' && user_type == 'CAR'){
@@ -73,6 +75,8 @@ socket.on('message', function(server_payload){
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data["Answer"])
+        document.getElementById('webrtc-message').innerText = `Connected established to car`;
+
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
