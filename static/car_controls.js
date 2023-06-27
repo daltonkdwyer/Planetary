@@ -11,11 +11,12 @@ else {
 }
 
 direction_socket_server.on('connect', function() {
+    document.getElementById('server-message').innerText = `Connected to Server!`;
     console.log('Connected to server 1');
 });
 
 direction_socket_server.on('disconnect', function() {
-    document.getElementById('latency-indicator').innerText = `Disconnected from Server!`;
+    document.getElementById('server-message').innerText = `Disconnected from Server!`;
     console.log('Disconnected');
 });
 

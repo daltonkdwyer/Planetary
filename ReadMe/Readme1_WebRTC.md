@@ -2,7 +2,7 @@
 
     This is a WebRTC architecture. Two browsers will communicate with each other.
 
-    You have written a better diagram here: 
+    You have written a better diagram here: https://docs.google.com/presentation/d/1Yht4nZN5aHjeAyuiQytCdhY9se5ctExtC6bPFkWdN00/edit#slide=id.p
 
 
 1. HOSTING

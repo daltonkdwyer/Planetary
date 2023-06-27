@@ -14,23 +14,23 @@ const servers = {
             username: "999c14afe3cc4008b72f3aa0",
             credential: "oBpkY5NWEwvTK/gc",
             // The below brackets aren't on the right line. You should fix this when you have a second to test
-          },
-          {
+        },
+        {
             urls: "turn:a.relay.metered.ca:80?transport=tcp",
             username: "999c14afe3cc4008b72f3aa0",
             credential: "oBpkY5NWEwvTK/gc",
-          },
-          {
+        },
+        {
             urls: "turn:a.relay.metered.ca:443",
             username: "999c14afe3cc4008b72f3aa0",
             credential: "oBpkY5NWEwvTK/gc",
-          },
-          {
+        },
+        {
             // You didn't have this server at some point, and adding it in fixed a bug
             urls: "turn:a.relay.metered.ca:443?transport=tcp",
             username: "999c14afe3cc4008b72f3aa0",
             credential: "oBpkY5NWEwvTK/gc",
-          },
+        },
     ],
 };
 
