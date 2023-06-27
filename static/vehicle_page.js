@@ -75,7 +75,7 @@ socket.on('message', function(server_payload){
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data["Answer"])
-        document.getElementById('webrtc-message').innerText = `Connected established to car`;
+        document.getElementById('webrtc-message').innerText = `Connection established with car`;
 
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
