@@ -13,7 +13,7 @@
         <video class='video-player' id="local_video" autoplay playsinline></video>
         <video class='video-player' id="remote_video" autoplay playsinline></video>
     </div>
-    <div id="webrtc-message">WebRTC Message: </div>
+    <div id="webrtc-message"></div>
     <div id="server-message"></div>
     <div id="latency-indicator"></div>
     <div id="test-div"></div>
@@ -26,8 +26,11 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
   <script>
-    let global_controlsSocket_run_local = "FALSE"
+    // Makes the browser stateful! Let's you know if you're the 'DRIVER' or 'CAR'
     let global_browser_ID = "UNKNOWN"; 
+    // Lets you easily run the flask socket server locally. Don't need to do anything else but switch this to 'True'
+    let global_controlsSocket_run_local = "FALSE"
+    // 
   
   </script>
 </html>

@@ -59,6 +59,7 @@ socket.on('message', function(server_payload){
         user_type = 'CAR'
         global_browser_ID = 'CAR'
         createPeer()
+        document.getElementById('webrtc-message').innerText = `You are identified as the car`;
     }
     // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
     else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
@@ -82,6 +83,8 @@ socket.on('message', function(server_payload){
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
         acceptNewIceCandidate(server_data['New Ice Candidate'])
     }
+    else if (server_message === "User Message" && user_type == 'DRIVER')
+        document.getElementById('webrtc-message').innerText = server_data["Data"];
 })
 
 async function createPeer(){
