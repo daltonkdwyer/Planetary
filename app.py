@@ -128,7 +128,7 @@ def disconnect():
         room_dict[disconnected_users_room]["Participant_Count"] = 0
         del session_dict[request.sid]
         server_message = "User Message"
-        server_data = {"Data": "Car disconnected. Please leave and come back after car has reconnected"}
+        server_data = {"Data": "Car has disconnected. Hopefully it will be back soon!"}
         server_payload = {"Message":server_message, "Data":server_data}
         socket.send(server_payload)
 
