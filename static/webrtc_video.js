@@ -103,9 +103,10 @@ async function createPeer(){
     // }
     // Existing bug: can't figure out how to stop the Driver from getting and sending their video. Only need video from the car. The driver doesn't have to send video, it's a waste
     
-    if (user_type == 'DRIVER'){
+    if (user_type == 'CAR'){
         localStream = await navigator.mediaDevices.getUserMedia({video:true})
     }
+    
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
