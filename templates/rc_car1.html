@@ -6,14 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RC_Car1!</title>
+    <style>
+      .video-player {
+        width: 640px;
+        height: 480px;
+        position: relative
+      }
+    </style>
 </head>
 <body>
-    Car will appear here!
     <div id="videos">
         <video class='video-player' id="local_video" autoplay playsinline></video>
         <video class='video-player' id="remote_video" autoplay playsinline></video>
     </div>
-    <div id="webrtc-message"></div>
+    <div id="webrtc-message">Welcome to the Plntry Car!</div>
     <div id="server-message"></div>
     <div id="latency-indicator"></div>
     <div id="test-div"></div>
