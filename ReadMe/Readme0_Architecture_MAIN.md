@@ -2,11 +2,20 @@ PLNTRY ARCHITECTURE
 
 The goal is to build a remotely operated toy car, you can drive from anywhere in the world. Your car will need an internet connection to something
 
-0. STARTUP
+0. STARTUP - WiFi
 - Charge the vehicle's batteries
-- Connect vehicle to network with an Ethernet cord
-- Run "sudo nmap -sn 192.168.1.1/24" 
-- SSH into the pi with ssh daltonkdwyer@192.168.1.52 (or whatever Pi IP address is. OR pi@192... if haven't changed username)
+- Start your phone's hotspot. The car should automatically connect to your phone
+- Connect your laptop to the phone hotspot
+- Check your IP address
+- Run "sudo nmap -sn 192.168.1.1/24" [Replace IP address appropriately]
+- SSH into the pi with ssh daltonkdwyer@192.168.1.52 (OR pi@192... if haven't changed username)
+- Run this command: sudo nano /etc/wpa_supplicant/wpa_supplicant.conf 
+- Type in a new network (can copy and paste the below)
+        network={
+            ssid="You SSID Name"
+            psk="Your WiFI Password"
+            key_mgmt=WPA-PSK
+        }
 
 1. SUMMARY
 
