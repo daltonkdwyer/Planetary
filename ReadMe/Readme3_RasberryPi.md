@@ -3,6 +3,7 @@
     Chapters: 
     1. Downloading dependencies
     2. Run Flask server on a local terminal on bootup
+        - and make sure it auto updates Git every time
     3. Run Ngrok on bootup. The Flask server runs locally (127.0.0.1:5000), and it will need to be exposed to a public IP address
     4. Making Chromium (the Pi's browser) autoboot and go to the right Plntry URL
     
@@ -35,14 +36,23 @@ NOTE!!!: You should try to keep the pi's username as 'pi'. In one case you switc
     2. Commands to type:
         a) Go into the systemd folder, and create a new .service doc:
         | sudo nano /lib/systemd/system/app.service
-        b) Type in the relevant commands. Remember to use ctrl-x and 'Y' to save the file:        
-        [Unit]
-        Description=Start the Flask server
-        After=multi-user.target
-        [Service]
-        ExecStart=sudo -u pi python /home/pi/rc_car1/app.py    (OR put in daltonkdwyer instead of pi!!!)
-        [Install]
-        WantedBy=multi-user.target
+        b) Paste in the relevant commands. Remember to use ctrl-x and 'Y' to save the file:        
+            [Unit]
+            Description=Start the controls Flask server, and also automatically git update it
+            After=network-online.target
+
+            [Service]
+            Type=oneshot
+            ExecStartPre=/bin/bash -c 'until ping -c1 github.com >/dev/null 2>&1; do sleep 1; done'
+            ExecStart=/bin/sleep 1
+            ExecStart=sudo -u daltonkdwyer git -C /home/daltonkdwyer/rc_car1 fetch --all
+            ExecStart=sudo -u daltonkdwyer git -C /home/daltonkdwyer/rc_car1 reset --hard origin
+            ExecStart=/bin/sleep 1
+            ExecStart=sudo -u daltonkdwyer python /home/daltonkdwyer/rc_car1/app.py
+
+            [Install]
+            WantedBy=network-online.target
+
         c) And then do the following two commands:
             i) Tell systemd to recognize the service with (you will need to enter this command every time you change the file!!!)
             |sudo systemctl daemon-reload
@@ -50,6 +60,7 @@ NOTE!!!: You should try to keep the pi's username as 'pi'. In one case you switc
             |sudo systemctl enable app.service
     3. To see if everything's running correctly (USEFUL!!!) type in this:
         |systemctl status app.service
+    4. Auto-update for GIT:
 
 3. LAUNCH NGROK ON BOOTUP
 

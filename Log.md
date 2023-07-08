@@ -30,3 +30,7 @@
 
         -- June 24th: Spent all Saturday, and finally figured out latency controls (probably, haven't tested in prod yet) So, you had to use 'threading' in python to run a function in the background. That function checks the latency figure every second by itself, even if there is no heartbeat from the client. But it also doesn't block the rest of the threads from running! So, good news in general. This was a fun problem to fix
 
+        -- June 30th. Have done some really great work. Firstly, figured out how to automatically gir update the rc_car1 file every time the vehicle boots. You go into systemd, and make terminal commands to update Git using 'fetch' and reset --hard origin. But you have to wait until after the network is connected. So you tried doing:
+        After=network-online.target
+        But that didn't work so well. So instead you used this: ExecStartPre=/bin/bash -c 'until ping -c1 github.com >/dev/null 2>&1; do sleep 1; done'
+        Which waits until the Pi can ping github.com with a response. So only AFTER the pi is connected to a network will it try to do the gitupdate. Otherwise the terminal fails, and it doesn't start the flask server (which actually is probably bad... we should make those into separate files). Like, what if you want to run locally...
