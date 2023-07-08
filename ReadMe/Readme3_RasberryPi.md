@@ -36,7 +36,7 @@ NOTE!!!: You should try to keep the pi's username as 'pi'. In one case you switc
     2. Commands to type:
         a) Go into the systemd folder, and create a new .service doc:
         | sudo nano /lib/systemd/system/app.service
-        b) Paste in the relevant commands. Remember to use ctrl-x and 'Y' to save the file:        
+        b) Paste in the relevant commands. These commands wait until the Pi can connect to Github, then updates the code from Git, and then runs the Flask server. Remember to use ctrl-x and 'Y' to save the file:        
             [Unit]
             Description=Start the controls Flask server, and also automatically git update it
             After=network-online.target
@@ -60,7 +60,6 @@ NOTE!!!: You should try to keep the pi's username as 'pi'. In one case you switc
             |sudo systemctl enable app.service
     3. To see if everything's running correctly (USEFUL!!!) type in this:
         |systemctl status app.service
-    4. Auto-update for GIT:
 
 3. LAUNCH NGROK ON BOOTUP
 

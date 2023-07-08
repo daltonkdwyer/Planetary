@@ -31,6 +31,7 @@ Broadly, this project consists of three components:
 
 3. GENERAL NOTES
 
+- Can't run this locally! Need a connection to Github, bc the pi will wait till it has a connection to that website to update the git files, before running the commands flask server
 - Does not support Chromium! 'On key up' events don't trigger anything
 - To see what Python scripts are running on the Pi, use this command: ps -aef | grep python
 - To stop a process, use 'kill <process ID>'. The process ID is the number in the second column above, maybe 462.
