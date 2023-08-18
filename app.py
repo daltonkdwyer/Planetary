@@ -114,7 +114,6 @@ def message(client_payload):
         socket.send(server_payload)
         socket.emit("I'm a TEST GORILLA", sender_socket_id)
 
-
 @socket.on('disconnect')
 def disconnect():
     global room_dict
@@ -151,6 +150,3 @@ def disconnect():
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
-
-
-# Got here Tues night: disconnect is working mostly. Next step: figure out a way that if the Car connects and disconnects, the driver can stay?
