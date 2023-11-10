@@ -41,8 +41,7 @@ socket.on('connect', function(){
     let data = {"Socket.id":socket.id, "Room_id":room_id}
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
-    console.log("Connecting to socket server")
-    document.getElementById('logging-messages').innerText = `Connecting to socket server`;
+    document.getElementById('WebRTC-logging-messages').innerText = `Connecting to socket server`;
 
     socket.send(payload)
 }) 
@@ -54,6 +53,8 @@ socket.on('message', function(server_payload){
 
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
+
+        document.getElementById('WebRTC-logging-messages').innerText = server_data["Error Description"];
     }
     // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins 
     else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){

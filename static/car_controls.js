@@ -9,19 +9,19 @@ else {
 }
 
 direction_socket_server.on('connect', function() {
-    document.getElementById('server-message').innerText = `Connected to Server!`;
+    document.getElementById('server-message').innerText = `Connected to Car Socket Server via Ngrok`;
     console.log('Connected to server 1');
 });
 
 direction_socket_server.on('disconnect', function() {
-    document.getElementById('server-message').innerText = `Disconnected from Server!`;
+    document.getElementById('server-message').innerText = `Disconnected from Car Socket Server`;
     console.log('Disconnected');
 });
 
 direction_socket_server.on('Server message', function(message) {
     if (message["Message"] == "Latency"){
         let latencyNumber = message["Data"]
-        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
+        document.getElementById('latency-indicator').innerText = `Socket Latency: ${latencyNumber}ms`;
     }
     if (message["Message"] == "Message"){
         console.log(message["Data"])
