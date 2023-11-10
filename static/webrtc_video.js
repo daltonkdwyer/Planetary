@@ -42,7 +42,7 @@ socket.on('connect', function(){
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
     console.log("Connecting to socket server")
-    document.getElementById('webrtc-message').innerText = `Connecting to socket server`;
+    document.getElementById('logging-messages').innerText = `Connecting to socket server`;
 
     socket.send(payload)
 }) 
