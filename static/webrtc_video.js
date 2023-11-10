@@ -51,23 +51,26 @@ socket.on('message', function(server_payload){
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
 
+    document.getElementById('webrtc-logging-message').innerText = server_message;
+
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
 
-        document.getElementById('WebRTC-logging-messages').innerText = server_data["Error Description"];
+        document.getElementById('webrtc-logging-message').innerText = server_data["Error Description"];
     }
     // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins 
     else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){
         user_type = 'CAR'
         global_browser_ID = 'CAR'
         createPeer()
-        document.getElementById('webrtc-message').innerText = `You are identified as the car`;
+        document.getElementById('webrtc-message').innerText = `This browser is identified as the car. If a human is seeing this, the car has not connected to the WebRTC server`;
     }
     // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
     else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
         user_type = 'DRIVER'
         global_browser_ID = 'DRIVER'
         createOffer()
+        
         document.getElementById('webrtc-message').innerText = `Recieved offer from car`;
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
