@@ -42,6 +42,10 @@ function moveVehicle(direction) {
     console.log("Move command: ", direction)
     }
 
+function remoteReboot(){
+    direction_socket_server.emit('reboot')
+}
+
 document.addEventListener('keydown', (e) => {
     // One of the below two functions prevents repeated POST requests from going through
     if (e.repeat) return;

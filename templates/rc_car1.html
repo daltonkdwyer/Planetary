@@ -24,6 +24,7 @@
     <div id="server-message"></div>
     <div id="webrtc-logging-message">:</div>
     <div id="test-div"></div>
+    <button id="rebootButton">Remote Reboot</button>
 </body>
 
 <script type="module" src="../static/webrtc_video.js"></script>
@@ -36,6 +37,7 @@
     // Lets you easily run the flask socket server locally. Don't need to do anything else but switch this to 'True'
     let global_controlsSocket_run_local = "FALSE"
     // 
+    document.getElementById('rebootButton').addEventListener('click', remoteReboot);
   
   </script>
 </html>
