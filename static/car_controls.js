@@ -43,7 +43,7 @@ function moveVehicle(direction) {
     }
 
 function remoteReboot(){
-    direction_socket_server.emit('reboot')
+    direction_socket_server.emit('reboot');
 }
 
 document.addEventListener('keydown', (e) => {
