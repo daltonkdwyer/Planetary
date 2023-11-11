@@ -45,6 +45,7 @@ function moveVehicle(direction) {
 
 function remoteReboot(){
     direction_socket_server.emit('reboot');
+    console.log("Sending reboot command")
 }
 document.getElementById('rebootButton').addEventListener('click', remoteReboot);
 
