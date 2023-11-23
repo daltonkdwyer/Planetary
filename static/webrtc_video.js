@@ -72,6 +72,7 @@ socket.on('message', function(server_payload){
         createOffer()
         
         document.getElementById('webrtc-message').innerText = `Recieved offer from car`;
+        createLogMessage('`Recieved offer from car`')
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
     else if (server_message === 'OFFER' && user_type == 'CAR'){
@@ -155,6 +156,7 @@ function acceptNewIceCandidate(ice_candidate){
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
     console.log("Adding a new ICE candidate from the remote person: ", candidate)
+    createLogMessage("New Ice candidate: " + ice_candidate)
 }
 
 const logArea = document.getElementById('log-area');
@@ -162,7 +164,7 @@ function createLogMessage(message){
     const logMessage = document.createElement('div')
     logMessage.textContent = message;
     logArea.appendChild(logMessage);
-
+ 
     // Scroll to the bottom to show the newest log
     logArea.scrollTop = logArea.scrollHeight;
 }
