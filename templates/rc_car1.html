@@ -18,6 +18,8 @@
     <div id="webrtc-message" >Welcome to the Plntry Car!</div>
     <div id="server-message"></div>
     <div id="webrtc-logging-message">:</div>
+    <div id="log-area"></div>
+
 </body>
 
 <script type="module" src="../static/webrtc_video.js"></script>
@@ -29,6 +31,19 @@
     let global_browser_ID = "UNKNOWN"; 
     // Lets you easily run the flask socket server locally. Don't need to do anything else but switch this to 'True'
     let global_controlsSocket_run_local = "FALSE"
+
+    // Reference to the log area
+    const logArea = document.getElementById('log-area');
+
+    // Function to append a log message to the log area
+    function appendLogMessage(message) {
+        const logMessage = document.createElement('div');
+        logMessage.textContent = message;
+        logArea.appendChild(logMessage);
+
+        // Scroll to the bottom to show the newest log
+        logArea.scrollTop = logArea.scrollHeight;
+    }
   
   </script>
 </html>
