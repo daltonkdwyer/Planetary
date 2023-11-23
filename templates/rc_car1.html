@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RC_Car1!</title>
     <style>
+      #remote_video {
+        width: 640px;
+        height: 480px;
+        position: relative
+      }
       #log-area {
         width: 80%;
         margin: 0 auto;
@@ -18,7 +23,7 @@
         font-family: monospace;
         overflow-y: auto; /* Enable vertical scrollbar */
         max-height: 10em; /* Set maximum height to display 10 lines at a time */
-}
+      }
     </style>
 </head>
 <body>
@@ -45,18 +50,7 @@
     // Lets you easily run the flask socket server locally. Don't need to do anything else but switch this to 'True'
     let global_controlsSocket_run_local = "FALSE"
 
-    // Reference to the log area
-    const logArea = document.getElementById('log-area');
 
-    // Function to append a log message to the log area
-    function appendLogMessage(message) {
-        const logMessage = document.createElement('div');
-        logMessage.textContent = message;
-        logArea.appendChild(logMessage);
-
-        // Scroll to the bottom to show the newest log
-        logArea.scrollTop = logArea.scrollHeight;
-    }
   
   </script>
 </html>

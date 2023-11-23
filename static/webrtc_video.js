@@ -160,6 +160,9 @@ function acceptNewIceCandidate(ice_candidate){
 const logArea = document.getElementById('log-area');
 function createLogMessage(message){
     const logMessage = document.createElement('div')
-    logMessage.textContent = message
-    log
+    logMessage.textContent = message;
+    logArea.appendChild(logMessage);
+
+    // Scroll to the bottom to show the newest log
+    logArea.scrollTop = logArea.scrollHeight;
 }
