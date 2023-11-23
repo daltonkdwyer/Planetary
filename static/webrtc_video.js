@@ -156,7 +156,7 @@ function acceptNewIceCandidate(ice_candidate){
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
     console.log("Adding a new ICE candidate from the remote person: ", candidate)
-    createLogMessage(ice_candidate)
+    createLogMessage("Adding a new Ice Candidate: ", candidate)
 }
 
 const logArea = document.getElementById('log-area');
