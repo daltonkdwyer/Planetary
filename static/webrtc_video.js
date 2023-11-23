@@ -156,3 +156,10 @@ function acceptNewIceCandidate(ice_candidate){
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
     console.log("Adding a new ICE candidate from the remote person: ", candidate)
 }
+
+const logArea = document.getElementById('log-area');
+function createLogMessage(message){
+    const logMessage = document.createElement('div')
+    logMessage.textContent = message
+    log
+}
