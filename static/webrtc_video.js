@@ -161,7 +161,8 @@ function acceptNewIceCandidate(ice_candidate){
 
 function createLogMessage(message, object){
     time = returnTimeString()
-    logMessage = time + ": " + message + object
+    objectString = JSON.stringify(object)
+    logMessage = time + ": " + message + objectString
     printLogMessage(logMessage)
 }
 
@@ -174,7 +175,6 @@ function printLogMessage(message){
     // Scroll to the bottom to show the newest log
     logArea.scrollTop = logArea.scrollHeight;
 }
-
 
 function returnTimeString(){
     const currentTimeUtc = new Date();
