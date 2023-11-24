@@ -43,7 +43,9 @@ socket.on('connect', function(){
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
     document.getElementById('webrtc-logging-message').innerText = `Connecting to socket server`;
-    createLogMessage("Connecting to socket server with Socket ID: " + socket.id)
+    incomingMessageElement.textContent = `Connecting to socket server`;
+
+    createLogMessage("Browser Socket ID: " + socket.id)
 
     socket.send(payload)
 }) 
@@ -165,11 +167,11 @@ function createLogMessage(message, object){
     let currentTime = returnTimeString()
     let logMessage
     if (typeof object === 'undefined'){
-        logMessage = currentTime + ": " + message
+        logMessage = currentTime + " >>  " + message
     }
     else{
         let objectString = JSON.stringify(object)
-        logMessage = currentTime + ": " + message + objectString
+        logMessage = currentTime + " >>  " + message + objectString
     }
     printLogMessage(logMessage)
 }
