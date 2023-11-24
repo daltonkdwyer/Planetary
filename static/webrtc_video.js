@@ -2,7 +2,6 @@ let room_id = "rc_car1"
 let user_type
 let peerConnection
 let localStream
-const incomingMessageElement = document.getElementById('incoming-message')
 
 const servers = {
     // STUN server is what you reach out to to get your local address
@@ -39,14 +38,13 @@ const servers = {
 var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
-socket.on('connect', function(){
+socket.on('connect', function() {
     createLogMessage("Connecting to Socket Server: https://plntry.herokuapp.com/")
     let data = {"Socket.id":socket.id, "Room_id":room_id}
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
-    document.getElementById('webrtc-logging-message').innerText = `Connecting to socket server`;
-    incomingMessageElement.textContent = `Connecting to socket server`;
 
+    createStatusMessage('Connecting to socket server')
     createLogMessage("Browser Socket ID: " + socket.id)
 
     socket.send(payload)
@@ -179,7 +177,7 @@ function createLogMessage(message, object){
 }
 
 const logArea = document.getElementById('log-area');
-// Incoming log messages should already be in form of Time|Message|Log
+
 function printLogMessage(message){
     const logMessage = document.createElement('div')
     logMessage.textContent = message;
@@ -195,4 +193,11 @@ function returnTimeString(){
     const currentTimeEst = currentTimeUtc.toLocaleString(undefined, options);
 
     return currentTimeEst
+}
+
+// A status message just shows up once, and then is overridden (unlike a log message, which is saved)
+const incomingMessageElement = document.getElementById('webrtc-server-status')
+
+function createStatusMessage(message){
+    incomingMessageElement.textContent = message
 }
