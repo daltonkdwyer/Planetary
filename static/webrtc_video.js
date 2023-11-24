@@ -159,12 +159,28 @@ function acceptNewIceCandidate(ice_candidate){
     createLogMessage("Adding a new Ice Candidate: ", candidate)
 }
 
+function createLogMessage(message, object){
+    time = returnTimeString()
+    logMessage = time + ": " + message + object
+    printLogMessage(logMessage)
+}
+
 const logArea = document.getElementById('log-area');
-function createLogMessage(message){
+// Incoming log messages should already be in form of Time|Message|Log
+function printLogMessage(message){
     const logMessage = document.createElement('div')
     logMessage.textContent = message;
     logArea.appendChild(logMessage);
- 
     // Scroll to the bottom to show the newest log
     logArea.scrollTop = logArea.scrollHeight;
+}
+
+
+function returnTimeString(){
+    const currentTimeUtc = new Date();
+    const timeZone = 'America/New_York';
+    const options = { timeZone: timeZone, timeStyle: 'medium', hour12: false };
+    const currentTimeEst = currentTimeUtc.toLocaleString(undefined, options);
+
+    return currentTimeEst
 }
