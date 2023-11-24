@@ -38,10 +38,12 @@ var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
 socket.on('connect', function(){
+    createLogMessage("Connecting to Socket Server: https://plntry.herokuapp.com/")
     let data = {"Socket.id":socket.id, "Room_id":room_id}
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
     document.getElementById('webrtc-logging-message').innerText = `Connecting to socket server`;
+    createLogMessage("Connecting to socket server with Socket ID: " + socket.id)
 
     socket.send(payload)
 }) 
@@ -156,7 +158,7 @@ function acceptNewIceCandidate(ice_candidate){
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
     console.log("Adding a new ICE candidate from the remote person: ", candidate)
-    createLogMessage("Adding a new Ice Candidate: ", candidate)
+    createLogMessage("Recieved a new Ice Candidate from vehicle: ", candidate)
 }
 
 function createLogMessage(message, object){
