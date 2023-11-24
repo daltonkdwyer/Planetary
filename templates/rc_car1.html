@@ -35,6 +35,7 @@
     <div id="latency-indicator">No incoming heartbeat from car websocket</div>
 
     <p id="message-container">Message Received: <span id="incoming-message"></span></p>
+    
 
     <div id="webrtc-message" >Welcome to the Plntry Car!</div>
     <div id="server-message"></div>
@@ -48,6 +49,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
   <script>
+    const incomingMessageElement = document.getElementById('incoming-message')
     // Makes the browser stateful! Let's you know if you're the 'DRIVER' or 'CAR'  
     let global_browser_ID = "UNKNOWN"; 
     // Lets you easily run the flask socket server locally. Don't need to do anything else but switch this to 'True'

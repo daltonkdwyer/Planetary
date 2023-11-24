@@ -2,6 +2,8 @@ let room_id = "rc_car1"
 let user_type
 let peerConnection
 let localStream
+const incomingMessageElement = document.getElementById('incoming-message')
+
 const servers = {
     // STUN server is what you reach out to to get your local address
     // TURN server is used to 'relay' traffic if a direct connection can't be made between the peers
