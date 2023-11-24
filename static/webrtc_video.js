@@ -161,7 +161,7 @@ function acceptNewIceCandidate(ice_candidate){
 
 function createLogMessage(message, object){
     let currentTime = returnTimeString()
-    if (!object){
+    if (typeof object === 'undefined'){
         object = ""
     }
     let objectString = JSON.stringify(object)
