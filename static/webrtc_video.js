@@ -39,12 +39,12 @@ var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
 socket.on('connect', function() {
-    createLogMessage("Connecting to Socket Server: https://plntry.herokuapp.com/")
     let data = {"Socket.id":socket.id, "Room_id":room_id}
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
 
-    createStatusMessage('Connecting to socket server')
+    createStatusMessage('Connecting to Socket Server')
+    createLogMessage("Connecting to WebRTC Socket Server: https://plntry.herokuapp.com/")
     createLogMessage("Browser Socket ID: " + socket.id)
 
     socket.send(payload)
@@ -55,19 +55,19 @@ socket.on('message', function(server_payload){
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
 
-    document.getElementById('webrtc-logging-message').innerText = server_message;
+    createLogMessage(server_message, server_data)
 
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
-
-        document.getElementById('webrtc-logging-message').innerText = server_data["Error Description"];
+        createStatusMessage('Error occured. Check logs')
+        createLogMessage("ERROR. See above")
     }
     // STEP ONE: First person (CAR) creates peer, and then waits till a second person (DRIVER) joins 
     else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){
         user_type = 'CAR'
         global_browser_ID = 'CAR'
         createPeer()
-        document.getElementById('webrtc-message').innerText = `This browser is identified as the car. If a human is seeing this, the car has not connected to the WebRTC server`;
+        createStatusMessage('This browser is identified as the car. If a human is seeing this, the car has not connected to the WebRTC server')
     }
     // STEP TWO: Second person (DRIVER) joins, creates a peer and offer, and sends it back to first person (CAR)
     else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
@@ -75,24 +75,29 @@ socket.on('message', function(server_payload){
         global_browser_ID = 'DRIVER'
         createOffer()
         
+        
         document.getElementById('webrtc-message').innerText = `Recieved offer from car`;
-        createLogMessage('`Recieved offer from car`')
+        createLogMessage('Recieved offer from car')
+        createStatusMessage('Recieved offer from car')
+
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
     else if (server_message === 'OFFER' && user_type == 'CAR'){
         acceptOFFERcreateANSWER(server_data["Offer"])
+        createStatusMessage("You are the Vehicle, and you have just accepted an offer from the Driver")
     }
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data["Answer"])
         document.getElementById('webrtc-message').innerText = `Connection established with car`;
+        createStatusMessage('Connection established with car')
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
         acceptNewIceCandidate(server_data['New Ice Candidate'])
     }
     else if (server_message === "User Message" && user_type == 'DRIVER')
-        document.getElementById('webrtc-message').innerText = server_data["Data"];
+        createStatusMessage(server_data["Data"])
 })
 
 async function createPeer(){
@@ -169,15 +174,18 @@ function createLogMessage(message, object){
     if (typeof object === 'undefined'){
         logMessage = currentTime + " >>  " + message
     }
-    else{
+    else if (typeof object === 'string'){
+        logMessage = currentTime + " >>  " + message + object
+    }
+    else {
         let objectString = JSON.stringify(object)
         logMessage = currentTime + " >>  " + message + objectString
     }
     printLogMessage(logMessage)
 }
 
+// A log message is saved
 const logArea = document.getElementById('log-area');
-
 function printLogMessage(message){
     const logMessage = document.createElement('div')
     logMessage.textContent = message;
@@ -197,7 +205,6 @@ function returnTimeString(){
 
 // A status message just shows up once, and then is overridden (unlike a log message, which is saved)
 const incomingMessageElement = document.getElementById('webrtc-server-status')
-
 function createStatusMessage(message){
     incomingMessageElement.textContent = message
 }
