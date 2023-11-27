@@ -43,8 +43,8 @@ socket.on('connect', function() {
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
 
-    createStatusMessage('Connecting to Socket Server')
-    createLogMessage("Connecting to WebRTC Socket Server: https://plntry.herokuapp.com/")
+    createStatusMessage('Connected to Socket Server')
+    createLogMessage("Connected to WebRTC Socket Server: https://plntry.herokuapp.com/")
     createLogMessage("Browser Socket ID: " + socket.id)
 
     socket.send(payload)
@@ -75,8 +75,6 @@ socket.on('message', function(server_payload){
         global_browser_ID = 'DRIVER'
         createOffer()
         
-        
-        document.getElementById('webrtc-message').innerText = `Recieved offer from car`;
         createLogMessage('Recieved offer from car')
         createStatusMessage('Recieved offer from car')
 
@@ -84,17 +82,18 @@ socket.on('message', function(server_payload){
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
     else if (server_message === 'OFFER' && user_type == 'CAR'){
         acceptOFFERcreateANSWER(server_data["Offer"])
-        createStatusMessage("You are the Vehicle, and you have just accepted an offer from the Driver")
+        createStatusMessage("You are the Vehicle , and you have just accepted an offer from the Driver")
     }
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data["Answer"])
-        document.getElementById('webrtc-message').innerText = `Connection established with car`;
         createStatusMessage('Connection established with car')
+        createLogMessage('Connection established with car')
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
         acceptNewIceCandidate(server_data['New Ice Candidate'])
+        createLogMessage('Accepted new ICE candidate', server_data['New Ice Candidate'])
     }
     else if (server_message === "User Message" && user_type == 'DRIVER')
         createStatusMessage(server_data["Data"])
