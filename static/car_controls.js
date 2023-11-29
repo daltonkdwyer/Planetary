@@ -9,12 +9,12 @@ else {
 }
 
 direction_socket_server.on('connect', function() {
-    document.getElementById('server-message').innerText = `Connected to Car Socket Server via Ngrok`;
+    createStatusMessage(`Connected to Car Socket Server via Ngrok`)
     console.log('Connected to server 1');
 });
 
 direction_socket_server.on('disconnect', function() {
-    document.getElementById('server-message').innerText = `Disconnected from Car Socket Server`;
+    createStatusMessage("Disconnected from car socket server")
     console.log('Disconnected');
 });
 
@@ -25,7 +25,7 @@ direction_socket_server.on('Server message', function(message) {
     }
     if (message["Message"] == "Message"){
         console.log(message["Data"])
-        document.getElementById('server-message').innerText = message["Data"];
+        createStatusMessage(message["Data"])
     }
 });
 
@@ -46,6 +46,8 @@ function moveVehicle(direction) {
 function remoteReboot(){
     direction_socket_server.emit('reboot');
     console.log("Sending reboot command")
+    createStatusMessage("Sending reboot command")
+    createLogMessage("Remote Reboot command sent")
 }
 document.getElementById('rebootButton').addEventListener('click', remoteReboot);
 
@@ -86,3 +88,45 @@ window.addEventListener('keyup', function (event) {
 
     event.preventDefault();
 }, true)
+
+// Create status message
+const incomingMessageElement = document.getElementById('controls-server-status')
+function createStatusMessage(message){
+    incomingMessageElement.textContent = message
+}
+
+// Create logging message
+function createLogMessage(message, object){
+    let currentTime = returnTimeString()
+    let logMessage
+    if (typeof object === 'undefined'){
+        logMessage = currentTime + " >>  " + message
+    }
+    else if (typeof object === 'string'){
+        logMessage = currentTime + " >>  " + message + object
+    }
+    else {
+        let objectString = JSON.stringify(object)
+        logMessage = currentTime + " >>  " + message + objectString
+    }
+    printLogMessage(logMessage)
+}
+
+// A log message is saved
+const logArea = document.getElementById('log-area');
+function printLogMessage(message){
+    const logMessage = document.createElement('div')
+    logMessage.textContent = message;
+    logArea.appendChild(logMessage);
+    // Scroll to the bottom to show the newest log
+    logArea.scrollTop = logArea.scrollHeight;
+}
+
+function returnTimeString(){
+    const currentTimeUtc = new Date();
+    const timeZone = 'America/New_York';
+    const options = { timeZone: timeZone, timeStyle: 'medium', hour12: false };
+    const currentTimeEst = currentTimeUtc.toLocaleString(undefined, options);
+
+    return currentTimeEst
+}

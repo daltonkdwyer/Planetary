@@ -106,6 +106,7 @@ async function createPeer(){
     peerConnection.onicecandidate = send_ICE_candidates
     peerConnection.onconnectionstatechange = function () {
         console.log("CONNECTION STATE CHANGE: ", peerConnection.connectionState)
+        createLogMessage("Connection State Change: " + peerConnection.connectionState)
     };
     // To not show dual videos, comment out the below (video still gets sent, just not displayed)
     if (user_type == 'DRIVER'){
