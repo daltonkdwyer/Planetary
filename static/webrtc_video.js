@@ -55,7 +55,7 @@ socket.on('message', function(server_payload){
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
 
-    createLogMessage(server_message, server_data)
+    // createLogMessage(server_message, server_data)
 
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
@@ -66,6 +66,7 @@ socket.on('message', function(server_payload){
     else if (server_message === 'Initiate_CAR' && user_type != 'DRIVER'){
         user_type = 'CAR'
         global_browser_ID = 'CAR'
+        // Create a blank peer ready to receive an offer. But don't send anything
         createPeer()
         createStatusMessage('This browser is identified as the car. If a human is seeing this, the car has not connected to the WebRTC server')
     }
@@ -73,30 +74,31 @@ socket.on('message', function(server_payload){
     else if (server_message === 'Initiate_DRIVER' && user_type != 'CAR'){
         user_type = 'DRIVER'
         global_browser_ID = 'DRIVER'
-        createOffer()
+        createLogMessage('Browser identified as the driver')
+        createLogMessage('Creating a peer and then an offer to send to the car')
+        createStatusMessage('Creating an offer to send to the car')
         
-        createLogMessage('Recieved offer from car')
-        createStatusMessage('Recieved offer from car')
-
+        createOffer()
     }
     // STEP THREE: First person (CAR) gets the offer, attaches it to the peer, and sends the answer to second person (DRIVER)
     else if (server_message === 'OFFER' && user_type == 'CAR'){
         acceptOFFERcreateANSWER(server_data["Offer"])
-        createStatusMessage("You are the Vehicle , and you have just accepted an offer from the Driver")
+        createStatusMessage("You are the Vehicle, and you have just accepted an offer from the Driver")
     }
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data["Answer"])
-        createStatusMessage('Connection established with car')
-        createLogMessage('Connection established with car')
+        createStatusMessage('WebRTC peer-to-peer connection established with car')
+        createLogMessage('WebRTC peer-to-peer connection established with car')
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
         acceptNewIceCandidate(server_data['New Ice Candidate'])
-        createLogMessage('Accepted new ICE candidate', server_data['New Ice Candidate'])
+        createLogMessage('Accepted new ICE candidate: ', server_data['New Ice Candidate'])
     }
     else if (server_message === "User Message" && user_type == 'DRIVER')
         createStatusMessage(server_data["Data"])
+        createLogMessage(server_data["Data"])
 })
 
 async function createPeer(){
@@ -124,11 +126,15 @@ async function createPeer(){
 
 async function createOffer(){
     await createPeer()
+    createStatusMessage("Creating peer")
+    createLogMessage("Creating an peer")
     let offer = await peerConnection.createOffer()
     await peerConnection.setLocalDescription(offer)
     let message = "Offer"
     let data = {"Room_id":room_id, "Offer":offer}
     let payload = {"Message":message, "Data":data}
+    createLogMessage("Creating an offer: ", payload)
+    createStatusMessage("Creating offer")
     socket.send(payload)
 }
 
@@ -146,6 +152,8 @@ async function acceptOFFERcreateANSWER(offer){
 function acceptANSWER(answer){
     const remoteAnswer = new RTCSessionDescription(answer)
     peerConnection.setRemoteDescription(remoteAnswer)
+    createLogMessage("Accepting answer: ", remoteAnswer)
+    createStatusMessage("Accepting answer from car. Peer connection should be established")
 }
 
 function send_ICE_candidates(e){
@@ -155,6 +163,7 @@ function send_ICE_candidates(e){
         let data = {"Ice Candidate":new_ice_candidate, "Socket.id":socket.id}
         let payload = {"Message":message, "Data":data}
         console.log("Sending new ice candidates to server: ", new_ice_candidate)
+        createLogMessage("Sending out an ICE candidate", payload)
         socket.send(payload)
     }
 }
@@ -163,7 +172,6 @@ function acceptNewIceCandidate(ice_candidate){
     let candidate = new RTCIceCandidate(ice_candidate)
     peerConnection.addIceCandidate(candidate)
         .catch(e => console.log("I'm an ERROR something happened on adding ice candidate", e));
-    console.log("Adding a new ICE candidate from the remote person: ", candidate)
     createLogMessage("Recieved a new Ice Candidate from vehicle: ", candidate)
 }
 
