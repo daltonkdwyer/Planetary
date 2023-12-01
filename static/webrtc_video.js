@@ -88,7 +88,7 @@ socket.on('message', function(server_payload){
     // STEP FOUR: Second person (DRIVER) finally gets the answer
     else if (server_message === 'ANSWER' && user_type == 'DRIVER'){
         acceptANSWER(server_data["Answer"])
-        createStatusMessage('ONLINE (WebRTC peer-to-peer connection established with car')
+        createStatusMessage('ONLINE')
         createLogMessage('WebRTC peer-to-peer connection established with car')
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer

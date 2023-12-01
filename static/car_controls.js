@@ -9,7 +9,7 @@ else {
 }
 
 direction_socket_server.on('connect', function() {
-    createStatusMessage(`ONLINE (Connected to Car Socket Server via Ngrok)`)
+    createStatusMessage(`ONLINE (via Ngrok)`)
     console.log('Connected to server 1');
 });
 
@@ -40,7 +40,6 @@ setInterval(function() {
 function moveVehicle(direction) {
     direction_socket_server.emit('move_command', {data: direction})
     console.log("Move command: ", direction)
-    createLogMessage("Move command: " + direction)
 }
 
 function remoteReboot(){
