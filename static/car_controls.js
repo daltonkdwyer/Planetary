@@ -12,7 +12,7 @@ direction_socket_server.on('connect', function() {
     createStatusMessage(`ONLINE (via Ngrok)`)
     console.log('Connected to server 1');
 });
-
+https://plntry33.ngrok.io
 direction_socket_server.on('disconnect', function() {
     createStatusMessage("Disconnected from car socket server")
     console.log('Disconnected');

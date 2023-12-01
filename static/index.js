@@ -7,8 +7,7 @@ car1_socket_server = io('https://plntry33.ngrok.io');
 const car1status = document.getElementById("Car1 status")
 
 car1_socket_server.on('connect', function(){
-    car1status.textContent = "Connected"
-    console.log("I'm a monkey!")
+    car1status.textContent = "Connected to Car1 WebSocket!"
 })
 
 car1_socket_server.on ('disconnect', function(){
@@ -16,4 +15,4 @@ car1_socket_server.on ('disconnect', function(){
 })
 
 
-console.log("Homepage loaded correctly")
+console.log("Welcome to Plntry!")
