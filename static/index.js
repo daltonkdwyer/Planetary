@@ -8,6 +8,7 @@ const car1status = document.getElementById("Car1 status")
 
 car1_socket_server.on('connect', function(){
     car1status.textContent = "Connected"
+    console.log("I'm a monkey!")
 })
 
 car1_socket_server.on ('disconnect', function(){
