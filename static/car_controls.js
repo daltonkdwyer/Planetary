@@ -25,7 +25,8 @@ direction_socket_server.on('Server message', function(message) {
     }
     if (message["Message"] == "Message"){
         console.log(message["Data"])
-        createStatusMessage(message["Data"])
+        // createStatusMessage(message["Data"])
+        createLogMessage(message["Data"])
     }
 });
 
