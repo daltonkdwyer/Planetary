@@ -90,16 +90,13 @@ socket.on('message', function(server_payload){
         acceptANSWER(server_data["Answer"])
         createStatusMessage('ONLINE')
         createLogMessage('WebRTC peer-to-peer connection established with car')
-        peerConnection.getStats().then(stats=>{
-            let statsOutput = '';
-
-            stats.forEach((report) => {
-                Object.keys(report).forEach((statName) => {
-                    console.log(statName, ": ", report[statName])
+        peerConnection.getStats().then(statsReport=>{
+            statsReport.forEach((report) => {
+                Object.keys(report).forEach((metric) => {
+                    createLogMessage(metric + ": " + report[metric])
+                    console.log(statsReport)
                 })
             })
-
-            console.log('STATISTICS: ', results)
         })
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
