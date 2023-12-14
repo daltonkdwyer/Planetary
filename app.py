@@ -36,6 +36,10 @@ def reset():
     print(room_dict)
     return render_template('index.html')
 
+@app.route('/logs', methods=['GET', 'POST']
+def logs():
+    console.log("This is the logging webpage (hopefully)")
+
 @socket.on('message')
 def message(client_payload):
     global room_dict
