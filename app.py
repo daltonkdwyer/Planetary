@@ -39,7 +39,7 @@ def reset():
 @app.route('/logs', methods=['GET', 'POST'])
 def logs():
     print("Logging webpage activated")
-    return render_template('index.html')
+    return render_template('logs.html')
 
     
 @socket.on('message')
