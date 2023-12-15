@@ -39,7 +39,6 @@ def reset():
 @app.route('/logs', methods=['GET', 'POST'])
 def logs():
     print("Logging webpage activated")
-    return 
     
 @socket.on('message')
 def message(client_payload):
