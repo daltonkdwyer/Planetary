@@ -38,7 +38,17 @@ def reset():
 
 @app.route('/logs', methods=['GET', 'POST'])
 def logs():
-    print("Logging webpage activated")
+    if request.method == 'POST':
+        data1 = request
+        data2 = request.form
+        data3 = request.form.to_dict()
+        type_var = type(request.form)
+
+        server_message = "Heroku Log Message"
+        server_data = {"Request: ": data1, "Request.form: ": data2, "Request.form.todict()": data3, "Variable type of request.form": type_var}
+        server_payload = {"Message": server_message, "Data": server_data}
+        socket.send(server_payload)
+
     return render_template('logs.html')
 
     

@@ -55,8 +55,6 @@ socket.on('message', function(server_payload){
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
 
-    // createLogMessage(server_message, server_data)
-
     if (server_message === 'ERROR'){
         console.log("ERROR: ", server_data["Error Description"])
         createStatusMessage('Error occured. Check logs')

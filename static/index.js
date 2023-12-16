@@ -1,4 +1,5 @@
 // This is just the home page you can use to get to the cars
+console.log("Welcome to Plntry!")
 
 let car1_socket_server
 
@@ -14,5 +15,3 @@ car1_socket_server.on ('disconnect', function(){
     car1status.textContent = 'Disconnected from Vehicle'
 })
 
-
-console.log("Welcome to Plntry!")
