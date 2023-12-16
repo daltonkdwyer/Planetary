@@ -47,7 +47,7 @@ def logs():
         server_message = "Heroku Log Message"
         server_data = {"Request: ": data1, "Request.form: ": data2, "Request.form.todict()": data3, "Variable type of request.form": type_var}
         server_payload = {"Message": server_message, "Data": server_data}
-        socket.send(server_payload)
+        # socket.send(server_payload)
         return jsonify(server_data)
     
     # if request.method == 'GET':
