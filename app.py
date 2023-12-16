@@ -42,23 +42,22 @@ def logs():
     if request.method == 'POST':
         data1 = request
         data2 = request.form
-
-        log_to_send = jsonify(request.form)
-
         data3 = request.form.to_dict()
-        data4 = json.dumps(data2)
-        type_var = type(request.form)
+        data4 = json.dumps(data3)
+
+        type_var3 = type(data3)
+        type_var4 = type(data4)
 
         print(data1)
         print(data2)
         print("Data 3: " + str(data3))
-        print("Data 4: ", str(log_to_send))
-        print(type_var)
-
+        print("Data 3 Type: " + str(type_var3))
+        print("Data 4: ", str(data4))
+        print("Data 3 Type: " + str(type_var4))
 
         server_message = "Heroku Log Message"
         server_data = data4
-        server_payload = {"Message": server_message, "Data": log_to_send}
+        server_payload = {"Message": server_message, "Data": server_data}
 
         socket.emit("Heroku Log Message", server_payload)
 
