@@ -14,8 +14,10 @@ socket.on('Heroku Log Message', function(server_payload) {
 
     let server_data = server_payload["Data"]
 
+    let server_data_string = server_data.toString()
+
     console.log(server_data)
-    printLogMessage("Dum dum dum")
+    printLogMessage(server_data_string)
 });
 
 const logArea = document.getElementById('log-area');
