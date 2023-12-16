@@ -1,7 +1,7 @@
 var socket = io.connect('https://plntry.herokuapp.com/')
 
 socket.on('connect', function() {
-    console.log("Connected to Socket server")
+    console.log("Connected to Socket server via logging webpage")
 }) 
 
 socket.on('message', function(message){

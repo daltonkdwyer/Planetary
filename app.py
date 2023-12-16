@@ -52,7 +52,7 @@ def logs():
         test_data = "Hellow I'm a monkey"
         jsonifyed_data = jsonify(test_data)
 
-        return jsonify(jsonifyed_data)
+        return jsonifyed_data
     
     # if request.method == 'GET':
     #     server_message = "Heroku Log Message"
