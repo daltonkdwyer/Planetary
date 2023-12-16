@@ -51,11 +51,9 @@ def logs():
 
 
         server_message = "Heroku Log Message"
-        server_data = {"Request.form.todict()": data3}
+        server_data = data3
         server_payload = {"Message": server_message, "Data": server_data}
 
-
-        socket.send(server_payload)
         socket.emit("Heroku Log Message", server_payload)
 
         test_data = "Hellow I'm a monkey"
