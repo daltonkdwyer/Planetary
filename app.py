@@ -46,14 +46,17 @@ def logs():
 
         print(data1)
         print(data2)
-        print(data3)
+        print("Data 3: " + str(data3))
         print(type_var)
 
 
         server_message = "Heroku Log Message"
         server_data = {"Request.form.todict()": data3}
         server_payload = {"Message": server_message, "Data": server_data}
+
+
         socket.send(server_payload)
+        emit("Heroku Log Message", server_payload)
 
         test_data = "Hellow I'm a monkey"
         jsonifyed_data = jsonify(test_data)
