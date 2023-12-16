@@ -65,6 +65,7 @@ def logs():
     #     jsonifyed_data = jsonify(test_data)
 
     #     return jsonifyed_data
+    print("Test - there's a loop here somewhere")
 
     return render_template('logs.html')
 
