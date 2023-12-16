@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, jsonify, session
 from flask_socketio import SocketIO, send, emit
 import eventlet
 from eventlet import wsgi
@@ -48,6 +48,13 @@ def logs():
         server_data = {"Request: ": data1, "Request.form: ": data2, "Request.form.todict()": data3, "Variable type of request.form": type_var}
         server_payload = {"Message": server_message, "Data": server_data}
         socket.send(server_payload)
+    
+    if request.method == 'GET':
+        server_message = "Heroku Log Message"
+        server_data = {"Request: ": data1, "Request.form: ": data2, "Request.form.todict()": data3, "Variable type of request.form": type_var}
+        server_payload = {"Message": server_message, "Data": server_data}
+        socket.send(server_payload)
+
 
     return render_template('logs.html')
 

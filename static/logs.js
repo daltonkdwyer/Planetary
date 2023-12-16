@@ -4,6 +4,10 @@ socket.on('connect', function() {
     console.log("Connected to Socket server")
 }) 
 
+socket.on('message', function(message){
+    console.log(message)
+})
+
 socket.on('Heroku Log Message', function(server_payload) {
     console.log(server_payload)
     let server_message = server_payload["Message"]
