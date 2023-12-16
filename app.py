@@ -49,11 +49,11 @@ def logs():
         server_payload = {"Message": server_message, "Data": server_data}
         socket.send(server_payload)
     
-    if request.method == 'GET':
-        server_message = "Heroku Log Message"
-        server_data = {"This is a test!"}
-        server_payload = {"Message": server_message, "Data": server_data}
-        socket.send(server_payload)
+    # if request.method == 'GET':
+    #     server_message = "Heroku Log Message"
+    #     server_data = {"This is a test"}
+    #     server_payload = {"Message": server_message, "Data": server_data}
+    #     socket.send(server_payload)
 
 
     return render_template('logs.html')
