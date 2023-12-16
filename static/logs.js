@@ -31,6 +31,8 @@ function printLogMessage(message){
 }
 
 // Command to test:
-// curl -X POST -d "key1=value1&key2=value2" http://127.0.0.1:5000/logs
+// curl -X POST -d "key1=value1" https://plntry.herokuapp.com/logs
 
 
+
+// heroku drains:add https://plntry.herokuapp.com/logs -a plntry

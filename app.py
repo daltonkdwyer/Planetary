@@ -53,7 +53,7 @@ def logs():
         print("Data 3: " + str(data3))
         print("Data 3 Type: " + str(type_var3))
         print("Data 4: ", str(data4))
-        print("Data 3 Type: " + str(type_var4))
+        print("Data 4 Type: " + str(type_var4))
 
         server_message = "Heroku Log Message"
         server_data = data4
@@ -65,13 +65,6 @@ def logs():
         jsonifyed_data = jsonify(test_data)
 
         return jsonifyed_data
-    
-    # if request.method == 'GET':
-    #     server_message = "Heroku Log Message"
-    #     server_data = {"This is a test"}
-    #     server_payload = {"Message": server_message, "Data": server_data}
-    #     socket.send(server_payload)
-
 
     return render_template('logs.html')
 
