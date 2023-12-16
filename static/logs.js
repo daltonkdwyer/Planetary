@@ -16,7 +16,7 @@ socket.on('Heroku Log Message', function(server_payload) {
 
     let server_data_string = server_data.toString()
 
-    console.log(server_data)
+    console.log(server_data_string)
     printLogMessage(server_data_string)
 });
 

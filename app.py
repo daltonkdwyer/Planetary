@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, session
 from flask_socketio import SocketIO, send, emit
 import eventlet
 from eventlet import wsgi
+import json
 
 print("Coconut")
 
@@ -42,6 +43,7 @@ def logs():
         data1 = request
         data2 = request.form
         data3 = request.form.to_dict()
+        data4 = json.dumps(data3)
         type_var = type(request.form)
 
         print(data1)
@@ -51,12 +53,12 @@ def logs():
 
 
         server_message = "Heroku Log Message"
-        server_data = data3
+        server_data = data4
         server_payload = {"Message": server_message, "Data": server_data}
 
         socket.emit("Heroku Log Message", server_payload)
 
-        test_data = "Hellow I'm a monkey"
+        test_data = "Monkey recieved POST request"
         jsonifyed_data = jsonify(test_data)
 
         return jsonifyed_data
