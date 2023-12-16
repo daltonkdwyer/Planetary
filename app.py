@@ -47,10 +47,11 @@ def logs():
         print(data1)
         print(data2)
         print(data3)
+        print(type_var)
 
 
         server_message = "Heroku Log Message"
-        server_data = {"Request.form.todict()": data3, "Variable type of request.form": type_var}
+        server_data = {"Request.form.todict()": data3}
         server_payload = {"Message": server_message, "Data": server_data}
         socket.send(server_payload)
 
