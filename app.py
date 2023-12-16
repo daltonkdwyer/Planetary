@@ -44,6 +44,10 @@ def logs():
         data3 = request.form.to_dict()
         type_var = type(request.form)
 
+        print(data1)
+        print(data2)
+        print(data3)
+
 
 
         server_message = "Heroku Log Message"
