@@ -56,7 +56,7 @@ def logs():
 
 
         socket.send(server_payload)
-        emit("Heroku Log Message", server_payload)
+        socket.emit("Heroku Log Message", server_payload)
 
         test_data = "Hellow I'm a monkey"
         jsonifyed_data = jsonify(test_data)

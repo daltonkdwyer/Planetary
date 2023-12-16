@@ -9,6 +9,7 @@ socket.on('message', function(message){
 })
 
 socket.on('Heroku Log Message', function(server_payload) {
+    console.log("Got the sever Heorku log message finally!")
     console.log(server_payload)
     let server_message = server_payload["Message"]
     let server_data = server_payload["Data"]
