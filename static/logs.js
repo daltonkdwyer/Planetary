@@ -38,3 +38,4 @@ function printLogMessage(message){
 // heroku drains:add https://plntry.herokuapp.com/logs -a plntry
 // heroku drains:remove https://plntry.herokuapp.com/logs -a plntry
 
+// To see logs using CLI:  heroku logs --app=plntry --tail

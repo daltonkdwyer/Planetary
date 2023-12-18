@@ -37,3 +37,5 @@ Broadly, this project consists of three components:
 - To stop a process, use 'kill <process ID>'. The process ID is the number in the second column above, maybe 462.
 
 
+- To see the Heroku logs, put this into terminal (Heroku CLI tool needs to be installed):
+heroku logs --app=plntry --tail
