@@ -30,9 +30,11 @@ function printLogMessage(message){
     logArea.scrollTop = logArea.scrollHeight;
 }
 
+// Below are instructions to add and test log drains
 // Command to test:
 // curl -X POST -d "key1=value1" https://plntry.herokuapp.com/logs
 
 
-
 // heroku drains:add https://plntry.herokuapp.com/logs -a plntry
+// heroku drains:remove https://plntry.herokuapp.com/logs -a plntry
+

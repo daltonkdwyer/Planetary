@@ -7,6 +7,7 @@
 5) Made video larger
 6) Redid the ENTIRE webrtc architecture with own signalling server (took like a year)
 7) Added in a simple latency protection that sends client time to the server, compares it to the server time, and if more than 1000 milliseconds has passed, issues 'Stop' command (but note this is not super accurate)
+8) Forwarded logs to the frontend, but then had to remove as it was creating endless loop
 
 
 2. Captain's Log
@@ -30,7 +31,17 @@
 
         -- June 24th: Spent all Saturday, and finally figured out latency controls (probably, haven't tested in prod yet) So, you had to use 'threading' in python to run a function in the background. That function checks the latency figure every second by itself, even if there is no heartbeat from the client. But it also doesn't block the rest of the threads from running! So, good news in general. This was a fun problem to fix
 
-        -- June 30th. Have done some really great work. Firstly, figured out how to automatically gir update the rc_car1 file every time the vehicle boots. You go into systemd, and make terminal commands to update Git using 'fetch' and reset --hard origin. But you have to wait until after the network is connected. So you tried doing:
+        -- June 30th. Have done some really great work. Firstly, figured out how to automatically git update the rc_car1 file every time the vehicle boots. You go into systemd, and make terminal commands to update Git using 'fetch' and reset --hard origin. But you have to wait until after the network is connected. So you tried doing:
         After=network-online.target
         But that didn't work so well. So instead you used this: ExecStartPre=/bin/bash -c 'until ping -c1 github.com >/dev/null 2>&1; do sleep 1; done'
         Which waits until the Pi can ping github.com with a response. So only AFTER the pi is connected to a network will it try to do the gitupdate. Otherwise the terminal fails, and it doesn't start the flask server (which actually is probably bad... we should make those into separate files). Like, what if you want to run locally...
+
+        -- Dec 18th. You dived deep into how to show the Heroku log tails somehow on the frontend. It was too annoying to go onto the Heroku main webpage and SSO every time. 
+
+        So you forwarded the logs to the Server, which would send them to the frontend and display. The bad thing was, every time you sent a log to the Server, it would create a log, that would in turn be sent to the server, creating an endless loop! Bad. So you had to remove the logs.
+
+        To add logs you use this terminal command: heroku drains:add https://plntry.herokuapp.com/logs -a plntry
+        And to remove replace 'add' with 'remove'.
+        To test sending post requests, you can use 'curl'. Here is the terminal         command: 
+                curl -X POST -d "key1=value1" https://plntry.herokuapp.com/logs
+        Where the data being sent is in quotations. Note that you'll need to be able to accept POST requests at that endpoint
