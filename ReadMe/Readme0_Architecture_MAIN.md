@@ -17,6 +17,8 @@ The goal is to build a remotely operated toy car, you can drive from anywhere in
             key_mgmt=WPA-PSK
         }
 - Save using 'ctrl-o'? And then sudo reboot. Should connect
+- To see the Heroku logs, put this into terminal (Heroku CLI tool needs to be installed):
+heroku logs --app=plntry --tail
 
 1. SUMMARY
 
@@ -35,7 +37,5 @@ Broadly, this project consists of three components:
 - Does not support Chromium! 'On key up' events don't trigger anything
 - To see what Python scripts are running on the Pi, use this command: ps -aef | grep python
 - To stop a process, use 'kill <process ID>'. The process ID is the number in the second column above, maybe 462.
-
-
 - To see the Heroku logs, put this into terminal (Heroku CLI tool needs to be installed):
 heroku logs --app=plntry --tail
