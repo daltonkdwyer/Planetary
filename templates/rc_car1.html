@@ -24,8 +24,9 @@
         overflow-y: auto; /* Enable vertical scrollbar */
         max-height: 30em; /* Set maximum height to display 30 lines at a time */
       }
-      img {
-      display: none;
+      .arrow {
+            font-size: 48px;
+            display: none;
       }
     </style>
 </head>
@@ -37,11 +38,12 @@
         <video class='video-player' id="remote_video" autoplay playsinline></video>
   </div>
   <!-- Images for the arrows -->
-  <img id="leftArrow" src="Images/left_arrow.png" alt="Left Arrow" width="100" height="100">
-  <img id="rightArrow" src="Images/right_arrow.png" alt="Right Arrow" width="100" height="100">
-  <img id="upArrow" src="Images/up_arrow.png" alt="Up Arrow" width="100" height="100">
-  <img id="downArrow" src="Images/down_arrow.png" alt="Down Arrow" width="100" height="100">
-
+  <div id="arrowContainer">
+    <div id="leftArrow" class="arrow">&#8592;</div>
+    <div id="upArrow" class="arrow">&#8593;</div>
+    <div id="rightArrow" class="arrow">&#8594;</div>
+    <div id="downArrow" class="arrow">&#8595;</div>
+  </div>
   <div id="latency-indicator">No incoming heartbeat from car websocket</div>
 
   <p id="webrtc-message-container">WebRTC Status: <span id="webrtc-server-status"></span></p>
@@ -51,7 +53,9 @@
 </body>
 <script type="module" src="../static/webrtc_video.js"></script>
 <script type="module" src="../static/car_controls.js"></script>
-<script type="text/javascript" src="arrows.js"></script>
+<script type="module" src="../static/arrows.js"></script>
+
+<!-- <script type="text/javascript" src="arrows.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
   <script>
