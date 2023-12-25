@@ -24,9 +24,17 @@
         overflow-y: auto; /* Enable vertical scrollbar */
         max-height: 30em; /* Set maximum height to display 30 lines at a time */
       }
+     #container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
       .arrow {
-            font-size: 48px;
-            display: none;
+        font-size: 48px;
+        display: none;
       }
     </style>
 </head>
@@ -38,11 +46,13 @@
         <video class='video-player' id="remote_video" autoplay playsinline></video>
   </div>
   <!-- Images for the arrows -->
-  <div id="arrowContainer">
-    <div id="leftArrow" class="arrow">&#8592;</div>
-    <div id="upArrow" class="arrow">&#8593;</div>
-    <div id="rightArrow" class="arrow">&#8594;</div>
-    <div id="downArrow" class="arrow">&#8595;</div>
+  <div id="container">
+    <div id="arrowContainer">
+        <div id="leftArrow" class="arrow">&#8592;</div>
+        <div id="upArrow" class="arrow">&#8593;</div>
+        <div id="rightArrow" class="arrow">&#8594;</div>
+        <div id="downArrow" class="arrow">&#8595;</div>
+    </div>
   </div>
   <div id="latency-indicator">No incoming heartbeat from car websocket</div>
 

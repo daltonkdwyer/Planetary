@@ -1,3 +1,5 @@
+console.log("CHIMPANZEE")
+
 document.addEventListener('keydown', function(event) {
     // Get the arrow key code
     const keyCode = event.keyCode || event.which;
