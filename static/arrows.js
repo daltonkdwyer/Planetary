@@ -1,9 +1,9 @@
 document.addEventListener('keydown', function(event) {
     // Get the arrow key code
-    const keyName = event.key
+    const keyCode = event.keyCode || event.which;
 
     // Display the corresponding arrow
-    switch (keyName) {
+    switch (keyCode) {
         case 37: // Left Arrow
             showArrow('leftArrow');
             break;
