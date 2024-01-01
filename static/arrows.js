@@ -33,13 +33,7 @@ document.addEventListener('keyup', function(event) {
 function showArrow(arrowId) {
     // Hide all arrows first
     hideAllArrows();
-    if (arrowId === 'disarm'){
-        const textDiv = document.getElementById('arrowContainer')
-        if (textDiv){
-            textDiv.textContent = "Disarm!"
-        }
 
-    }
     // Display the specified arrow
     const arrowElement = document.getElementById(arrowId);
     if (arrowElement) {
@@ -53,9 +47,4 @@ function hideAllArrows() {
     arrows.forEach(function(arrow) {
         arrow.style.display = 'none';
     });
-    const textDiv = document.getElementById('arrowContainer')
-    if (textDiv){
-        textDiv.textContent = ""
-    }
-
 }
