@@ -2,6 +2,7 @@ console.log("CHIMPANZEE")
 
 document.addEventListener('keydown', function(event) {
     // Get the arrow key code
+    // Javascript is starting to deprecate(?) the below functions which is why they're crossed out
     const keyCode = event.keyCode || event.which;
 
     // Display the corresponding arrow
@@ -18,6 +19,9 @@ document.addEventListener('keydown', function(event) {
         case 40: // Down Arrow
             showArrow('downArrow');
             break;
+        case 68:
+            showArrow('disarm')
+            break;
     }
 });
 
@@ -29,7 +33,13 @@ document.addEventListener('keyup', function(event) {
 function showArrow(arrowId) {
     // Hide all arrows first
     hideAllArrows();
+    if (arrowId === 'disarm'){
+        const textDiv = document.getElementById('arrowContainer')
+        if (textDiv){
+            textDiv.textContent = "Disarm!"
+        }
 
+    }
     // Display the specified arrow
     const arrowElement = document.getElementById(arrowId);
     if (arrowElement) {
@@ -43,4 +53,9 @@ function hideAllArrows() {
     arrows.forEach(function(arrow) {
         arrow.style.display = 'none';
     });
+    const textDiv = document.getElementById('arrowContainer')
+    if (textDiv){
+        textDiv.textContent = ""
+    }
+
 }
