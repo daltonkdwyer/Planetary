@@ -226,3 +226,22 @@ function createStatusMessage(message){
     incomingMessageElement.textContent = message
 }
 
+async function getConnectionDetails(){
+    const stats = await peerConnection.getStats();
+    console.log("STATS BELOW IN SOME FORMAT?")
+    console.log(stats)
+    // let usingStun = false;
+    // let usingTurn = false;
+
+    // stats.forEach(report => {
+    //     if (report.type === 'candidate-pair' && report.state == 'succeeded'){
+    //         stats.
+    //     }
+    // })
+}
+
+async function updateConnectionDetails(){
+    const connectionDetails = await getConnectionDetails();
+
+}
+
