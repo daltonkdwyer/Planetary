@@ -225,3 +225,4 @@ const incomingMessageElement = document.getElementById('webrtc-server-status')
 function createStatusMessage(message){
     incomingMessageElement.textContent = message
 }
+
