@@ -228,8 +228,13 @@ function createStatusMessage(message){
 
 async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
-    console.log("STATS BELOW IN SOME FORMAT?")
-    console.log(stats)
+    console.log("STATS (report) BELOW IN SOME FORMAT?")
+    // console.log(stats)
+
+    stats.forEach(report => {
+        console.log(report)
+    })
+
     // let usingStun = false;
     // let usingTurn = false;
 
