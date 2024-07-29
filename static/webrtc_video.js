@@ -245,3 +245,5 @@ async function updateConnectionDetails(){
 
 }
 
+setInterval(updateConnectionDetails, 5000)
+
