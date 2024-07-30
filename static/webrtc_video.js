@@ -232,7 +232,22 @@ async function getConnectionDetails(){
     // console.log(stats)
 
     stats.forEach(report => {
-        console.log(report)
+        // console.log(report)
+        if (report.type === 'remote-candidate' && report.state === 'succeeded'){
+            console.log("IP Address of remote person: ", report.address, report.port)
+        }
+        if (report.type === 'candidate-pair' && report.state === 'succceeded'){
+            stats.forEach(candidate => {
+                if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
+                    if (candidate.candidateType === 'relay'){
+                        console.log("USING TURN")
+                    }
+                    else if (candidate.candidateType === 'srflx'){
+                        console.log("USING STUNN")
+                    }
+                }
+            })
+        }
     })
 
     // let usingStun = false;
@@ -249,6 +264,5 @@ async function updateConnectionDetails(){
     const connectionDetails = await getConnectionDetails();
 
 }
-
 setInterval(updateConnectionDetails, 5000)
 
