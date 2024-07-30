@@ -233,31 +233,22 @@ async function getConnectionDetails(){
 
     stats.forEach(report => {
         // console.log(report)
-        if (report.type === 'remote-candidate' && report.state === 'succeeded'){
+        if (report.type === 'remote-candidate'){
             console.log("IP Address of remote person: ", report.address, report.port)
         }
-        if (report.type === 'candidate-pair' && report.state === 'succceeded'){
-            stats.forEach(candidate => {
-                if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
-                    if (candidate.candidateType === 'relay'){
-                        console.log("USING TURN")
-                    }
-                    else if (candidate.candidateType === 'srflx'){
-                        console.log("USING STUNN")
-                    }
-                }
-            })
-        }
+        // if (report.type === 'candidate-pair' && report.state === 'succceeded'){
+        //     stats.forEach(candidate => {
+        //         if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
+        //             if (candidate.candidateType === 'relay'){
+        //                 console.log("USING TURN")
+        //             }
+        //             else if (candidate.candidateType === 'srflx'){
+        //                 console.log("USING STUNN")
+        //             }
+        //         }
+        //     })
+        // }
     })
-
-    // let usingStun = false;
-    // let usingTurn = false;
-
-    // stats.forEach(report => {
-    //     if (report.type === 'candidate-pair' && report.state == 'succeeded'){
-    //         stats.
-    //     }
-    // })
 }
 
 async function updateConnectionDetails(){
