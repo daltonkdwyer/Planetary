@@ -228,7 +228,7 @@ function createStatusMessage(message){
 
 async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
-    console.log("STATS (report) BELOW IN SOME FORMAT?")
+    console.log("GET.STATS BELOW IN SOME FORMAT?")
     // console.log(stats)
 
     stats.forEach(report => {
@@ -239,7 +239,7 @@ async function getConnectionDetails(){
         else if (report.type === 'local-candidate'){
             console.log("IP Address of local person: ", report.address, report.port)
         }
-        if (report.type === 'candidate-pair' && report.state === 'succceeded'){
+        if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
                 if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
                     if (candidate.candidateType === 'relay'){
