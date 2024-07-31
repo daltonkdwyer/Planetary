@@ -246,7 +246,7 @@ async function getConnectionDetails(){
                         console.log("USING TURN")
                     }
                     else if (candidate.candidateType === 'srflx'){
-                        console.log("USING STUNN")
+                        console.log("USING STUN")
                     }
                 }
             })
