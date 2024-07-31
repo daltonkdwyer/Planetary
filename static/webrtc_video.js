@@ -228,6 +228,7 @@ function createStatusMessage(message){
 
 async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
+    const connection_type = '';
     console.log("GET.STATS BELOW IN SOME FORMAT?")
     // console.log(stats)
 
@@ -244,19 +245,24 @@ async function getConnectionDetails(){
                 if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
                     if (candidate.candidateType === 'relay'){
                         console.log("USING TURN")
+                        connection_type = "TURN"
                     }
                     else if (candidate.candidateType === 'srflx'){
                         console.log("USING STUN")
+                        connection_type = "STUN"
                     }
                 }
             })
         }
     })
+    return connection_type
 }
 
 async function updateConnectionDetails(){
     const connectionDetails = await getConnectionDetails();
-
+    console.log("DEBUGG: ", connectionDetails)
+    const detailsElement = document.getElementById('connection-details');
+    detailsElement.textContent = connectionDetails
 }
-setInterval(updateConnectionDetails, 5000)
+setInterval(updateConnectionDetails, 10000)
 
