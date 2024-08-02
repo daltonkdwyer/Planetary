@@ -228,7 +228,7 @@ function createStatusMessage(message){
 
 async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
-    const connection_type = '';
+    const connection_type = 'Default';
     console.log("GET.STATS BELOW IN SOME FORMAT?")
     stats.forEach(report => {
         // console.log(report)
@@ -253,6 +253,7 @@ async function getConnectionDetails(){
             })
         }
     })
+    console.log("CONNECTION type from main function: ", connection_type)
     return connection_type
 }
 
@@ -269,5 +270,3 @@ async function updateConnectionDetails(){
 }
 
 setInterval(updateConnectionDetails, 10000)
-setInterval(updateConnectionDetails, 10000)
-
