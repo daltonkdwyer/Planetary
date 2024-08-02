@@ -238,6 +238,9 @@ async function getConnectionDetails(){
         else if (report.type === 'local-candidate'){
             console.log("IP Address of local person: ", report.address, report.port)
         }
+        if (report.type === 'candidate-pair'){
+            console.log("BANANANANANAN")
+        }
         if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
                 if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
