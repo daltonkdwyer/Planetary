@@ -230,8 +230,6 @@ async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
     const connection_type = '';
     console.log("GET.STATS BELOW IN SOME FORMAT?")
-    // console.log(stats)
-
     stats.forEach(report => {
         // console.log(report)
         if (report.type === 'remote-candidate'){
@@ -269,5 +267,7 @@ async function updateConnectionDetails(){
         detailsElement.textContent = "Connection method: TURN"
     }
 }
+
+setInterval(updateConnectionDetails, 10000)
 setInterval(updateConnectionDetails, 10000)
 
