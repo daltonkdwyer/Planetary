@@ -228,7 +228,7 @@ function createStatusMessage(message){
 
 async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
-    const connection_type = 'Default';
+    let connection_type = 'Default';
     console.log("GET.STATS BELOW IN SOME FORMAT?")
     stats.forEach(report => {
         // console.log(report)
@@ -248,6 +248,7 @@ async function getConnectionDetails(){
         }
         if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
+                // In the line below, it also had this but it wasn't working:  && candidate.id === report.localCandidateId
                 if (candidate.type === 'local-candidate'){
                     if (candidate.candidateType === 'relay'){
                         console.log("USING TURN")
