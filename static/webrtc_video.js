@@ -232,14 +232,19 @@ async function getConnectionDetails(){
     console.log("GET.STATS BELOW IN SOME FORMAT?")
     stats.forEach(report => {
         // console.log(report)
-        if (report.type === 'remote-candidate'){
-            console.log("IP Address of remote person: ", report.address, report.port)
-        }
-        else if (report.type === 'local-candidate'){
-            console.log("IP Address of local person: ", report.address, report.port)
-        }
+        // if (report.type === 'remote-candidate'){
+        //     console.log("IP Address of remote person: ", report.address, report.port)
+        // }
+        // else if (report.type === 'local-candidate'){
+        //     console.log("IP Address of local person: ", report.address, report.port)
+        // }
         if (report.type === 'candidate-pair'){
-            console.log("BANANANANANAN")
+            console.log("REPORT:")
+            console.log(report)
+            stats.forEach(candidate=> {
+                console.log("CANDIDATE: ")
+                console.log(candidate)
+            })
         }
         if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
