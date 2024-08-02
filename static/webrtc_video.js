@@ -248,7 +248,7 @@ async function getConnectionDetails(){
         }
         if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
-                if (candidate.type === 'local-candidate' && candidate.id === report.localCandidateId){
+                if (candidate.type === 'local-candidate'){
                     if (candidate.candidateType === 'relay'){
                         console.log("USING TURN")
                         connection_type = "TURN"
