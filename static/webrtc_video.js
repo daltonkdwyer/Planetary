@@ -262,7 +262,12 @@ async function updateConnectionDetails(){
     const connectionDetails = await getConnectionDetails();
     console.log("DEBUGG: ", connectionDetails)
     const detailsElement = document.getElementById('connection-details');
-    detailsElement.textContent = connectionDetails
+    if (connectionDetails === "STUN"){
+        detailsElement.textContent = "Connection method: STUN"
+    }
+    else if (connectionDetails === "TURN"){
+        detailsElement.textContent = "Connection method: TURN"
+    }
 }
 setInterval(updateConnectionDetails, 10000)
 
