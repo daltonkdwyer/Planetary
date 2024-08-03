@@ -231,6 +231,7 @@ async function getConnectionDetails(){
     let connection_type = 'Default';
     console.log("GET.STATS BELOW IN SOME FORMAT?")
     stats.forEach(report => {
+        // If you'd like to see some cool stuff about ICE candidates/WebRTC get.stats functions, unhighlight the below:
         // console.log(report)
         // if (report.type === 'remote-candidate'){
         //     console.log("IP Address of remote person: ", report.address, report.port)
@@ -238,31 +239,28 @@ async function getConnectionDetails(){
         // else if (report.type === 'local-candidate'){
         //     console.log("IP Address of local person: ", report.address, report.port)
         // }
-        if (report.type === 'candidate-pair'){
-            console.log("REPORT:")
-            console.log(report)
-            stats.forEach(candidate=> {
-                console.log("CANDIDATE: ")
-                console.log(candidate)
-            })
-        }
+        // if (report.type === 'candidate-pair'){
+        //     console.log("REPORT:")
+        //     console.log(report)
+        //     stats.forEach(candidate=> {
+        //         console.log("CANDIDATE: ")
+        //         console.log(candidate)
+        //     })
+        // }
         if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
                 // In the line below, it also had this but it wasn't working:  && candidate.id === report.localCandidateId
                 if (candidate.type === 'local-candidate'){
                     if (candidate.candidateType === 'relay'){
-                        console.log("USING TURN")
                         connection_type = "TURN"
                     }
                     else if (candidate.candidateType === 'srflx'){
-                        console.log("USING STUN")
                         connection_type = "STUN"
                     }
                 }
             })
         }
     })
-    console.log("CONNECTION type from main function: ", connection_type)
     return connection_type
 }
 
