@@ -3,6 +3,7 @@ let user_type
 let peerConnection
 let localStream
 let streamStartTime
+let streamAppearTime
 
 const servers = {
     // STUN server is what you reach out to to get your local address
@@ -251,7 +252,7 @@ async function getConnectionDetails(){
         // }
         if (report.type === 'candidate-pair' && report.state === 'succeeded'){
             stats.forEach(candidate => {
-                // In the line below, it also had this but it wasn't working:  && candidate.id === report.localCandidateId
+                // In the line below, it also had this but it wasn't working: "&& candidate.id === report.localCandidateId"
                 if (candidate.type === 'local-candidate'){
                     if (candidate.candidateType === 'relay'){
                         connection_type = "TURN"
@@ -280,9 +281,18 @@ async function updateConnectionDetails(){
 
 setInterval(updateConnectionDetails, 10000)
 
+
 async function setStreamConnectTime(){
+    const stats = await peerConnection.getStats();
+    stats.forEach(report => {
+        if (report.type === 'inbound-rtp' && report.kind === 'video') {
+          firstFrameDecodedTime = report.firstFrameDecodedTime;
+        }
+    });
+    const e2eStreamLoadTime = firstFrameDecodedTime - streamStartTime;
     const streatStartDetailsElement = document.getElementById('stream-start-details');
-    streatStartDetailsElement.textContent = streamStartTime;
+
+    streatStartDetailsElement.textContent = e2eStreamLoadTime;
 }
 
 setInterval(setStreamConnectTime, 10000)
