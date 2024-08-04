@@ -283,6 +283,7 @@ setInterval(updateConnectionDetails, 10000)
 
 
 async function setStreamConnectTime(){
+    let firstFrameDecodedTime
     const stats = await peerConnection.getStats();
     stats.forEach(report => {
         if (report.type === 'inbound-rtp' && report.kind === 'video') {
