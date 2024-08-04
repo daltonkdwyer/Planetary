@@ -284,3 +284,5 @@ async function setStreamConnectTime(){
     const streatStartDetailsElement = document.getElementById('stream-start-details');
     streatStartDetailsElement.textContent = streamStartTime;
 }
+
+setInterval(setStreamConnectTime, 10000)
