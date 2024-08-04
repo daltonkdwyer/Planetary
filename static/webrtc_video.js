@@ -2,6 +2,7 @@ let room_id = "rc_car1"
 let user_type
 let peerConnection
 let localStream
+let streamStartTime
 
 const servers = {
     // STUN server is what you reach out to to get your local address
@@ -39,6 +40,8 @@ var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
 socket.on('connect', function() {
+    streamStartTime = performance.now();
+
     let data = {"Socket.id":socket.id, "Room_id":room_id}
     let message = "Connection"
     let payload = {"Message":message, "Data":data}
@@ -229,7 +232,6 @@ function createStatusMessage(message){
 async function getConnectionDetails(){
     const stats = await peerConnection.getStats();
     let connection_type = 'Default';
-    console.log("GET.STATS BELOW IN SOME FORMAT?")
     stats.forEach(report => {
         // If you'd like to see some cool stuff about ICE candidates/WebRTC get.stats functions, unhighlight the below:
         // console.log(report)
@@ -277,3 +279,8 @@ async function updateConnectionDetails(){
 }
 
 setInterval(updateConnectionDetails, 10000)
+
+async function setStreamConnectTime(){
+    const streatStartDetailsElement = document.getElementById('stream-start-details');
+    streatStartDetailsElement.textContent = streamStartTime;
+}
