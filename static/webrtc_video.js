@@ -297,3 +297,7 @@ async function setStreamConnectTime(){
 }
 
 setInterval(setStreamConnectTime, 10000)
+
+// Where you got to Sunday 4th: 
+// - the stream connect time is showing as NaN. You'll probably need to make a separate javascript page for this from scratch, and really dive into what's going on. You'll also need to figure out how to run something one time at a specific time, so it's not constantly running again.
+// - for some reason the Turn/Stun allocation has also become broken... Seems like a bug
