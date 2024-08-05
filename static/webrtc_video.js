@@ -290,6 +290,9 @@ async function setStreamConnectTime(){
           firstFrameDecodedTime = report.firstFrameDecodedTime;
         }
     });
+    console.log("Stream start debug!")
+    console.log("firstFrameDecodedTime = ", firstFrameDecodedTime)
+    console.log("streamStartTime = ", streamStartTime)
     const e2eStreamLoadTime = firstFrameDecodedTime - streamStartTime;
     const streatStartDetailsElement = document.getElementById('stream-start-details');
 
