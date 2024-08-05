@@ -287,8 +287,10 @@ async function setStreamConnectTime(){
     const stats = await peerConnection.getStats();
     stats.forEach(report => {
         if (report.type === 'inbound-rtp' && report.kind === 'video') {
-          firstFrameDecodedTime = report.firstFrameDecodedTime;
-          console.log("HEREEEEEEEEE")
+            console.log("HEREEEEEEEEE")
+            console.log(report)
+            console.log(report.firstFrameDecodedTime)
+            firstFrameDecodedTime = report.firstFrameDecodedTime;
         }
     });
     console.log("Stream start debug!")
