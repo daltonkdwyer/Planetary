@@ -2,7 +2,7 @@ let room_id = "rc_car1"
 let user_type
 let peerConnection
 let localStream
-let streamStartTime
+let timeStartSocketConnection
 let streamAppearTime
 
 const servers = {
@@ -41,7 +41,7 @@ var socket = io.connect('https://plntry.herokuapp.com/');
 // var socket = io.connect('http://127.0.0.1:8000/')
 
 socket.on('connect', function() {
-    streamStartTime = performance.now();
+    timeStartSocketConnection = performance.now();
 
     let data = {"Socket.id":socket.id, "Room_id":room_id}
     let message = "Connection"
@@ -288,12 +288,13 @@ async function setStreamConnectTime(){
     stats.forEach(report => {
         if (report.type === 'inbound-rtp' && report.kind === 'video') {
           firstFrameDecodedTime = report.firstFrameDecodedTime;
+          console.log("HEREEEEEEEEE")
         }
     });
     console.log("Stream start debug!")
     console.log("firstFrameDecodedTime = ", firstFrameDecodedTime)
-    console.log("streamStartTime = ", streamStartTime)
-    const e2eStreamLoadTime = firstFrameDecodedTime - streamStartTime;
+    console.log("timeStartSocketConnection = ", timeStartSocketConnection)
+    const e2eStreamLoadTime = firstFrameDecodedTime - timeStartSocketConnection;
     const streatStartDetailsElement = document.getElementById('stream-start-details');
 
     streatStartDetailsElement.textContent = e2eStreamLoadTime;
