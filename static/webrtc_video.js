@@ -306,6 +306,9 @@ setInterval(updateConnectionDetails, 10000)
 
 
 remote_video.addEventListener('loadedmetadata', ()=> {
-    const vidLoadTime = performance.now()
-    console.log("SOMETHING: ", vidLoadTime)
+    const vidLoadTimestamp = performance.now();
+    const streamLoadTime = vidLoadTimestamp - timeStartSocketConnection;
+    const streatStartDetailsElement = document.getElementById('stream-start-details');
+    streatStartDetailsElement.textContent = streamLoadTime;
+    console.log("Stream Load Time: ", streamLoadTime)
 })
