@@ -281,34 +281,10 @@ async function updateConnectionDetails(){
 
 setInterval(updateConnectionDetails, 10000)
 
-
-// async function setStreamConnectTime(){
-//     let firstFrameDecodedTime
-//     const stats = await peerConnection.getStats();
-//     stats.forEach(report => {
-//         if (report.type === 'inbound-rtp' && report.kind === 'video') {
-//             console.log("HEREEEEEEEEE")
-//             console.log(report)
-//             console.log(report.firstFrameDecodedTime)
-//             firstFrameDecodedTime = report.firstFrameDecodedTime;
-//         }
-//     });
-//     console.log("Stream start debug!")
-//     console.log("firstFrameDecodedTime = ", firstFrameDecodedTime)
-//     console.log("timeStartSocketConnection = ", timeStartSocketConnection)
-//     const e2eStreamLoadTime = firstFrameDecodedTime - timeStartSocketConnection;
-//     const streatStartDetailsElement = document.getElementById('stream-start-details');
-
-//     streatStartDetailsElement.textContent = e2eStreamLoadTime;
-// }
-
-// setInterval(setStreamConnectTime, 10000)
-
-
+// Your stream appear time calculation is taken from when the client first starts making the connection to the websocket WebRTC signalling server. Till when the video gets 'loaded meta data' - which hopefully is when the video starts playing.
 remote_video.addEventListener('loadedmetadata', ()=> {
     const vidLoadTimestamp = performance.now();
     const streamLoadTime = vidLoadTimestamp - timeStartSocketConnection;
     const streatStartDetailsElement = document.getElementById('stream-start-details');
-    streatStartDetailsElement.textContent = `Stream Load Time: ${streamLoadTime.toFixed(2)} ms`;
-    // console.log("Stream Load Time: ${streamLoadTime.toFixed(2)} ms")
+    streatStartDetailsElement.textContent = `Stream Load Time: ${streamLoadTime.toFixed(0)} ms`;
 })
