@@ -282,28 +282,30 @@ async function updateConnectionDetails(){
 setInterval(updateConnectionDetails, 10000)
 
 
-async function setStreamConnectTime(){
-    let firstFrameDecodedTime
-    const stats = await peerConnection.getStats();
-    stats.forEach(report => {
-        if (report.type === 'inbound-rtp' && report.kind === 'video') {
-            console.log("HEREEEEEEEEE")
-            console.log(report)
-            console.log(report.firstFrameDecodedTime)
-            firstFrameDecodedTime = report.firstFrameDecodedTime;
-        }
-    });
-    console.log("Stream start debug!")
-    console.log("firstFrameDecodedTime = ", firstFrameDecodedTime)
-    console.log("timeStartSocketConnection = ", timeStartSocketConnection)
-    const e2eStreamLoadTime = firstFrameDecodedTime - timeStartSocketConnection;
-    const streatStartDetailsElement = document.getElementById('stream-start-details');
+// async function setStreamConnectTime(){
+//     let firstFrameDecodedTime
+//     const stats = await peerConnection.getStats();
+//     stats.forEach(report => {
+//         if (report.type === 'inbound-rtp' && report.kind === 'video') {
+//             console.log("HEREEEEEEEEE")
+//             console.log(report)
+//             console.log(report.firstFrameDecodedTime)
+//             firstFrameDecodedTime = report.firstFrameDecodedTime;
+//         }
+//     });
+//     console.log("Stream start debug!")
+//     console.log("firstFrameDecodedTime = ", firstFrameDecodedTime)
+//     console.log("timeStartSocketConnection = ", timeStartSocketConnection)
+//     const e2eStreamLoadTime = firstFrameDecodedTime - timeStartSocketConnection;
+//     const streatStartDetailsElement = document.getElementById('stream-start-details');
 
-    streatStartDetailsElement.textContent = e2eStreamLoadTime;
-}
+//     streatStartDetailsElement.textContent = e2eStreamLoadTime;
+// }
 
-setInterval(setStreamConnectTime, 10000)
+// setInterval(setStreamConnectTime, 10000)
 
-// Where you got to Sunday 4th: 
-// - the stream connect time is showing as NaN. You'll probably need to make a separate javascript page for this from scratch, and really dive into what's going on. You'll also need to figure out how to run something one time at a specific time, so it's not constantly running again.
-// - for some reason the Turn/Stun allocation has also become broken... Seems like a bug
+
+remote_video.addEventListener('loadedmetadata', ()=> {
+    const vidLoadTime = performance.now()
+    console.log("SOMETHING: ", vidLoadTime)
+})
