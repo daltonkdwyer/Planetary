@@ -183,3 +183,5 @@ def disconnect():
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
+
+#To see logs using CLI:  heroku logs --app=plntry --tail
