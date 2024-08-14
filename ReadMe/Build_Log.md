@@ -8,6 +8,7 @@
 6) Redid the ENTIRE webrtc architecture with own signalling server (took like a year)
 7) Added in a simple latency protection that sends client time to the server, compares it to the server time, and if more than 1000 milliseconds has passed, issues 'Stop' command (but note this is not super accurate)
 8) Forwarded logs to the frontend, but then had to remove as it was creating endless loop
+9) Adding a database to record drive durations
 
 
 2. Captain's Log
