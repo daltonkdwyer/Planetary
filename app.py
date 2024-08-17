@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, send, emit
 import eventlet
 from eventlet import wsgi
 import json
+import sqlite3
 
 print("Coconut")
 
@@ -10,6 +11,9 @@ app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
 room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
 session_dict = {}
+
+conn = sqlite3.connect('DRIVE_DURATIONS1.db')
+
 
 @app.route('/', methods=['GET'])
 def home():
