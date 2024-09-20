@@ -1,19 +1,30 @@
 from flask import Flask, render_template, request, jsonify, session
 from flask_socketio import SocketIO, send, emit
-import eventlet
 from eventlet import wsgi
+from datetime import datetime
+import eventlet
+import time
 import json
 import sqlite3
 
-print("Coconut")
+print("Datefruit")
 
 app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
 room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
 session_dict = {}
+time_stamp = datetime.now()
+user_name = "plntry_ctrl1"
+vehicle_type = "rc_car1"
+vehicle_ID = 1
+start_time = time.time()
 
-conn = sqlite3.connect('DRIVE_DURATIONS1.db')
+# with conn:
+#     conn.execute('INSERT INTO DRIVE_DURATIONS1 (id, user_name, vehicle_type, vehicle_ID, duration) VALUES (?, ?, ?, ?, ?)', (id)')                 
 
+# VALUES (2, 'plntry_ctrl_1', 'rc_car', 1, 100);
+#     INSERT INTO DRIVE_DURATIONS1 (id, user_name, vehicle_type, vehicle_ID, duration)
+# VALUES (2, 'plntry_ctrl_1', 'rc_car', 1, 100);
 
 @app.route('/', methods=['GET'])
 def home():
@@ -185,9 +196,25 @@ def disconnect():
     print("Disconnection detected: ", disconnected_user)
 
 
+def create_database_entry():
+    global start_time
+    global time_stamp
+    end_time = time.time()
+    session_duration_seconds = int(end_time - start_time)
+    
+    conn = sqlite3.connect('drive_durations2.db')
+    with conn:
+        conn.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
+        print("--------------------------")
+        print("--------------------------")
+        print("--------------------------")
+        print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
+
+
+
 if __name__ == '__main__':
     socket.run(app, port=8000)
 
 #To see logs using CLI:  heroku logs --app=plntry --tail
 # Database commands:
-# psql --host=ec2-54-147-155-94.compute-1.amazonaws.com --port=5432 --username=xiahnilchurihs --password --dbname=d1osm9e7v18e2v 
+# psql --host=ec2-54-147-155-94.compute-1.amazonaws.com --port=5432 --username=xiahnilchurihs --password --dbname=d1osm9e7v18e2v
