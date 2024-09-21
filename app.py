@@ -189,6 +189,8 @@ def disconnect():
         server_message = "Initiate_CAR"
         server_data = ''
         server_payload = {"Message":server_message, "Data":server_data}
+        # CREATES DATABASE WHEN DRIVER DISCONNECTS
+        create_database_entry()
         socket.send(server_payload)
 
     else:
@@ -209,8 +211,6 @@ def create_database_entry():
         print("--------------------------")
         print("--------------------------")
         print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
-
-
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
