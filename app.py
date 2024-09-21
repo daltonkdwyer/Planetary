@@ -204,7 +204,7 @@ def create_database_entry():
     end_time = time.time()
     session_duration_seconds = int(end_time - start_time)
     
-    conn = sqlite3.connect('postgresql-acute-47165.db')
+    conn = sqlite3.connect('postgresql-acute-47165')
     print("HAPPY HERE")
     print(conn)
     with conn:
