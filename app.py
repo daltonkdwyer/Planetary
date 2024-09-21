@@ -208,16 +208,7 @@ def create_database_entry():
     print("HAPPY HERE")
     print(conn)
     with conn:
-        conn.execute('CREATE TABLE drive_durations2 (
-            id INTEGER PRIMARY KEY,
-            user_name TEXT,
-            vehicle_type TEXT,
-            vehicle_ID TEXT,
-            duration INT,
-            start_time TIMESTAMP)
-        ')
-        
-        conn.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
+        conn.execute('INSERT INTO drive_durations1 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
         print("--------------------------")
         print("--------------------------")
         print("--------------------------")
