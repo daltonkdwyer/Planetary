@@ -216,5 +216,5 @@ if __name__ == '__main__':
     socket.run(app, port=8000)
 
 #To see logs using CLI:  heroku logs --app=plntry --tail
-# Database commands:
-# psql --host=ec2-54-147-155-94.compute-1.amazonaws.com --port=5432 --username=xiahnilchurihs --password --dbname=d1osm9e7v18e2v
+#To connect to the DB: heroku pg:psql --app=plntry
+#Once connected to the DB, to see all entries: SELECT * FROM drive_durations2;
