@@ -8,6 +8,7 @@ importlib-metadata==6.0.0 ; python_version < '3.10'
 itsdangerous==2.1.2 ; python_version >= '3.7'
 jinja2==3.1.2 ; python_version >= '3.7'
 markupsafe==2.1.2 ; python_version >= '3.7'
+psycopg2-binary==2.9.9
 python-engineio==4.3.4 ; python_version >= '3.6'
 python-socketio==5.7.2 ; python_version >= '3.6'
 setuptools==67.1.0 ; python_version >= '3.7'
