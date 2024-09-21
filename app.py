@@ -204,11 +204,11 @@ def create_database_entry():
     end_time = time.time()
     session_duration_seconds = int(end_time - start_time)
     
-    conn = sqlite3.connect('drive_durations2.db')
+    conn = sqlite3.connect('postgresql-acute-47165.db')
     print("HAPPY HERE")
     print(conn)
     with conn:
-        conn.execute('INSERT INTO drive_durations1 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
+        conn.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
         print("--------------------------")
         print("--------------------------")
         print("--------------------------")
