@@ -6,6 +6,8 @@ import eventlet
 import time
 import json
 import sqlite3
+import os
+import psycopg2
 
 print("Datefruit")
 
@@ -205,6 +207,7 @@ def create_database_entry():
     session_duration_seconds = int(end_time - start_time)
     
     conn = sqlite3.connect('postgres://u17j4iofo9h71b:p6b514a0adb754870cce74edd03d36b59aaa4460e471b518c99aa40d2f0b77983@cf5l5s63lru77b.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dfbhbra8i82lv0')
+    
     print("HAPPY HERE")
     print(conn)
     with conn:
