@@ -207,12 +207,12 @@ def create_database_entry():
     conn = sqlite3.connect('drive_durations2.db')
     print("HAPPY HERE")
     print(conn)
-    # with conn:
-        # conn.execute('INSERT INTO DRIVE_DURATIONS2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
-        # print("--------------------------")
-        # print("--------------------------")
-        # print("--------------------------")
-        # print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
+    with conn:
+        conn.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, start_time))
+        print("--------------------------")
+        print("--------------------------")
+        print("--------------------------")
+        print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
