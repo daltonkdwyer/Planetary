@@ -1,11 +1,7 @@
-from flask import Flask, render_template, request, jsonify, session
-from flask_socketio import SocketIO, send, emit
-from eventlet import wsgi
+from flask import Flask, render_template, request
+from flask_socketio import SocketIO
 from datetime import datetime
-import eventlet
 import time
-import json
-import os
 import psycopg2
 
 print("Datefruit")
