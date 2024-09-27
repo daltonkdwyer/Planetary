@@ -200,24 +200,45 @@ def create_database_entry():
     global time_stamp
     end_time = time.time()
     session_duration_seconds = int(end_time - start_time)
-    try: 
-        conn = psycopg2.connect('postgres://u17j4iofo9h71b:p6b514a0adb754870cce74edd03d36b59aaa4460e471b518c99aa40d2f0b77983@cf5l5s63lru77b.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dfbhbra8i82lv0') 
 
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, time_stamp))
-        print("--------------------------")
-        print("--------------------------")
-        print("--------------------------")
-        print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
+    print("STARTING DATABASE CONNECTION")
+    print("--------------------------")
+    print("--------------------------")
+    print("--------------------------")
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-    except:
-        print("--------------------------")
-        print("--------------------------")
-        print("--------------------------")
-        print("ERROR HERE")
+    conn = psycopg2.connect('postgres://u17j4iofo9h71b:p6b514a0adb754870cce74edd03d36b59aaa4460e471b518c99aa40d2f0b77983@cf5l5s63lru77b.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dfbhbra8i82lv0') 
+
+    print("DATABASE CONNECTED")
+    print("--------------------------")
+    print("--------------------------")
+    print("--------------------------")
+
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, time_stamp))
+    print("--------------------------")
+    print("--------------------------")
+    print("--------------------------")
+    print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
+
+    print("INFORMATION ADDED")
+    print("--------------------------")
+    print("--------------------------")
+    print("--------------------------")
+
+    conn.commit()
+
+    print("COMMITTED")
+    print("--------------------------")
+    print("--------------------------")
+    print("--------------------------")
+
+    cursor.close()
+    conn.close()
+    
+    print("EVERYTHING CLOSED")
+    print("--------------------------")
+    print("--------------------------")
+    print("--------------------------")
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
