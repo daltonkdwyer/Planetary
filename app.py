@@ -19,7 +19,7 @@ time_stamp = datetime.now()
 user_name = "plntry_ctrl1"
 vehicle_type = "rc_car1"
 vehicle_ID = 1
-start_time = time.time()
+start_time = 0
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://u17j4iofo9h71b:p6b514a0adb754870cce74edd03d36b59aaa4460e471b518c99aa40d2f0b77983@cf5l5s63lru77b.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dfbhbra8i82lv0'
 
@@ -83,6 +83,7 @@ def logs():
     
 @socket.on('message')
 def message(client_payload):
+    global start_time
     global room_dict
     global session_dict
     client_message = client_payload["Message"]
@@ -127,9 +128,12 @@ def message(client_payload):
             server_data = ""
             server_payload = {"Message":server_message, "Data":server_data}
             socket.send(server_payload)
+            # INITIATING START TIME TO CALCULATE DURATION FOR THE DB ENTRY
+            start_time = time.time()
+
 
         else:
-            print("Something is very wrong!")
+            print("Something is wrong with the joiner logic")
             socket.send("Something is wrong with the joiner logic")
 
     # Gets offer from second person, and sends to first
@@ -201,46 +205,17 @@ def create_database_entry():
     end_time = time.time()
     session_duration_seconds = int(end_time - start_time)
 
-    print("STARTING DATABASE CONNECTION")
-    print("--------------------------")
-    print("--------------------------")
-    print("--------------------------")
-
     conn = psycopg2.connect('postgres://u17j4iofo9h71b:p6b514a0adb754870cce74edd03d36b59aaa4460e471b518c99aa40d2f0b77983@cf5l5s63lru77b.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dfbhbra8i82lv0') 
-
-    print("DATABASE CONNECTED")
-    print("--------------------------")
-    print("--------------------------")
-    print("--------------------------")
-
     cursor = conn.cursor()
 
     cursor.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (%s, %s, %s, %s, %s)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, time_stamp))
 
-    print("--------------------------")
-    print("--------------------------")
-    print("--------------------------")
     print(f"Inserted duration: {session_duration_seconds}, user: {user_name}, timestamp: {time_stamp}")
-
-    print("INFORMATION ADDED")
-    print("--------------------------")
-    print("--------------------------")
-    print("--------------------------")
 
     conn.commit()
 
-    print("COMMITTED")
-    print("--------------------------")
-    print("--------------------------")
-    print("--------------------------")
-
     cursor.close()
     conn.close()
-    
-    print("EVERYTHING CLOSED")
-    print("--------------------------")
-    print("--------------------------")
-    print("--------------------------")
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
