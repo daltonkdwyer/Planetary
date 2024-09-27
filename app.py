@@ -49,36 +49,7 @@ def reset():
     print(room_dict)
     return render_template('index.html')
 
-@app.route('/logs', methods=['GET', 'POST'])
-def logs():
-    if request.method == 'POST':
-        data1 = request
-        data2 = request.form
-        data3 = request.form.to_dict()
-        data4 = json.dumps(data3)
 
-        type_var3 = type(data3)
-        type_var4 = type(data4)
-
-        print(data1)
-        print(data2)
-        print("Data 3: " + str(data3))
-        print("Data 3 Type: " + str(type_var3))
-        print("Data 4: ", str(data4))
-        print("Data 4 Type: " + str(type_var4))
-
-        server_message = "Heroku Log Message"
-        server_data = data4
-        server_payload = {"Message": server_message, "Data": server_data}
-
-        socket.emit("Heroku Log Message", server_payload)
-
-        test_data = "Monkey recieved POST request"
-        jsonifyed_data = jsonify(test_data)
-
-        return jsonifyed_data
-
-    return render_template('logs.html')
 
     
 @socket.on('message')

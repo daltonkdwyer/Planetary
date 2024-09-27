@@ -8,7 +8,7 @@ The goal is to build a remotely operated toy car, you can drive from anywhere in
 - Connect your laptop to the phone hotspot
 - Check your IP address
 - Run "sudo nmap -sn 192.168.1.1/24" to find the IP address of the Pi [Replace IP address appropriately]
-- SSH into the pi with ssh daltonkdwyer@192.168.1.52 (OR pi@192... if haven't changed username)
+- SSH into the pi with ssh daltonkdwyer@192.168.1.52 (OR pi@192.168.1.52 if haven't changed username)
 - Run this command: sudo nano /etc/wpa_supplicant/wpa_supplicant.conf 
 - Type in a new network (can copy and paste the below)
         network={
@@ -39,3 +39,7 @@ Broadly, this project consists of three components:
 - To stop a process, use 'kill <process ID>'. The process ID is the number in the second column above, maybe 462.
 - To see the Heroku logs, put this into terminal (Heroku CLI tool needs to be installed):
 heroku logs --app=plntry --tail
+- To see the Heokru DB logs, put this into terminal:
+heroku pg:psql --app=plntry
+- Once connected to the DB, to see all entries: 
+SELECT * FROM drive_durations2;

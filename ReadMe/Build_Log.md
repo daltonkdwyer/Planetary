@@ -12,7 +12,7 @@
 
 
 2. Captain's Log
-
+        2023
         -- Fri night: Working in the flask directions app on the car. Tried out last night's code but had a pretty obvious bug. The latency function was only triggered when receiving a request. Tried to make the function run async all the time, but stuck on how to make a function run async
         -- Thurs night: added latency code. Now need to test it on the car. You may need to do a git pull for the car
 
@@ -46,3 +46,10 @@
         To test sending post requests, you can use 'curl'. Here is the terminal         command: 
                 curl -X POST -d "key1=value1" https://plntry.herokuapp.com/logs
         Where the data being sent is in quotations. Note that you'll need to be able to accept POST requests at that endpoint
+
+        2024
+        -- Sept 27th. A lot has happened in the past 6 months. Phantom went under, I got anxious, and started a new job at this funny company called Alarm.com + moved to DC. So I've been a bit waylaid
+
+        Finally managed to set up a Database! Which I'm super happy with myself about, it's taken a while. First did a demo in SQLite3 which worked. Tried to upload it to Heroku but had to switch to Postgres. 
+
+        Also taught myself SQL, and how to set up/manage a DB. V.impressive - good Dalton. 
