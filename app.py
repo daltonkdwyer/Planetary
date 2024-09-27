@@ -48,7 +48,7 @@ def reset():
     print(room_dict)
     return render_template('index.html')
 
-@app.rout('/logs', methods=['GET'])
+@app.route('/logs', methods=['GET'])
 def logs():
     print("I am here")
     return render_template('logs.html')
