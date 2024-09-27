@@ -5,7 +5,6 @@ from datetime import datetime
 import eventlet
 import time
 import json
-import sqlite3
 import os
 import psycopg2
 
@@ -51,6 +50,7 @@ def reset():
 
 @app.rout('/logs', methods=['GET'])
 def logs():
+    print("I am here")
     return render_template('logs.html')
     
 @socket.on('message')
