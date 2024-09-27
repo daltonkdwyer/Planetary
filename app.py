@@ -214,7 +214,9 @@ def create_database_entry():
     print("--------------------------")
 
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (?, ?, ?, ?, ?)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, time_stamp))
+
+    cursor.execute('INSERT INTO drive_durations2 (user_name, vehicle_type, vehicle_ID, duration, start_time) VALUES (%s, %s, %s, %s, %s)', (user_name, vehicle_type, vehicle_ID, session_duration_seconds, time_stamp))
+
     print("--------------------------")
     print("--------------------------")
     print("--------------------------")
