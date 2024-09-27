@@ -50,8 +50,8 @@ def reset():
 
 @app.route('/logs', methods=['GET'])
 def logs():
-    print("I am here")
-    return render_template('logs.html')
+    log_list = query_database()
+    return render_template('logs.html', runs=log_list)
     
 @socket.on('message')
 def message(client_payload):
@@ -170,7 +170,6 @@ def disconnect():
         print("Error: someone disconnected who wasn't ever registered as connected")
     print("Disconnection detected: ", disconnected_user)
 
-
 def create_database_entry():
     global start_time
     global time_stamp
@@ -188,6 +187,20 @@ def create_database_entry():
 
     cursor.close()
     conn.close()
+
+def query_database():
+    conn = psycopg2.connect('postgres://u17j4iofo9h71b:p6b514a0adb754870cce74edd03d36b59aaa4460e471b518c99aa40d2f0b77983@cf5l5s63lru77b.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dfbhbra8i82lv0') 
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT user_name, vehicle_type, vehicle_ID, duration, start_time
+        FROM drive_durations2
+        ORDER BY start_time DESC
+        LIMIT 20;
+    ''')
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return rows
 
 if __name__ == '__main__':
     socket.run(app, port=8000)
