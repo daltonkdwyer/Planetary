@@ -10,7 +10,6 @@ app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
 room_dict = {"rc_car1":{"CarID":'', "DriverID":'', 'Participant_Count':0}}
 session_dict = {}
-time_stamp = datetime.now()
 user_name = "plntry_ctrl1"
 vehicle_type = "rc_car1"
 vehicle_ID = 1
@@ -167,8 +166,8 @@ def disconnect():
     print("Disconnection detected: ", disconnected_user)
 
 def create_database_entry():
+    time_stamp = datetime.now()
     global start_time
-    global time_stamp
     end_time = time.time()
     session_duration_seconds = int(end_time - start_time)
 
