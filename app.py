@@ -49,8 +49,9 @@ def reset():
     print(room_dict)
     return render_template('index.html')
 
-
-
+@app.rout('/logs', methods=['GET'])
+def logs():
+    return render_template('logs.html')
     
 @socket.on('message')
 def message(client_payload):
