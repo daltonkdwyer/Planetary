@@ -126,7 +126,7 @@ async function createPeer(){
             document.getElementById('remote_video').srcObject = event.streams[0]
         }
     }
-    // To show dual videos, uncomment out the below (and I think comment out the 4 lines above):
+    // To show dual videos, uncomment out the below (and I think comment out the 4 lines):
     // peerConnection.ontrack = (event) => {
     //     document.getElementById('remote_video').srcObject = event.streams[0]
     // }
