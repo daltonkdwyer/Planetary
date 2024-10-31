@@ -102,7 +102,6 @@ socket.on('message', function(server_payload){
                 })
             })
         })
-        console.log(statsReport)
     }
     // STEP ONGOING: Accepts a new Ice Candidate from remote peer
     else if (server_message === "New Ice Candidate" && server_data["Sender SocketID"] != socket.id){
@@ -127,7 +126,7 @@ async function createPeer(){
             document.getElementById('remote_video').srcObject = event.streams[0]
         }
     }
-    // To show dual videos, uncomment out the below:
+    // To show dual videos, uncomment out the below (and I think comment out the 4 lines above):
     // peerConnection.ontrack = (event) => {
     //     document.getElementById('remote_video').srcObject = event.streams[0]
     // }
