@@ -54,9 +54,13 @@
         <div id="downArrow" class="arrow">&#8595;</div>
     </div>
   </div>
+  
+  <!-- <button onclick="addMediaTracks()">Start Video</button> -->
+
   <div id="latency-indicator">Heartbeat Status: No incoming heartbeat from car websocket</div>
   <p id="webrtc-message-container">WebRTC Status: <span id="webrtc-server-status"></span></p>
   <p id="controlssocket-message-container">Controls Status: <span id="controls-server-status"></span></p> 
+  <p id="ice-candidate-type"> Ice Candidate Pairing: <span id="ice-candidate-pairing"></span></p>
   <p></p>
   <div id="log-area"></div>
   Command for WebRTC logs: heroku logs --app=plntry --tail
