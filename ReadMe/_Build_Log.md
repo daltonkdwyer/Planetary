@@ -53,5 +53,3 @@
         Finally managed to set up a Database! Which I'm super happy with myself about, it's taken a while. First did a demo in SQLite3 which worked. Tried to upload it to Heroku but had to switch to Postgres. 
 
         Also taught myself SQL, and how to set up/manage a DB. V.impressive - good Dalton. 
-
-github: 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
