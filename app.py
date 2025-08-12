@@ -4,7 +4,7 @@ from datetime import datetime
 import time
 import psycopg2
 
-print("Datefruit")
+print("Datefruitt")
 
 app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins='*')
